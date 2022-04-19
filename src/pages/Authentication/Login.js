@@ -224,7 +224,7 @@ const Login = props => {
                               )}
                             />
                           </li>
-                          {/*<li className="list-inline-item">*/}
+                          {/*<l className="list-inline-item">*/}
                           {/*  <TwitterLogin*/}
                           {/*    loginUrl={*/}
                           {/*      "http://localhost:4000/api/v1/auth/twitter"*/}
