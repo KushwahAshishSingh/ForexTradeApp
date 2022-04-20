@@ -7,40 +7,42 @@ import { apiError, loginSuccess, logoutUserSuccess } from "./actions"
 //Include Both Helper File with needed methods
 import { getFirebaseBackend } from "../../../helpers/firebase_helper"
 import {
-  postFakeLogin,
+  postLogin,
   postJwtLogin,
   postSocialLogin,
-} from "../../../helpers/fakebackend_helper"
+} from "../../../helpers/fakebackend_helper";
+import Swal from 'sweetalert2';
 
-const fireBaseBackend = getFirebaseBackend()
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000
+});
+
 
 function* loginUser({ payload: { user, history } }) {
   try {
-    if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
-      const response = yield call(
-        fireBaseBackend.loginUser,
-        user.email,
-        user.password
-      )
-      yield put(loginSuccess(response))
-    } else if (process.env.REACT_APP_DEFAULTAUTH === "jwt") {
-      const response = yield call(postJwtLogin, {
-        email: user.email,
-        password: user.password,
-      })
-      localStorage.setItem("authUser", JSON.stringify(response))
-      yield put(loginSuccess(response))
-    } else if (process.env.REACT_APP_DEFAULTAUTH === "fake") {
-      const response = yield call(postFakeLogin, {
-        email: user.email,
-        password: user.password,
-      })
-      localStorage.setItem("authUser", JSON.stringify(response))
-      yield put(loginSuccess(response))
+    const response = yield call(postLogin, {
+      email: user.email,
+      password: user.password,
+    })
+    if (response.success === true) {
+      Toast.fire({
+        type: "success",
+        title: response.message,
+      });
+      localStorage.setItem("authUser", JSON.stringify(response.data.user))
+
     }
+    yield put(loginSuccess(response))
     history.push("/dashboard")
   } catch (error) {
-    yield put(apiError(error))
+    Toast.fire({
+      type: "error",
+      title: "something went wrong"
+    });
   }
 }
 

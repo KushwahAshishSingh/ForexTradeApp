@@ -55,7 +55,8 @@ let users = [
 
 const fakeBackend = () => {
   // This sets the mock adapter on the default instance
-  const mock = new MockAdapter(axios)
+  const mock = new MockAdapter(axios);
+  console.log("mock", mock)
 
   mock.onPost(url.POST_FAKE_REGISTER).reply(config => {
     const user = JSON.parse(config["data"])
@@ -67,24 +68,26 @@ const fakeBackend = () => {
     })
   })
 
-  mock.onPost("/post-fake-login").reply(config => {
-    const user = JSON.parse(config["data"])
-    const validUser = users.filter(
-      usr => usr.email === user.email && usr.password === user.password
-    )
+  // mock.onPost("/login").reply(config => {
+  //   // console.log(config, "------------")
+  //   const user = JSON.parse(config["data"])
+  //   // console.log("user", user)
+  //   const validUser = [user].filter(
+  //     usr => usr.email === user.email && usr.password === user.password
+  //   )
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (validUser["length"] === 1) {
-          resolve([200, validUser[0]])
-        } else {
-          reject([
-            "Username and password are invalid. Please enter correct username and password",
-          ])
-        }
-      })
-    })
-  })
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if (validUser["length"] === 1) {
+  //         resolve([200, validUser[0]])
+  //       } else {
+  //         reject([
+  //           "Username and password are invalid. Please enter correct username and password",
+  //         ])
+  //       }
+  //     })
+  //   })
+  // })
 
   mock.onPost("/fake-forget-pwd").reply(config => {
     // User needs to check that user is eXist or not and send mail for Reset New password

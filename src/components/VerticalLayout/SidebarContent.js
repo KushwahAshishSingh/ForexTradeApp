@@ -94,14 +94,14 @@ const SidebarContent = props => {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">{props.t("Menu")} </li>
             <li>
-              <Link to="/#" className="">
-                <i className="bx bx-home-circle"></i>
+              <Link to="/dashboard" className="">
+                {/* <i className="bx bx-home-circle"></i>
                 <span className="badge rounded-pill bg-info float-end">
                   04
-                </span>
+                </span> */}
                 <span>{props.t("Dashboards")}</span>
               </Link>
-              <ul className="sub-menu" aria-expanded="false">
+              {/* <ul className="sub-menu" aria-expanded="false">
                 <li>
                   <Link to="/dashboard">{props.t("Default")}</Link>
                 </li>
@@ -114,10 +114,33 @@ const SidebarContent = props => {
                 <li>
                   <Link to="#">{props.t("Blog")}</Link>
                 </li>
+              </ul> */}
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-store"></i>
+                <span>{props.t("Main Menu")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="#">{props.t("Super Admin")}</Link>
+                </li>
+                <li>
+                  <Link to="/super-admin-manager">
+                    {props.t("SuperAdmin Manager")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="#">{props.t("SuperAdmin Support")}</Link>
+                </li>
+                <li>
+                  <Link to="#">{props.t("Admin")}</Link>
+                </li>
               </ul>
             </li>
 
-            <li className="menu-title">{props.t("Apps")}</li>
+            {/* <li className="menu-title">{props.t("Apps")}</li>
 
             <li>
               <Link to="#" className=" ">
@@ -715,7 +738,7 @@ const SidebarContent = props => {
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </SimpleBar>

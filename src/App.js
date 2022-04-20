@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from "react"
+import React, { useEffect } from "react"
 
 import { Switch, BrowserRouter as Router } from "react-router-dom"
 import { connect } from "react-redux"
@@ -24,7 +24,7 @@ import "./assets/scss/theme.scss"
 import fakeBackend from "./helpers/AuthType/fakeBackend"
 
 // Activating fake backend
-fakeBackend()
+// fakeBackend()
 
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_APIKEY,
@@ -54,6 +54,12 @@ const App = props => {
     }
     return layoutCls
   }
+
+  useEffect(() => {
+    window.process = {
+      ...window.process,
+    };
+  }, []);
 
   const Layout = getLayout()
   return (

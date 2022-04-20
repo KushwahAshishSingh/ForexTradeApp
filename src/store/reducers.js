@@ -42,8 +42,12 @@ import Dashboard from "./dashboard/reducer";
 //Dasboard saas
 import DashboardSaas from "./dashboard-saas/reducer";
 
+//main menu
+import SuperAdminManagerReducer from './Main-Menu/SuperAdminManager/reducer'
+
 const rootReducer = combineReducers({
   // public
+  SuperAdminManagerReducer,
   Layout,
   Login,
   Account,

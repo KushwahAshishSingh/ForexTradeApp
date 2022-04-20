@@ -35,6 +35,8 @@ import {
   changeSidebarType,
 } from "../../store/actions";
 
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Form, FormFeedback, Input, Label } from 'reactstrap'
+
 const Header = props => {
   const [search, setsearch] = useState(false);
   const [megaMenu, setmegaMenu] = useState(false);
@@ -119,7 +121,8 @@ const Header = props => {
               </div>
             </form>
 
-            <Dropdown
+
+            {/* <Dropdown
               className="dropdown-mega d-none d-lg-block ms-2"
               isOpen={megaMenu}
               toggle={() => {
@@ -140,84 +143,36 @@ const Header = props => {
                     <Row>
                       <Col md={4}>
                         <h5 className="font-size-14 mt-0">
-                          {props.t("UI Components")}
+                          {props.t("Super Admin")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
-                            <Link to="#">{props.t("Lightbox")}</Link>
+                            <Link to="#">{props.t("Create Super Admin")}</Link>
                           </li>
                           <li>
-                            <Link to="#">{props.t("Range Slider")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Sweet Alert")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Rating")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Forms")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Tables")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Charts")}</Link>
+                            <Link to="#">{props.t("List Of Super Admin")}</Link>
                           </li>
                         </ul>
                       </Col>
 
                       <Col md={4}>
                         <h5 className="font-size-14 mt-0">
-                          {props.t("Applications")}
+                          {props.t("Super Admin Manager")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
-                            <Link to="#">{props.t("Ecommerce")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Calendar")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Email")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Projects")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Tasks")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Contacts")}</Link>
+                            <Link to="#">{props.t("List Of SuperAdminManager")}</Link>
                           </li>
                         </ul>
                       </Col>
 
                       <Col md={4}>
                         <h5 className="font-size-14 mt-0">
-                          {props.t("Extra Pages")}
+                          {props.t("Super Admin Support")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
-                            <Link to="#">{props.t("Light Sidebar")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Compact Sidebar")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Horizontal layout")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#"> {props.t("Maintenance")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Coming Soon")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Timeline")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("FAQs")}</Link>
+                            <Link to="#">{props.t("List Of SuperAdminSupport")}</Link>
                           </li>
                         </ul>
                       </Col>
@@ -227,29 +182,14 @@ const Header = props => {
                     <Row>
                       <Col sm={6}>
                         <h5 className="font-size-14 mt-0">
-                          {props.t("UI Components")}
+                          {props.t("Admin")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
-                            <Link to="#">{props.t("Lightbox")}</Link>
+                            <Link to="#">{props.t("Create Admin")}</Link>
                           </li>
                           <li>
-                            <Link to="#">{props.t("Range Slider")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Sweet Alert")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Rating")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Forms")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Tables")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t("Charts")}</Link>
+                            <Link to="#">{props.t("List Of Admin")}</Link>
                           </li>
                         </ul>
                       </Col>
@@ -267,7 +207,8 @@ const Header = props => {
                   </Col>
                 </Row>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
+
           </div>
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ms-2">
@@ -311,7 +252,7 @@ const Header = props => {
 
             <LanguageDropdown />
 
-            <Dropdown
+            {/* <Dropdown
               className="d-none d-lg-inline-block ms-1"
               isOpen={socialDrp}
               toggle={() => {
@@ -369,7 +310,7 @@ const Header = props => {
                   </Row>
                 </div>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
 
             <div className="dropdown d-none d-lg-inline-block ms-1">
               <button
@@ -387,8 +328,8 @@ const Header = props => {
             <NotificationDropdown />
             <ProfileMenu />
 
-            <div
-               onClick={() => {
+            {/* <div
+              onClick={() => {
                 props.showRightSidebarAction(!props.showRightSidebar);
               }}
               className="dropdown d-inline-block"
@@ -399,7 +340,7 @@ const Header = props => {
               >
                 <i className="bx bx-cog bx-spin" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>

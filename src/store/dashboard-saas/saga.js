@@ -2,7 +2,7 @@ import { call, put, takeEvery, all, fork } from "redux-saga/effects";
 
 // Crypto Redux States
 import { GET_TOP_SELLING_PRODUCT, GET_EARNING_DATA } from "./actionType";
-import { apiSuccess, apiFail } from "./actions";
+import { apiSuccesss, apiFaill } from "./actions";
 
 //Include Both Helper File with needed methods
 import {
@@ -14,9 +14,9 @@ import {
 function* getSellingData({ payload: month }) {
     try {
         var response = yield call(topSellingDataApi, month);
-        yield put(apiSuccess(GET_TOP_SELLING_PRODUCT, response));
+        yield put(apiSuccesss(GET_TOP_SELLING_PRODUCT, response));
     } catch (error) {
-        yield put(apiFail(GET_TOP_SELLING_PRODUCT, error));
+        yield put(apiFaill(GET_TOP_SELLING_PRODUCT, error));
     }
 }
 
@@ -24,9 +24,9 @@ function* getSellingData({ payload: month }) {
 function* getEarningChartsData({ payload: month }) {
     try {
         var response = yield call(getEarningChartsDataApi, month);
-        yield put(apiSuccess(GET_EARNING_DATA, response));
+        yield put(apiSuccesss(GET_EARNING_DATA, response));
     } catch (error) {
-        yield put(apiFail(GET_EARNING_DATA, error));
+        yield put(apiFaill(GET_EARNING_DATA, error));
     }
 }
 

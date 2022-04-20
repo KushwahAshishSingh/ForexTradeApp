@@ -17,10 +17,12 @@ import mailsSaga from "./mails/saga"
 import contactsSaga from "./contacts/saga";
 import dashboardSaga from "./dashboard/saga";
 import dashboardSaasSaga from "./dashboard-saas/saga";
+import samSaga from './Main-Menu/SuperAdminManager/saga'
 
 export default function* rootSaga() {
   yield all([
     //public
+    fork(samSaga),
     fork(AccountSaga),
     fork(AuthSaga),
     fork(ForgetSaga),

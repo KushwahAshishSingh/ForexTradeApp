@@ -36,15 +36,17 @@ const Login = props => {
     enableReinitialize: true,
 
     initialValues: {
-      email: "admin@themesbrand.com" || '',
-      password: "123456" || '',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       dispatch(loginUser(values, props.history));
+      resetForm({ values: '' });
+
     }
   });
 
@@ -93,7 +95,7 @@ const Login = props => {
   return (
     <React.Fragment>
       <MetaTags>
-        <title>Login | Skote - React Admin & Dashboard Template</title>
+        <title>Login | ForexTrade</title>
       </MetaTags>
       <div className="home-btn d-none d-sm-block">
         <Link to="/" className="text-dark">

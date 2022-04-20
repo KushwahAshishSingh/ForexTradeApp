@@ -60,21 +60,22 @@ class FirebaseAuthBackend {
   /**
    * Login user with given details
    */
-  loginUser = (email, password) => {
-    return new Promise((resolve, reject) => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(
-          user => {
-            resolve(firebase.auth().currentUser);
-          },
-          error => {
-            reject(this._handleError(error));
-          }
-        );
-    });
-  };
+  // loginUser = (email, password) => {
+  //   console.log("email", email, password)
+  //   return new Promise((resolve, reject) => {
+  //     firebase
+  //       .auth()
+  //       .signInWithEmailAndPassword(email, password)
+  //       .then(
+  //         user => {
+  //           resolve(firebase.auth().currentUser);
+  //         },
+  //         error => {
+  //           reject(this._handleError(error));
+  //         }
+  //       );
+  //   });
+  // };
 
   /**
    * forget Password user with given details
