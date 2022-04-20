@@ -13,7 +13,7 @@ import { Link } from "react-router-dom"
 import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
-  const ref = useRef();
+  const ref = useRef()
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
     const pathName = props.location.pathname
@@ -80,10 +80,10 @@ const SidebarContent = props => {
           }
         }
       }
-      scrollElement(item);
+      scrollElement(item)
       return false
     }
-    scrollElement(item);
+    scrollElement(item)
     return false
   }
 
@@ -96,24 +96,20 @@ const SidebarContent = props => {
             <li>
               <Link to="/#" className="">
                 <i className="bx bx-home-circle"></i>
-                <span className="badge rounded-pill bg-info float-end">
-                  04
-                </span>
+                <span className="badge rounded-pill bg-info float-end">04</span>
                 <span>{props.t("Dashboards")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="/dashboard">{props.t("Default")}</Link>
+                  <Link to="/dashboard">{props.t("Super Manager")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Saas")}</Link>
+                  <Link to="/superadmin">{props.t("Super Admin ")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Crypto")}</Link>
+                  <Link to="/SupperSupport">{props.t("Super Support")}</Link>
                 </li>
-                <li>
-                  <Link to="#">{props.t("Blog")}</Link>
-                </li>
+                <li>{/* <Link to="#">{props.t("Blog")}</Link> */}</li>
               </ul>
             </li>
 
@@ -152,9 +148,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Products")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Product Detail")}
-                  </Link>
+                  <Link to="#">{props.t("Product Detail")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Orders")}</Link>
@@ -172,9 +166,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Shops")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Add Product")}
-                  </Link>
+                  <Link to="#">{props.t("Add Product")}</Link>
                 </li>
               </ul>
             </li>
@@ -201,9 +193,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Orders")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("KYC Application")}
-                  </Link>
+                  <Link to="#">{props.t("KYC Application")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("ICO Landing")}</Link>
@@ -235,19 +225,13 @@ const SidebarContent = props => {
                   </Link>
                   <ul className="sub-menu" aria-expanded="false">
                     <li>
-                      <Link to="#">
-                        {props.t("Basic Action")}
-                      </Link>
+                      <Link to="#">{props.t("Basic Action")}</Link>
                     </li>
                     <li>
-                      <Link to="#">
-                        {props.t("Alert Email")}{" "}
-                      </Link>
+                      <Link to="#">{props.t("Alert Email")} </Link>
                     </li>
                     <li>
-                      <Link to="#">
-                        {props.t("Billing Email")}{" "}
-                      </Link>
+                      <Link to="#">{props.t("Billing Email")} </Link>
                     </li>
                   </ul>
                 </li>
@@ -276,18 +260,18 @@ const SidebarContent = props => {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="#">{props.t("Projects Grid")}</Link>
+                  <Link to="/projects-grid">{props.t("Projects Grid")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Projects List")}</Link>
+                  <Link to="/projects-list">{props.t("Projects List")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
+                  <Link to="/projects-overview">
                     {props.t("Project Overview")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Create New")}</Link>
+                  <Link to="/projects-create">{props.t("Create New")}</Link>
                 </li>
               </ul>
             </li>
@@ -373,50 +357,34 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Register 2")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Recover Password")}
-                  </Link>
+                  <Link to="#">{props.t("Recover Password")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Recover Password 2")}
-                  </Link>
+                  <Link to="#">{props.t("Recover Password 2")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Lock Screen")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Lock Screen 2")}
-                  </Link>
+                  <Link to="#">{props.t("Lock Screen 2")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Confirm Mail")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Confirm Mail 2")}
-                  </Link>
+                  <Link to="#">{props.t("Confirm Mail 2")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Email Verification")}
-                  </Link>
+                  <Link to="#">{props.t("Email Verification")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Email Verification 2")}
-                  </Link>
+                  <Link to="#">{props.t("Email Verification 2")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Two Step Verification")}
-                  </Link>
+                  <Link to="#">{props.t("Two Step Verification")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Two Step Verification 2")}
-                  </Link>
+                  <Link to="#">{props.t("Two Step Verification 2")}</Link>
                 </li>
               </ul>
             </li>
@@ -492,9 +460,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Range Slider")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Session Timeout")}
-                  </Link>
+                  <Link to="#">{props.t("Session Timeout")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Progress Bars")}</Link>
@@ -506,9 +472,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Sweet-Alert")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Tabs & Accordions")}
-                  </Link>
+                  <Link to="#">{props.t("Tabs & Accordions")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Typography")}</Link>
@@ -535,9 +499,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Offcanvas")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Breadcrumb")}
-                  </Link>
+                  <Link to="#">{props.t("Breadcrumb")}</Link>
                 </li>
               </ul>
             </li>
@@ -558,9 +520,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Form Layouts")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Form Validation")}
-                  </Link>
+                  <Link to="#">{props.t("Form Validation")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Form Advanced")}</Link>
@@ -596,21 +556,28 @@ const SidebarContent = props => {
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="#">{props.t("Basic Tables")}</Link>
+                  {/* <Link to="#">{props.t("Basic Tables")}</Link> */}
+                  <Link to="/tables-basic">{props.t("Basic Tables")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Data Tables")}</Link>
+                  {/* <Link to="#">{props.t("Data Tables")}</Link> */}
+                  <Link to="/tables-datatable">{props.t("Data Tables")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
+                  {/* <Link to="#">{props.t("Responsive Table")}</Link> */}
+                  <Link to="/tables-responsive">
                     {props.t("Responsive Table")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Editable Table")}</Link>
+                  {/* <Link to="#">{props.t("Editable Table")}</Link> */}
+                  <Link to="/tables-editable">{props.t("Editable Table")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Drag & Drop Table")}</Link>
+                  {/* <Link to="#">{props.t("Drag & Drop Table")}</Link> */}
+                  <Link to="/tables-dragndrop">
+                    {props.t("Drag & Drop Table")}
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -638,9 +605,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Toast UI Chart")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Sparkline Chart")}
-                  </Link>
+                  <Link to="#">{props.t("Sparkline Chart")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Knob Chart")}</Link>
@@ -661,9 +626,7 @@ const SidebarContent = props => {
                   <Link to="#">{props.t("Boxicons")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Material Design")}
-                  </Link>
+                  <Link to="#">{props.t("Material Design")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Dripicons")}</Link>
