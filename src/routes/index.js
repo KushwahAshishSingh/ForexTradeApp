@@ -13,6 +13,8 @@ import ForgetPwd from "../pages/Authentication/ForgetPassword"
 // Dashboard
 import Dashboard from "../pages/Dashboard/index"
 import SuperAdminManager from "pages/MainMenu/SuperAdminManager/SuperAdminManager"
+import SuperAdminSupport from "pages/MainMenu/SuperAdminSupport/SuperAdminSupport"
+import Admin from "pages/MainMenu/Admin/Admin"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -25,7 +27,11 @@ const authProtectedRoutes = [
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
 
   // main menu
-  { path: '/super-admin-manager', component: SuperAdminManager }
+  { path: '/super-admin-manager', component: SuperAdminManager },
+  { path: '/super-admin-support', component: SuperAdminSupport },
+  { path: '/admin', component: Admin }
+
+
 ]
 
 const publicRoutes = [

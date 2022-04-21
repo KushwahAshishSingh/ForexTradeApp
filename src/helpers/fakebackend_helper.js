@@ -50,7 +50,12 @@ const postLogin = data => post(url.POST_LOGIN, data)
 
 // Main Menu
 const SamAdd = data => post(url.SAM_Add, data)
+const AdminAdd = data => post(url.ADMIN_ADD, data)
+const SasAdd = data => post(url.SAS_ADD, data)
 export const getSAM = () => get(url.SAM_GET_LIST)
+export const getSAS = () => get(url.SAS_GET_LIST)
+export const getADMIN = () => get(url.ADMIN_GET_LIST)
+
 
 // postForgetPwd
 const postFakeForgetPwd = data => post(url.POST_FAKE_PASSWORD_FORGET, data)
@@ -283,6 +288,8 @@ const onAddComment = (productId, commentText) => {
 
 export {
   SamAdd,
+  SasAdd,
+  AdminAdd,
   getLoggedInUser,
   isUserAuthenticated,
   postFakeRegister,

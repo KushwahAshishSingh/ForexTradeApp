@@ -1,9 +1,29 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 // Login Redux States
-import { SAM_USER } from "./actionType"
-import { SamSuccess, } from "./action"
-import { SamAdd } from "../../../helpers/fakebackend_helper"
+import { SAM_USER, GET_SAM } from "./actionType"
+import { SamSuccess, getSamSuccess, getSamFail } from "./action"
+import { SamAdd, getSAM } from "../../../helpers/fakebackend_helper"
+import Swal from 'sweetalert2';
+
+
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000
+});
+
+
+function* fetchSAManager() {
+    try {
+        const response = yield call(getSAM)
+        yield put(getSamSuccess(response))
+    } catch (error) {
+        yield put(getSamFail(error))
+    }
+}
 
 
 function* SamUser({ payload: { user, history } }) {
@@ -13,12 +33,20 @@ function* SamUser({ payload: { user, history } }) {
             email: user.email,
             password: user.password
         })
+        if (response.success === true) {
+            Toast.fire({
+                icon: "success",
+                title: response.message,
+            });
+        }
         yield put(SamSuccess(response))
-
-        history.push("/dashboard")
+        history.push("/super-admin-manager")
     } catch (error) {
-        // yield put(apiError(error))
-        console.log(error)
+        Toast.fire({
+            icon: "error",
+            title: "something went wrong"
+        });
+        history.push("/super-admin-manager")
     }
 }
 
@@ -27,6 +55,7 @@ function* SamUser({ payload: { user, history } }) {
 
 
 function* samSaga() {
+    yield takeEvery(GET_SAM, fetchSAManager)
     yield takeEvery(SAM_USER, SamUser)
 }
 

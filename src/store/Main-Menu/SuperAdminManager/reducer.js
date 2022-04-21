@@ -1,11 +1,12 @@
 import {
     SAM_USER,
-    SAM_SUCCESS,
+    SAM_SUCCESS, GET_SAM_FAIL, GET_SAM_SUCCESS
 } from "./actionType"
 
 const initialState = {
     error: "",
     loading: false,
+    samanager: []
 }
 
 const SuperAdminManagerReducer = (state = initialState, action) => {
@@ -22,6 +23,17 @@ const SuperAdminManagerReducer = (state = initialState, action) => {
                 loading: false,
             }
             break
+        case GET_SAM_SUCCESS:
+            return {
+                ...state,
+                samanager: action.payload,
+            }
+
+        case GET_SAM_FAIL:
+            return {
+                ...state,
+                error: action.payload,
+            }
         default:
             state = { ...state }
             break

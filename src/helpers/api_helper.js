@@ -1,13 +1,9 @@
-import axios from "axios"
-// import accessToken from "./jwt-token-access/accessToken"
+import axios from "axios";
 
-//pass new generated access token here
-const Token = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('authUser')) : '';
-// const Token = JSON.parse(localStorage.getItem("authUser"));
-console.log("Token", Token)
-const accessToken = `Bearer ${Token && Token.authToken}`
-const token = accessToken
-console.log("token", token)
+const token = `Bearer ${JSON.parse(localStorage.getItem("authToken")) && JSON.parse(localStorage.getItem("authToken"))}`
+console.log("tokennn", token)
+
+
 
 //apply base url for axios
 const API_URL = process.env.REACT_APP_BACKEND_URL
@@ -16,6 +12,7 @@ const axiosApi = axios.create({
 })
 
 axiosApi.defaults.headers.common["Authorization"] = token
+// console.log("auth", axiosApi.defaults.headers.common["Authorization"] = `Bearer ${JSON.parse(localStorage.getItem("authUser")) && JSON.parse(localStorage.getItem("authUser")).authToken}`)
 
 axiosApi.interceptors.response.use(
   response => response,

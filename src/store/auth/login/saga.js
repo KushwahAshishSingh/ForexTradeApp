@@ -14,6 +14,7 @@ import {
 import Swal from 'sweetalert2';
 
 
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -23,6 +24,7 @@ const Toast = Swal.mixin({
 
 
 function* loginUser({ payload: { user, history } }) {
+  console.log("user", user)
   try {
     const response = yield call(postLogin, {
       email: user.email,
@@ -30,17 +32,18 @@ function* loginUser({ payload: { user, history } }) {
     })
     if (response.success === true) {
       Toast.fire({
-        type: "success",
+        icon: "success",
         title: response.message,
       });
-      localStorage.setItem("authUser", JSON.stringify(response.data.user))
-
     }
+    localStorage.setItem("authUser", JSON.stringify(response.data.user))
+    localStorage.setItem("authToken", JSON.stringify(response.data.user && response.data.user.authToken))
     yield put(loginSuccess(response))
     history.push("/dashboard")
+    window.location.reload();
   } catch (error) {
     Toast.fire({
-      type: "error",
+      icon: "error",
       title: "something went wrong"
     });
   }
@@ -49,6 +52,7 @@ function* loginUser({ payload: { user, history } }) {
 function* logoutUser({ payload: { history } }) {
   try {
     localStorage.removeItem("authUser")
+    localStorage.removeItem("authToken")
 
     if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
       const response = yield call(fireBaseBackend.logout)
