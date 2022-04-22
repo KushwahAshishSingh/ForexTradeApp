@@ -40,6 +40,8 @@ function* AdminUser({ payload: { user, history } }) {
             });
         }
         yield put(AdminSuccess(response))
+        const response1 = yield call(getADMIN)
+        yield put(getAdminSuccess(response1))
         history.push("/admin")
     } catch (error) {
         Toast.fire({

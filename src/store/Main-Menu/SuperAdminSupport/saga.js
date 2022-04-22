@@ -38,6 +38,8 @@ function* SasUser({ payload: { user, history } }) {
             });
         }
         yield put(SasSuccess(response))
+        const response1 = yield call(getSAS)
+        yield put(getSasSuccess(response1))
         history.push("/super-admin-support")
     } catch (error) {
         Toast.fire({
