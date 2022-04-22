@@ -1,32 +1,32 @@
-import {
-    SAS_USER,
-    SAS_SUCCESS,
-} from "./actionType"
+import { GET_SUPPORT_USERS_SUCCESS, SAS_SUCCESS } from "./actionType"
 
 const initialState = {
-    error: "",
-    loading: false,
+  users: [],
+  error: "",
+  loading: false,
 }
+// console.log(initialState.users, "sfsdfgfger")
 
 const SuperAdminSupportReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SAS_USER:
-            state = {
-                ...state,
-                loading: true,
-            }
-            break
-        case SAS_SUCCESS:
-            state = {
-                ...state,
-                loading: false,
-            }
-            break
-        default:
-            state = { ...state }
-            break
-    }
-    return state
+  switch (action.type) {
+    case GET_SUPPORT_USERS_SUCCESS:
+      // console.log(action.payload, "kjskljflkjs")
+      return {
+        ...state,
+        users: action.payload,
+      }
+
+    case SAS_SUCCESS:
+      state = {
+        ...state,
+        users: [...state.users, action.payload],
+      }
+      break
+    default:
+      state = { ...state }
+      break
+  }
+  return state
 }
 
 export default SuperAdminSupportReducer

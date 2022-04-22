@@ -1,21 +1,14 @@
-import {
-    ADMIN_USER,
-    ADMIN_SUCCESS,
-} from "./actionType"
+import { GET_ADMIN_USER, GET_ADMIN_SUCCESS } from "./actionType"
 
-export const AdminUser = (user, history) => {
-    return {
-        type: ADMIN_USER,
-        payload: { user, history },
-    }
+export const getAdminUser = () => {
+  return {
+    type: GET_ADMIN_USER,
+  }
 }
 
-export const AdminSuccess = user => {
-    return {
-        type: ADMIN_SUCCESS,
-        payload: user,
-    }
+export const getAdminSuccess = user => {
+  return {
+    type: GET_ADMIN_SUCCESS,
+    payload: user,
+  }
 }
-
-
-

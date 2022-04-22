@@ -13,7 +13,7 @@ import { Link } from "react-router-dom"
 import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
-  const ref = useRef();
+  const ref = useRef()
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
     const pathName = props.location.pathname
@@ -80,10 +80,10 @@ const SidebarContent = props => {
           }
         }
       }
-      scrollElement(item);
+      scrollElement(item)
       return false
     }
-    scrollElement(item);
+    scrollElement(item)
     return false
   }
 
@@ -129,7 +129,9 @@ const SidebarContent = props => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
+                  <Link to="/super-admin-support">
+                    {props.t("SuperAdmin Support")}
+                  </Link>
                 </li>
                 <li>
                   <Link to="/admin">{props.t("Admin")}</Link>
