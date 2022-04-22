@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const token = `Bearer ${JSON.parse(localStorage.getItem("authToken")) && JSON.parse(localStorage.getItem("authToken"))}`
-console.log("tokennn", token)
+// console.log("tokennn", token)
 
 
 

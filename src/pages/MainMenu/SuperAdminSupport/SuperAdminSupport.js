@@ -10,8 +10,8 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { SasUser } from "store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getSas, SasUser } from "store/actions";
 
 
 const SuperAdminSupport = props => {
@@ -19,6 +19,14 @@ const SuperAdminSupport = props => {
     const toggle = () => setModal(!modal);
 
     const dispatch = useDispatch();
+
+    const state = useSelector((state) => {
+        return state.SuperAdminSupportReducer.sasanager.data
+    })
+
+    useEffect(() => {
+        dispatch(getSas())
+    }, [])
 
     const validation = useFormik({
         // enableReinitialize : use this flag when initial values needs to be changed
@@ -36,7 +44,6 @@ const SuperAdminSupport = props => {
         }),
         onSubmit: (values, { resetForm
         }) => {
-            console.log(values)
             dispatch(SasUser(values, props.history));
             setModal(!modal)
             resetForm({ values: '' });
@@ -162,42 +169,21 @@ const SuperAdminSupport = props => {
                                             >
                                                 <Thead>
                                                     <Tr>
-                                                        <Th>Company</Th>
-                                                        <Th data-priority="1">Last Trade</Th>
-                                                        <Th data-priority="3">Trade Time</Th>
-                                                        <Th data-priority="1">Change</Th>
-                                                        <Th data-priority="3">Prev Close</Th>
+                                                        <Th data-priority="1">Name</Th>
+                                                        <Th data-priority="3">Email</Th>
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>
-                                                    <Tr>
-                                                        <Th>
-                                                            GOOG <span className="co-name">Google Inc.</span>
-                                                        </Th>
-                                                        <Td>597.74</Td>
-                                                        <Td>12:12PM</Td>
-                                                        <Td>14.81 (2.54%)</Td>
-                                                        <Td>582.93</Td>
-                                                    </Tr>
-                                                    <Tr>
-                                                        <Th>
-                                                            AAPL <span className="co-name">Apple Inc.</span>
-                                                        </Th>
-                                                        <Td>378.94</Td>
-                                                        <Td>12:22PM</Td>
-                                                        <Td>5.74 (1.54%)</Td>
-                                                        <Td>373.20</Td>
-                                                    </Tr>
-                                                    <Tr>
-                                                        <Th>
-                                                            AMZN{" "}
-                                                            <span className="co-name">Amazon.com Inc.</span>
-                                                        </Th>
-                                                        <Td>191.55</Td>
-                                                        <Td>12:23PM</Td>
-                                                        <Td>3.16 (1.68%)</Td>
-                                                        <Td>188.39</Td>
-                                                    </Tr>
+                                                    {state && state.map((item, index) => {
+                                                        return (
+                                                            <>
+                                                                <Tr key={index}>
+                                                                    <Td>{item.name}</Td>
+                                                                    <Td>{item.email}</Td>
+                                                                </Tr>
+                                                            </>
+                                                        )
+                                                    })}
                                                 </Tbody>
                                             </Table>
 

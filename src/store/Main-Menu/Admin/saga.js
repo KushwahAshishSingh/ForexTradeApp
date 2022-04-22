@@ -1,9 +1,9 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 // Login Redux States
-import { ADMIN_USER } from "./actionType"
-import { AdminSuccess, } from "./action"
-import { AdminAdd } from "../../../helpers/fakebackend_helper"
+import { ADMIN_USER, GET_ADMIN } from "./actionType"
+import { AdminSuccess, getAdminFail, getAdminSuccess, } from "./action"
+import { AdminAdd, getADMIN } from "../../../helpers/fakebackend_helper"
 import Swal from 'sweetalert2';
 
 
@@ -14,6 +14,16 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 2000
 });
+
+
+function* fetchAdmin() {
+    try {
+        const response = yield call(getADMIN)
+        yield put(getAdminSuccess(response))
+    } catch (error) {
+        yield put(getAdminFail(error))
+    }
+}
 
 
 function* AdminUser({ payload: { user, history } }) {
@@ -45,6 +55,7 @@ function* AdminUser({ payload: { user, history } }) {
 
 
 function* AdminSaga() {
+    yield takeEvery(GET_ADMIN, fetchAdmin)
     yield takeEvery(ADMIN_USER, AdminUser)
 }
 

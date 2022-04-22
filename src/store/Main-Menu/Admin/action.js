@@ -1,6 +1,6 @@
 import {
     ADMIN_USER,
-    ADMIN_SUCCESS,
+    ADMIN_SUCCESS, GET_ADMIN, GET_ADMIN_SUCCESS, GET_ADMIN_FAIL
 } from "./actionType"
 
 export const AdminUser = (user, history) => {
@@ -16,6 +16,20 @@ export const AdminSuccess = user => {
         payload: user,
     }
 }
+
+export const getAdmin = () => ({
+    type: GET_ADMIN,
+})
+
+export const getAdminSuccess = products => ({
+    type: GET_ADMIN_SUCCESS,
+    payload: products,
+})
+
+export const getAdminFail = error => ({
+    type: GET_ADMIN_FAIL,
+    payload: error,
+})
 
 
 

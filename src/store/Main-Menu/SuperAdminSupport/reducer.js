@@ -1,11 +1,12 @@
 import {
     SAS_USER,
-    SAS_SUCCESS,
+    SAS_SUCCESS, GET_SAS_SUCCESS, GET_SAS_FAIL
 } from "./actionType"
 
 const initialState = {
     error: "",
     loading: false,
+    sasanager: []
 }
 
 const SuperAdminSupportReducer = (state = initialState, action) => {
@@ -22,6 +23,17 @@ const SuperAdminSupportReducer = (state = initialState, action) => {
                 loading: false,
             }
             break
+        case GET_SAS_SUCCESS:
+            return {
+                ...state,
+                sasanager: action.payload,
+            }
+
+        case GET_SAS_FAIL:
+            return {
+                ...state,
+                error: action.payload,
+            }
         default:
             state = { ...state }
             break

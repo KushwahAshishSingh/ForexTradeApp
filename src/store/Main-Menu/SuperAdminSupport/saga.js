@@ -1,9 +1,9 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 // Login Redux States
-import { SAS_USER } from "./actionType"
-import { SasSuccess, } from "./action"
-import { SasAdd } from "../../../helpers/fakebackend_helper"
+import { SAS_USER, GET_SAS } from "./actionType"
+import { getSasFail, getSasSuccess, SasSuccess, } from "./action"
+import { getSAS, SasAdd } from "../../../helpers/fakebackend_helper"
 import Swal from 'sweetalert2';
 
 
@@ -15,6 +15,14 @@ const Toast = Swal.mixin({
     timer: 2000
 });
 
+function* fetchSASupport() {
+    try {
+        const response = yield call(getSAS)
+        yield put(getSasSuccess(response))
+    } catch (error) {
+        yield put(getSasFail(error))
+    }
+}
 
 function* SasUser({ payload: { user, history } }) {
     try {
@@ -45,6 +53,7 @@ function* SasUser({ payload: { user, history } }) {
 
 
 function* sasSaga() {
+    yield takeEvery(GET_SAS, fetchSASupport)
     yield takeEvery(SAS_USER, SasUser)
 }
 

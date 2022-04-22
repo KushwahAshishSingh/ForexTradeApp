@@ -1,2 +1,6 @@
 export const ADMIN_USER = "ADMIN_USER"
 export const ADMIN_SUCCESS = "ADMIN_SUCCESS"
+export const GET_ADMIN = "GET_ADMIN"
+export const GET_ADMIN_SUCCESS = "GET_ADMIN_SUCCESS"
+export const GET_ADMIN_FAIL = "GET_ADMIN_FAIL"
+

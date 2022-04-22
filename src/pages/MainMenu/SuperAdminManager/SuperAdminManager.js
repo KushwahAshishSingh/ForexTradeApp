@@ -21,10 +21,7 @@ const SuperAdminManager = props => {
     const dispatch = useDispatch();
     const state = useSelector((state) => {
         return state.SuperAdminManagerReducer.samanager.data
-        // console.log(state.SuperAdminManagerReducer.samanager.data)
     })
-
-    // console.log("state", state)
 
     useEffect(() => {
         dispatch(getSam())
@@ -176,14 +173,12 @@ const SuperAdminManager = props => {
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>
-                                                    {state && state.map((item, key) => {
+                                                    {state && state.map((item, index) => {
                                                         return (
                                                             <>
-                                                                <Tr key={key}>
-
+                                                                <Tr key={index}>
                                                                     <Td>{item.name}</Td>
                                                                     <Td>{item.email}</Td>
-
                                                                 </Tr>
                                                             </>
                                                         )
@@ -212,6 +207,7 @@ SuperAdminManager.propTypes = {
     onAddNewOrder: PropTypes.func,
     onDeleteOrder: PropTypes.func,
     onUpdateOrder: PropTypes.func,
+    key: PropTypes.number.isRequired
 };
 
 export default withRouter(SuperAdminManager);

@@ -1,11 +1,12 @@
 import {
     ADMIN_USER,
-    ADMIN_SUCCESS,
+    ADMIN_SUCCESS, GET_ADMIN, GET_ADMIN_SUCCESS, GET_ADMIN_FAIL
 } from "./actionType"
 
 const initialState = {
     error: "",
     loading: false,
+    Admin: []
 }
 
 const AdminReducer = (state = initialState, action) => {
@@ -22,6 +23,23 @@ const AdminReducer = (state = initialState, action) => {
                 loading: false,
             }
             break
+        case GET_ADMIN:
+            state = {
+                ...state,
+                loading: false,
+            }
+            break
+        case GET_ADMIN_SUCCESS:
+            return {
+                ...state,
+                Admin: action.payload,
+            }
+
+        case GET_ADMIN_FAIL:
+            return {
+                ...state,
+                error: action.payload,
+            }
         default:
             state = { ...state }
             break

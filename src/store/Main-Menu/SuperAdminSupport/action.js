@@ -1,6 +1,6 @@
 import {
     SAS_USER,
-    SAS_SUCCESS,
+    SAS_SUCCESS, GET_SAS, GET_SAS_SUCCESS, GET_SAS_FAIL
 } from "./actionType"
 
 export const SasUser = (user, history) => {
@@ -16,6 +16,20 @@ export const SasSuccess = user => {
         payload: user,
     }
 }
+
+export const getSas = () => ({
+    type: GET_SAS,
+})
+
+export const getSasSuccess = products => ({
+    type: GET_SAS_SUCCESS,
+    payload: products,
+})
+
+export const getSasFail = error => ({
+    type: GET_SAS_FAIL,
+    payload: error,
+})
 
 
 
