@@ -121,7 +121,7 @@ const Header = props => {
                 caret
                 tag="button"
               >
-                {props.t("Mega Menu")} <i className="mdi mdi-chevron-down" />
+                {props.t("Maain Menu")} <i className="mdi mdi-chevron-down" />
               </DropdownToggle>
               <DropdownMenu className="dropdown-megamenu">
                 <Row>

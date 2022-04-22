@@ -4,6 +4,11 @@ const token = `Bearer ${JSON.parse(localStorage.getItem("authToken")) && JSON.pa
 // console.log("tokennn", token)
 
 
+// <<<<<<< harish_login
+// =======
+// //apply base url for axios
+// const API_URL = "https://evening-lake-57831.herokuapp.com"
+// >>>>>>> main
 
 //apply base url for axios
 const API_URL = process.env.REACT_APP_BACKEND_URL

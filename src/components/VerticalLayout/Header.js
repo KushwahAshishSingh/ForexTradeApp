@@ -135,14 +135,30 @@ const Header = props => {
                 tag="button"
               >
                 {" "}
-                {props.t("Mega Menu")} <i className="mdi mdi-chevron-down" />
+                {props.t("Main Menu")} <i className="mdi mdi-chevron-down" />
               </DropdownToggle>
               <DropdownMenu className="dropdown-megamenu">
                 <Row>
                   <Col sm={8}>
                     <Row>
+                
+                      
                       <Col md={4}>
+                      <h5 className="font-size-14 mt-0">
+                        {props.t("Super Admin Manager")}
+                      </h5>
+                      <ul className="list-unstyled megamenu-list">
+                        <li>
+                          <Link to="#">{props.t("Create Super Admin Manager")}</Link>
+                        </li>
+                        <li>
+                          <Link to="#">{props.t("Super Admin Manager's List")}</Link>
+                        </li>
+                      </ul>
+                    </Col>
+                    <Col md={4}>
                         <h5 className="font-size-14 mt-0">
+
                           {props.t("Super Admin")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
@@ -168,6 +184,7 @@ const Header = props => {
 
                       <Col md={4}>
                         <h5 className="font-size-14 mt-0">
+
                           {props.t("Super Admin Support")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
@@ -176,35 +193,25 @@ const Header = props => {
                           </li>
                         </ul>
                       </Col>
-                    </Row>
-                  </Col>
-                  <Col sm={4}>
-                    <Row>
-                      <Col sm={6}>
+                    <Col md={4}>
                         <h5 className="font-size-14 mt-0">
                           {props.t("Admin")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
+
                             <Link to="#">{props.t("Create Admin")}</Link>
                           </li>
                           <li>
                             <Link to="#">{props.t("List Of Admin")}</Link>
+
                           </li>
                         </ul>
                       </Col>
-
-                      <Col sm={5}>
-                        <div>
-                          <img
-                            src={megamenuImg}
-                            alt=""
-                            className="img-fluid mx-auto d-block"
-                          />
-                        </div>
-                      </Col>
+                      
                     </Row>
                   </Col>
+                 
                 </Row>
               </DropdownMenu>
             </Dropdown> */}
@@ -252,7 +259,9 @@ const Header = props => {
 
             <LanguageDropdown />
 
+
             {/* <Dropdown
+
               className="d-none d-lg-inline-block ms-1"
               isOpen={socialDrp}
               toggle={() => {
@@ -310,13 +319,15 @@ const Header = props => {
                   </Row>
                 </div>
               </DropdownMenu>
+
             </Dropdown> */}
+
 
             <div className="dropdown d-none d-lg-inline-block ms-1">
               <button
                 type="button"
                 onClick={() => {
-                  toggleFullscreen();
+                  toggleFullscreen();  
                 }}
                 className="btn header-item noti-icon "
                 data-toggle="fullscreen"
@@ -330,6 +341,7 @@ const Header = props => {
 
             {/* <div
               onClick={() => {
+
                 props.showRightSidebarAction(!props.showRightSidebar);
               }}
               className="dropdown d-inline-block"
@@ -340,7 +352,9 @@ const Header = props => {
               >
                 <i className="bx bx-cog bx-spin" />
               </button>
+
             </div> */}
+
           </div>
         </div>
       </header>
