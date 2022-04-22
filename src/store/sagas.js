@@ -20,11 +20,14 @@ import dashboardSaasSaga from "./dashboard-saas/saga";
 import samSaga from './Main-Menu/SuperAdminManager/saga';
 import AdminSaga from './Main-Menu/Admin/saga'
 import sasSaga from './Main-Menu/SuperAdminSupport/saga'
+import UserSaga from './Main-Menu/User/saga'
+
 
 
 export default function* rootSaga() {
   yield all([
     //public
+    fork(UserSaga),
     fork(sasSaga),
     fork(AdminSaga),
     fork(samSaga),

@@ -6,13 +6,13 @@ import {
 
 
 const Dashboard = () => {
-  const token = localStorage.getItem("authToken") && JSON.parse(localStorage.getItem("authToken"))
-  // console.log("tokennnhhhh", token)
+  const roleType = JSON.parse(localStorage.getItem("authUser")).roleType
+
   return (
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Dashboard | ForexTrade</title>
+          <title>{roleType} Dashboard | ForexTrade</title>
         </MetaTags>
         <Container fluid>
           <h4>Dashboard</h4>

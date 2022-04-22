@@ -13,6 +13,9 @@ import { Link } from "react-router-dom"
 import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
+  const roleType = JSON.parse(localStorage.getItem("authUser")).roleType
+  console.log(roleType)
+
   const ref = useRef();
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
@@ -99,22 +102,12 @@ const SidebarContent = props => {
                 <span className="badge rounded-pill bg-info float-end">
                   04
                 </span> */}
-                <span>{props.t("Dashboards")}</span>
+                {roleType === "SuperAdmin" ?
+                  <span>{props.t("SuperAdmin Dashboards")}</span>
+                  :
+                  <span>{props.t("Admin Dashboards")}</span>
+                }
               </Link>
-              {/* <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/dashboard">{props.t("Default")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Saas")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Crypto")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Blog")}</Link>
-                </li>
-              </ul> */}
             </li>
 
             <li>
@@ -123,17 +116,24 @@ const SidebarContent = props => {
                 <span>{props.t("Main Menu")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/super-admin-manager">
-                    {props.t("SuperAdmin Manager")}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
-                </li>
-                <li>
-                  <Link to="/admin">{props.t("Admin")}</Link>
-                </li>
+                {roleType === "SuperAdmin" ? <>
+                  <li>
+                    <Link to="/super-admin-manager">
+                      {props.t("SuperAdmin Manager")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
+                  </li>
+                  <li>
+                    <Link to="/admin">{props.t("Admin")}</Link>
+                  </li>
+                </>
+                  :
+                  <li>
+                    <Link to="/user">{props.t("User")}</Link>
+                  </li>
+                }
               </ul>
             </li>
 

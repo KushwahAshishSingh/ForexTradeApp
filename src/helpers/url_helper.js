@@ -10,11 +10,14 @@ export const SOCIAL_LOGIN = "/social-login"
 
 // Main menu
 export const SAM_Add = "create/superadminmanager"
+export const USER_Add = "create/client/user"
 export const ADMIN_ADD = "create/admin"
 export const SAS_ADD = "create/superAdminsupport"
 export const SAM_GET_LIST = "list/superadminsmanagerlist"
 export const SAS_GET_LIST = "list/superadminssupportlist"
 export const ADMIN_GET_LIST = "list/admins"
+export const USER_GET_LIST = "client/user/list"
+
 
 
 //PROFILE

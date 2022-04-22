@@ -57,7 +57,7 @@ const Admin = props => {
                     <title>Admin | ForexTrade</title>
                 </MetaTags>
                 <Container fluid>
-                    <Breadcrumbs title="Main Menu" breadcrumbItem="Super Admin Manager" />
+                    <Breadcrumbs title="Main Menu" breadcrumbItem="Admin" />
                     <Row>
                         <Col>
                             <Card>

@@ -52,6 +52,8 @@ const postLogin = data => post(url.POST_LOGIN, data)
 const SamAdd = data => post(url.SAM_Add, data)
 const AdminAdd = data => post(url.ADMIN_ADD, data)
 const SasAdd = data => post(url.SAS_ADD, data)
+const UserAdd = data => post(url.USER_Add, data)
+export const getUser = () => get(url.USER_GET_LIST)
 export const getSAM = () => get(url.SAM_GET_LIST)
 export const getSAS = () => get(url.SAS_GET_LIST)
 export const getADMIN = () => get(url.ADMIN_GET_LIST)
@@ -287,6 +289,7 @@ const onAddComment = (productId, commentText) => {
 }
 
 export {
+  UserAdd,
   SamAdd,
   SasAdd,
   AdminAdd,

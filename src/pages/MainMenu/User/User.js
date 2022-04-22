@@ -11,21 +11,21 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { getSas, SasUser } from "store/actions";
+import { AdminUsers, getUser } from "store/actions";
 
 
-const SuperAdminSupport = props => {
+const User = props => {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
     const dispatch = useDispatch();
 
     const state = useSelector((state) => {
-        return state.SuperAdminSupportReducer.sasanager.data
+        return state.UserReducer.User.data
     })
 
     useEffect(() => {
-        dispatch(getSas())
+        dispatch(getUser())
     }, [])
 
     const validation = useFormik({
@@ -44,7 +44,7 @@ const SuperAdminSupport = props => {
         }),
         onSubmit: (values, { resetForm
         }) => {
-            dispatch(SasUser(values, props.history));
+            dispatch(AdminUsers(values, props.history));
             setModal(!modal)
             resetForm({ values: '' });
         }
@@ -54,10 +54,10 @@ const SuperAdminSupport = props => {
         <React.Fragment>
             <div className="page-content">
                 <MetaTags>
-                    <title>SuperAdminSupport | ForexTrade</title>
+                    <title>User | ForexTrade</title>
                 </MetaTags>
                 <Container fluid>
-                    <Breadcrumbs title="Main Menu" breadcrumbItem="Super Admin Support" />
+                    <Breadcrumbs title="Main Menu" breadcrumbItem="User" />
                     <Row>
                         <Col>
                             <Card>
@@ -77,7 +77,7 @@ const SuperAdminSupport = props => {
                                                 <Modal isOpen={modal} toggle={toggle}
                                                 >
                                                     <ModalHeader toggle={toggle}>
-                                                        SuperAdminSupport
+                                                        User
                                                     </ModalHeader>
                                                     <ModalBody>
                                                         <Form
@@ -202,7 +202,7 @@ const SuperAdminSupport = props => {
     );
 };
 
-SuperAdminSupport.propTypes = {
+User.propTypes = {
     orders: PropTypes.array,
     onGetOrders: PropTypes.func,
     onAddNewOrder: PropTypes.func,
@@ -210,8 +210,8 @@ SuperAdminSupport.propTypes = {
     onUpdateOrder: PropTypes.func,
 };
 
-export default withRouter(SuperAdminSupport);
+export default withRouter(User);
 
-SuperAdminSupport.propTypes = {
+User.propTypes = {
     history: PropTypes.object,
 };
