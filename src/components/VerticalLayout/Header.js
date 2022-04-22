@@ -35,6 +35,8 @@ import {
   changeSidebarType,
 } from "../../store/actions";
 
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Form, FormFeedback, Input, Label } from 'reactstrap'
+
 const Header = props => {
   const [search, setsearch] = useState(false);
   const [megaMenu, setmegaMenu] = useState(false);
@@ -119,7 +121,8 @@ const Header = props => {
               </div>
             </form>
 
-            <Dropdown
+
+            {/* <Dropdown
               className="dropdown-mega d-none d-lg-block ms-2"
               isOpen={megaMenu}
               toggle={() => {
@@ -155,14 +158,38 @@ const Header = props => {
                     </Col>
                     <Col md={4}>
                         <h5 className="font-size-14 mt-0">
+
+                          {props.t("Super Admin")}
+                        </h5>
+                        <ul className="list-unstyled megamenu-list">
+                          <li>
+                            <Link to="#">{props.t("Create Super Admin")}</Link>
+                          </li>
+                          <li>
+                            <Link to="#">{props.t("List Of Super Admin")}</Link>
+                          </li>
+                        </ul>
+                      </Col>
+
+                      <Col md={4}>
+                        <h5 className="font-size-14 mt-0">
+                          {props.t("Super Admin Manager")}
+                        </h5>
+                        <ul className="list-unstyled megamenu-list">
+                          <li>
+                            <Link to="#">{props.t("List Of SuperAdminManager")}</Link>
+                          </li>
+                        </ul>
+                      </Col>
+
+                      <Col md={4}>
+                        <h5 className="font-size-14 mt-0">
+
                           {props.t("Super Admin Support")}
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
-                            <Link to="#">{props.t("Create Super Admin Support")}</Link>
-                          </li>
-                          <li>
-                            <Link to="#">{props.t(" Super Admin Support List")}</Link>
+                            <Link to="#">{props.t("List Of SuperAdminSupport")}</Link>
                           </li>
                         </ul>
                       </Col>
@@ -172,10 +199,12 @@ const Header = props => {
                         </h5>
                         <ul className="list-unstyled megamenu-list">
                           <li>
-                            <Link to="#">{props.t("Create Admins")}</Link>
+
+                            <Link to="#">{props.t("Create Admin")}</Link>
                           </li>
                           <li>
-                            <Link to="#">{props.t("Admin's List")}</Link>
+                            <Link to="#">{props.t("List Of Admin")}</Link>
+
                           </li>
                         </ul>
                       </Col>
@@ -185,7 +214,8 @@ const Header = props => {
                  
                 </Row>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
+
           </div>
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ms-2">
@@ -229,7 +259,9 @@ const Header = props => {
 
             <LanguageDropdown />
 
-           {/* <Dropdown
+
+            {/* <Dropdown
+
               className="d-none d-lg-inline-block ms-1"
               isOpen={socialDrp}
               toggle={() => {
@@ -287,8 +319,10 @@ const Header = props => {
                   </Row>
                 </div>
               </DropdownMenu>
-            </Dropdown>
-*/}
+
+            </Dropdown> */}
+
+
             <div className="dropdown d-none d-lg-inline-block ms-1">
               <button
                 type="button"
@@ -305,9 +339,9 @@ const Header = props => {
             <NotificationDropdown />
             <ProfileMenu />
 
-            {/*
-            <div
-               onClick={() => {
+            {/* <div
+              onClick={() => {
+
                 props.showRightSidebarAction(!props.showRightSidebar);
               }}
               className="dropdown d-inline-block"
@@ -318,8 +352,8 @@ const Header = props => {
               >
                 <i className="bx bx-cog bx-spin" />
               </button>
-            </div>
-            */}
+
+            </div> */}
 
           </div>
         </div>

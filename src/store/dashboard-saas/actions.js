@@ -5,12 +5,12 @@ import {
     GET_EARNING_DATA
 } from "./actionType";
 
-export const apiSuccess = (actionType, data) => ({
+export const apiSuccesss = (actionType, data) => ({
     type: API_SUCCESS,
     payload: { actionType, data },
 });
 
-export const apiFail = (actionType, error) => ({
+export const apiFaill = (actionType, error) => ({
     type: API_FAIL,
     payload: { actionType, error },
 });

@@ -11,6 +11,7 @@ const Footer = () => {
             <Col md={6}>
               <div className="text-sm-end d-none d-sm-block">
                 Design & Develop by EPlanetSoft
+
               </div>
             </Col>
           </Row>

@@ -36,15 +36,17 @@ const Login = props => {
     enableReinitialize: true,
 
     initialValues: {
-      email: "admin@themesbrand.com" || '',
-      password: "123456" || '',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
+      console.log("values", values)
       dispatch(loginUser(values, props.history));
+      resetForm({ values: '' });
     }
   });
 
@@ -93,7 +95,8 @@ const Login = props => {
   return (
     <React.Fragment>
       <MetaTags>
-        <title>Login</title>
+        <title>Login | ForexTrade</title>
+
       </MetaTags>
       <div className="home-btn d-none d-sm-block">
         <Link to="/" className="text-dark">
@@ -110,7 +113,8 @@ const Login = props => {
                     <Col xs={7}>
                       <div className="text-primary p-4">
                         <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue to Forex Trade.</p>
+                        <p>Sign in to continue to ForexTrade.</p>
+
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">
@@ -224,7 +228,7 @@ const Login = props => {
                               )}
                             />
                           </li>
-                          {/*<li className="list-inline-item">*/}
+                          {/*<l className="list-inline-item">*/}
                           {/*  <TwitterLogin*/}
                           {/*    loginUrl={*/}
                           {/*      "http://localhost:4000/api/v1/auth/twitter"*/}
@@ -283,6 +287,7 @@ const Login = props => {
                   </Link>{" "}
                 </p>
                 <p>
+
                   © {new Date().getFullYear()} Forex Trade. Crafted
                   by EPlanetSoft
                 </p>

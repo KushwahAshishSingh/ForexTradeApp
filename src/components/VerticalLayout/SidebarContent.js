@@ -13,6 +13,9 @@ import { Link } from "react-router-dom"
 import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
+  const roleType = JSON.parse(localStorage.getItem("authUser")).roleType
+  console.log(roleType)
+
   const ref = useRef();
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
@@ -94,30 +97,47 @@ const SidebarContent = props => {
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">{props.t("Menu")} </li>
             <li>
-              <Link to="/#" className="">
-                <i className="bx bx-home-circle"></i>
+              <Link to="/dashboard" className="">
+                {/* <i className="bx bx-home-circle"></i>
                 <span className="badge rounded-pill bg-info float-end">
                   04
-                </span>
-                <span>{props.t("Dashboards")}</span>
+                </span> */}
+                {roleType === "SuperAdmin" ?
+                  <span>{props.t("SuperAdmin Dashboards")}</span>
+                  :
+                  <span>{props.t("Admin Dashboards")}</span>
+                }
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-store"></i>
+                <span>{props.t("Main Menu")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/dashboard">{props.t("Default")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Saas")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Crypto")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Blog")}</Link>
-                </li>
+                {roleType === "SuperAdmin" ? <>
+                  <li>
+                    <Link to="/super-admin-manager">
+                      {props.t("SuperAdmin Manager")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
+                  </li>
+                  <li>
+                    <Link to="/admin">{props.t("Admin")}</Link>
+                  </li>
+                </>
+                  :
+                  <li>
+                    <Link to="/user">{props.t("User")}</Link>
+                  </li>
+                }
               </ul>
             </li>
 
-            <li className="menu-title">{props.t("Apps")}</li>
+            {/* <li className="menu-title">{props.t("Apps")}</li>
 
             <li>
               <Link to="#" className=" ">
@@ -715,7 +735,7 @@ const SidebarContent = props => {
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </SimpleBar>

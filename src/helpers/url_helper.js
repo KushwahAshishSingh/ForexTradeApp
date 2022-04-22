@@ -2,12 +2,28 @@
 export const POST_FAKE_REGISTER = "/post-fake-register"
 
 //LOGIN
-//export const POST_FAKE_LOGIN = "/post-fake-login"
-export const POST_FAKE_LOGIN = "/api/v1/login"
+// <<<<<<< harish_login
+export const POST_LOGIN = "login"
+// =======
+// //export const POST_FAKE_LOGIN = "/post-fake-login"
+// export const POST_FAKE_LOGIN = "/api/v1/login"
+// >>>>>>> main
 export const POST_FAKE_JWT_LOGIN = "/post-jwt-login"
 export const POST_FAKE_PASSWORD_FORGET = "/fake-forget-pwd"
 export const POST_FAKE_JWT_PASSWORD_FORGET = "/jwt-forget-pwd"
 export const SOCIAL_LOGIN = "/social-login"
+
+// Main menu
+export const SAM_Add = "create/superadminmanager"
+export const USER_Add = "create/client/user"
+export const ADMIN_ADD = "create/admin"
+export const SAS_ADD = "create/superAdminsupport"
+export const SAM_GET_LIST = "list/superadminsmanagerlist"
+export const SAS_GET_LIST = "list/superadminssupportlist"
+export const ADMIN_GET_LIST = "list/admins"
+export const USER_GET_LIST = "client/user/list"
+
+
 
 //PROFILE
 export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile"
