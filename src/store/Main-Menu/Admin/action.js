@@ -17,19 +17,3 @@ export const getAdminSuccess = user => {
     payload: user,
   }
 }
-
-export const addUser = user => {
-  // console.log(user, "sdfsdfloooo")
-  return {
-    type: ADD_NEW_USER,
-    payload: user,
-  }
-}
-
-export const addAdminUserSuccess = user => {
-  // console.log(user, "loooo")
-  return {
-    type: ADD_ADMIN_USER_SUCCESS,
-    payload: user,
-  }
-}

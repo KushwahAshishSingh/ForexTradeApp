@@ -15,14 +15,6 @@ const AdminReducer = (state = initialState, action) => {
         adminList: action.payload,
       }
 
-    case ADD_ADMIN_USER_SUCCESS:
-      console.log(action.payload, "s+++++++f")
-
-      return {
-        ...state,
-        adminList: [...state.users, action.payload],
-      }
-
     default:
       state = { ...state }
       break
