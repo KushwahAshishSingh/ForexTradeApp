@@ -37,9 +37,7 @@ const SuperAdminSupport = props => {
   const [modal, setModal] = useState(false)
   const [managerSupport, setMangerSupport] = useState()
 
-  const toggle = () => {
-    setModal(!modal)
-  }
+  const toggle = () => setModal(!modal)
 
   const dispatch = useDispatch()
 
@@ -72,7 +70,7 @@ const SuperAdminSupport = props => {
         password: values["password"],
       }
       dispatch(SasUser(newUser))
-      // toggle()
+      toggle()
     },
   })
   // const supportList = useSelector(state => {

@@ -34,16 +34,16 @@ export * from "./contacts/actions"
 export * from "./mails/actions"
 
 //dashboard
-export * from "./dashboard/actions";
+export * from "./dashboard/actions"
 
 //dashboard-saas
-export * from "./dashboard-saas/actions";
+export * from "./dashboard-saas/actions"
 
 // super admin manager
-export * from './Main-Menu/SuperAdminManager/action'
+export * from "./Main-Menu/SuperAdminManager/action"
 
-// admin 
-export * from './Main-Menu/Admin/action'
+// admin
+export * from "./Main-Menu/Admin/action"
 
-// admin 
-export * from './Main-Menu/SuperAdminSupport/action'
+// admin
+export * from "./Main-Menu/SuperAdminSupport/action"

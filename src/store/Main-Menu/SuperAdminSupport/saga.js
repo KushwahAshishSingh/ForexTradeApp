@@ -18,15 +18,18 @@ function* getSupportList() {
     const response = yield call(getSuperSupport)
     console.log(response, "response+++++")
     yield put(getSuperAdminSupportSuccess(response))
+    // history.push("/super-admin-support")
   } catch (error) {
     // yield put(error)
     console.log(error)
+    // history.push("/super-admin-support")
   }
 }
 
 function* SasUser({ payload: event }) {
   try {
     const response = yield call(SasAdd, event)
+    // console.log(response, "lkjljkljlkj++++")
     if (response.success === true) {
       Toast.fire({
         icon: "success",
@@ -34,6 +37,8 @@ function* SasUser({ payload: event }) {
       })
     }
     yield put(SasSuccess(response))
+    const response1 = yield call(getADMIN)
+    yield put(getSuperAdminSupportSuccess(response1))
     history.push("/super-admin-support")
   } catch (error) {
     console.log(error)

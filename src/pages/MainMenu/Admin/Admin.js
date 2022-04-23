@@ -26,7 +26,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
-import { getAdminUser } from "store/Main-Menu/Admin/action"
+import { getAdminUser, addUser } from "../../../store/actions"
 
 const Admin = props => {
   const [modal, setModal] = useState(false)
@@ -35,7 +35,7 @@ const Admin = props => {
   const dispatch = useDispatch()
 
   const state = useSelector(state => {
-    console.log(state.Admin.adminList.data, "lllll")
+    // console.log(state.Admin.adminList.data, "lllll")
     return state.Admin.adminList.data
   })
 
@@ -54,15 +54,18 @@ const Admin = props => {
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: values => {
+      console.log(values)
       const newUser = {
         id: Math.floor(Math.random() * (30 - 20)) + 20,
         name: values["name"],
         email: values["email"],
         password: values["password"],
       }
-      console.log(values)
-      // dispatch(AdminUser(values, props.history))
-      setModal(!modal)
+      // console.log(values)
+      dispatch(addUser(values))
+      toggle()
+      // validation.resetForm()
+      // setModal(!modal)
       // resetForm({ values: "" })
     },
   })

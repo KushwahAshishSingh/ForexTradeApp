@@ -40,7 +40,8 @@ function* SamUser({ payload: { user, history } }) {
         title: response.message,
       })
     }
-    yield put(SamSuccess(response))
+    const response1 = yield call(getSAM)
+    yield put(getSamSuccess(response1))
     history.push("/super-admin-manager")
   } catch (error) {
     Toast.fire({

@@ -23,12 +23,7 @@ export const getSuperAdminSupport = () => ({
   type: GET_SUPPORT_USERS,
 })
 
-export const getSuperAdminSupportSuccess = users =>
-  // console.log(
-  //   users,
-  //   "wieoriwoi"
-  // )
-  ({
-    type: GET_SUPPORT_USERS_SUCCESS,
-    payload: users,
-  })
+export const getSuperAdminSupportSuccess = users => ({
+  type: GET_SUPPORT_USERS_SUCCESS,
+  payload: users,
+})
