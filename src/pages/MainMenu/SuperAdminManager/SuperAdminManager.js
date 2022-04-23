@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
+
 import {
   Row,
   Col,
@@ -27,14 +28,15 @@ import * as Yup from "yup"
 import { useFormik } from "formik"
 import { getSam, SamUser } from "store/actions"
 import { useDispatch, useSelector } from "react-redux"
+import SuperManagerPop from "./SuperManagerPop"
 
 const SuperAdminManager = props => {
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
 
   const dispatch = useDispatch()
-  const state = useSelector(state => {
-    console.log(state.SuperAdminManagerReducer.samanager.data)
+  const managerList = useSelector(state => {
+    // console.log(state.SuperAdminManagerReducer.samanager.data)
     return state.SuperAdminManagerReducer.samanager.data
   })
 
@@ -206,8 +208,8 @@ const SuperAdminManager = props => {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {state &&
-                            state.map((item, key) => {
+                          {managerList &&
+                            managerList.map((item, key) => {
                               return (
                                 <>
                                   <Tr key={key}>
@@ -215,11 +217,13 @@ const SuperAdminManager = props => {
                                     <Td>{item.email}</Td>
                                     <Td>
                                       {/* <div> */}
-                                      <Link className="text-success" to="#">
+                                      <Link
+                                        className="text-success"
+                                        onClick={() => setPopModel(true)}
+                                      >
                                         <i
                                           className="mdi mdi-pencil font-size-18"
                                           id="edittooltip"
-                                          onClick={() => handleUserClick(user)}
                                         ></i>
                                       </Link>
                                       <Link className="text-danger" to="#">

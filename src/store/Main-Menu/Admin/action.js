@@ -3,7 +3,6 @@ import {
   GET_ADMIN_SUCCESS,
   ADD_NEW_USER,
   ADD_ADMIN_USER_SUCCESS,
-  // ADD_USER_FAIL,
 } from "./actionType"
 
 export const getAdminUser = () => {
@@ -20,12 +19,13 @@ export const getAdminSuccess = user => {
 }
 
 export const addUser = user => {
-  // console.log(user, "sdfsdfloooo"
+  // console.log(user, "sdfsdfloooo")
   return {
     type: ADD_NEW_USER,
     payload: user,
   }
 }
+
 export const addAdminUserSuccess = user => {
   // console.log(user, "loooo")
   return {
@@ -33,8 +33,3 @@ export const addAdminUserSuccess = user => {
     payload: user,
   }
 }
-
-// export const addUserFail = error => ({
-//   type: ADD_USER_FAIL,
-//   payload: error,
-// })

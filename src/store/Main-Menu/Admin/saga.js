@@ -14,7 +14,6 @@ const Toast = Swal.mixin({
 })
 
 function* getAdminUser() {
-  alert("hrllo")
   try {
     const response = yield call(getADMIN)
     // if (response.success === true) {
@@ -35,7 +34,6 @@ function* getAdminUser() {
 }
 
 function* onAddNewUser({ payload: user }) {
-  alert("hello")
   try {
     const response = yield call(AdminAdd, user)
     // console.log(response, "sdfsdfggggg")
