@@ -27,7 +27,6 @@ import * as Yup from "yup"
 import { useFormik } from "formik"
 import { getSam, SamUser } from "store/actions"
 import { useDispatch, useSelector } from "react-redux"
-import { Search } from "react-bootstrap-table2-toolkit"
 
 const SuperAdminManager = props => {
   const [modal, setModal] = useState(false)
@@ -65,14 +64,6 @@ const SuperAdminManager = props => {
       resetForm({ values: "" })
     },
   })
-
-  const { SearchBar } = Search
-  const sizePerPage = 10
-  const pageOptions = {
-    sizePerPage: sizePerPage,
-    totalSize: users.length, // replace later with size(users),
-    custom: true,
-  }
 
   return (
     <React.Fragment>

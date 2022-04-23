@@ -42,7 +42,7 @@ const SuperAdminSupport = props => {
   const dispatch = useDispatch()
 
   const state = useSelector(state => {
-    console.log(state.SuperAdminSupportReducer.users.data)
+    // console.log(state.SuperAdminSupportReducer.users.data)
     return state.SuperAdminSupportReducer.users.data
   })
   console.log(state, "lklljljjl")
@@ -73,11 +73,6 @@ const SuperAdminSupport = props => {
       toggle()
     },
   })
-  // const supportList = useSelector(state => {
-  //   return state
-  // })
-
-  // console.log(supportList)
 
   const [isEdit, setIsEdit] = useState(true)
 

@@ -65,7 +65,7 @@ const Admin = props => {
       dispatch(addUser(values))
       toggle()
       // validation.resetForm()
-      // setModal(!modal)
+
       // resetForm({ values: "" })
     },
   })
