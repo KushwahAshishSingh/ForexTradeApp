@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
+import AdminUpdateModal from "./AdminUpdateModal"
 import {
   Row,
   Col,
@@ -26,11 +27,13 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
-import { getAdminUser } from "store/actions"
+import { getAdminUser, addAdminData } from "store/actions"
+import DeleteModal from "components/Common/DeleteModal"
 
 const Admin = props => {
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
+  const [upadteModal, setUpdateModal] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -38,6 +41,10 @@ const Admin = props => {
     // console.log(state.Admin.adminList.data, "lllll")
     return state.Admin.adminList.data
   })
+
+  useEffect(() => {
+    dispatch(getAdminUser())
+  }, [])
 
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
@@ -61,20 +68,37 @@ const Admin = props => {
         password: values["password"],
       }
       // console.log(values)
-
+      dispatch(addAdminData(newUser))
       // validation.resetForm()
       toggle()
       // resetForm({ values: "" })
     },
   })
 
-  useEffect(() => {
-    dispatch(getAdminUser())
-  }, [])
+  // const updateModalHandler = () => {
+  //   setUpdateModal(true)
+  // }
+
+  const [deleteModal, setDeleteModal] = useState(false)
+
+  const onClickDelete = () => {
+    // setContact(users)
+    setDeleteModal(true)
+  }
 
   return (
     <React.Fragment>
+      <DeleteModal
+        show={deleteModal}
+        // onDeleteClick={handleDeleteUser}
+        onCloseClick={() => setDeleteModal(false)}
+      />
+      {/* {upadteModal && (
+        <AdminUpdateModal onCloseClick={() => setDeleteModal(false)} />
+      )} */}
+
       <div className="page-content">
+        {/* <button onClick={() => setUpdateModal(true)}>fakebutton</button> */}
         <MetaTags>
           <title>Admin | ForexTrade</title>
         </MetaTags>
@@ -224,16 +248,16 @@ const Admin = props => {
                                           <i
                                             className="mdi mdi-pencil font-size-18"
                                             id="edittooltip"
-                                            onClick={() =>
-                                              handleUserClick(user)
-                                            }
+                                            onClick={toggle}
+
+                                            // onClick={() => setDeleteModal(true)}
                                           ></i>
                                         </Link>
                                         <Link className="text-danger" to="#">
                                           <i
                                             className="mdi mdi-delete font-size-18"
                                             id="deletetooltip"
-                                            onClick={() => onClickDelete(user)}
+                                            onClick={() => setDeleteModal(true)}
                                           ></i>
                                         </Link>
                                       </div>

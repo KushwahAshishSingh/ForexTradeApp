@@ -1,4 +1,8 @@
-import { GET_ADMIN_SUCCESS, ADD_ADMIN_USER_SUCCESS } from "./actionType"
+import {
+  GET_ADMIN_SUCCESS,
+  ADD_ADMIN_DATA_SUCCESS,
+  GET_ADMIN_FAIL,
+} from "./actionType"
 
 const initialState = {
   adminList: [],
@@ -13,6 +17,17 @@ const AdminReducer = (state = initialState, action) => {
       return {
         ...state,
         adminList: action.payload,
+      }
+    case ADD_ADMIN_DATA_SUCCESS:
+      return {
+        ...state,
+        adminList: [...action.payload, state.adminList],
+      }
+
+    case GET_ADMIN_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       }
 
     default:

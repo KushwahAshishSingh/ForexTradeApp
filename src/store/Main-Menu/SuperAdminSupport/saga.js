@@ -18,11 +18,9 @@ function* getSupportList() {
     const response = yield call(getSuperSupport)
     console.log(response, "response+++++")
     yield put(getSuperAdminSupportSuccess(response))
-    // history.push("/super-admin-support")
   } catch (error) {
     // yield put(error)
     console.log(error)
-    // history.push("/super-admin-support")
   }
 }
 
