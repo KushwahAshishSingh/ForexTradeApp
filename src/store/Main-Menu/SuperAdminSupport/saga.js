@@ -34,8 +34,8 @@ function* SasUser({ payload: event }) {
         title: response.message,
       })
     }
-    yield put(SasSuccess(response))
-    const response1 = yield call(getADMIN)
+    // yield put(SasSuccess(response))
+    const response1 = yield call(getSuperSupport)
     yield put(getSuperAdminSupportSuccess(response1))
     history.push("/super-admin-support")
   } catch (error) {

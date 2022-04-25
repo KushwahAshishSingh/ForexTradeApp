@@ -88,28 +88,15 @@ const SuperAdminSupport = props => {
 
   const [deleteModal, setDeleteModal] = useState(false)
 
-  const onClickDelete = users => {
-    setContact(users)
-    setDeleteModal(true)
-  }
-
-  const handleDeleteUser = () => {
-    dispatch(onDeleteUser(contact))
-    onPaginationPageChange(1)
-    setDeleteModal(false)
-  }
-
-  const handleUserClicks = () => {
-    setUserList("")
-    setIsEdit(false)
-    toggle()
-  }
+  // const onClickDelete = users => {
+  //   setDeleteModal(true)
+  // }
 
   return (
     <React.Fragment>
       <DeleteModal
         show={deleteModal}
-        onDeleteClick={handleDeleteUser}
+        // onDeleteClick={handleDeleteUser}
         onCloseClick={() => setDeleteModal(false)}
       />
       <div className="page-content">
@@ -263,14 +250,14 @@ const SuperAdminSupport = props => {
                                         <i
                                           className="mdi mdi-pencil font-size-18"
                                           id="edittooltip"
-                                          onClick={() => handleUserClick(user)}
+                                          onClick={toggle}
                                         ></i>
                                       </Link>
                                       <Link className="text-danger" to="#">
                                         <i
                                           className="mdi mdi-delete font-size-18"
                                           id="deletetooltip"
-                                          onClick={() => onClickDelete(user)}
+                                          onClick={() => setDeleteModal(true)}
                                         ></i>
                                       </Link>
                                     </Td>

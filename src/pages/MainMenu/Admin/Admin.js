@@ -37,10 +37,10 @@ const Admin = props => {
 
   const dispatch = useDispatch()
 
-  const state = useSelector(state => {
+  const { users } = useSelector(state => ({
+    users: state.Admin.adminList.data,
     // console.log(state.Admin.adminList.data, "lllll")
-    return state.Admin.adminList.data
-  })
+  }))
 
   useEffect(() => {
     dispatch(getAdminUser())
@@ -69,22 +69,18 @@ const Admin = props => {
       }
       // console.log(values)
       dispatch(addAdminData(newUser))
-      // validation.resetForm()
+      validation.resetForm("")
       toggle()
       // resetForm({ values: "" })
     },
   })
+  console.log(validation)
 
   // const updateModalHandler = () => {
   //   setUpdateModal(true)
   // }
 
   const [deleteModal, setDeleteModal] = useState(false)
-
-  const onClickDelete = () => {
-    // setContact(users)
-    setDeleteModal(true)
-  }
 
   return (
     <React.Fragment>
@@ -137,7 +133,7 @@ const Admin = props => {
                                   name="name"
                                   className="form-control"
                                   placeholder="Enter Your Name"
-                                  type="name"
+                                  type="text"
                                   onChange={validation.handleChange}
                                   onBlur={validation.handleBlur}
                                   value={validation.values.name || ""}
@@ -235,8 +231,8 @@ const Admin = props => {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          {state &&
-                            state.map((item, key) => {
+                          {users &&
+                            users.map((item, key) => {
                               return (
                                 <>
                                   <Tr key={key}>

@@ -28,7 +28,7 @@ import * as Yup from "yup"
 import { useFormik } from "formik"
 import { getSam, SamUser } from "store/actions"
 import { useDispatch, useSelector } from "react-redux"
-import SuperManagerPop from "./SuperManagerPop"
+import DeleteModal from "components/Common/DeleteModal"
 
 const SuperAdminManager = props => {
   const [modal, setModal] = useState(false)
@@ -63,12 +63,24 @@ const SuperAdminManager = props => {
     onSubmit: (values, { resetForm }) => {
       dispatch(SamUser(values, props.history))
       setModal(!modal)
-      resetForm({ values: "" })
+      resetForm((validation.values.email = ""))
     },
   })
 
+  const [deleteModal, setDeleteModal] = useState(false)
+
+  const onClickDelete = () => {
+    // setContact(users)
+    setDeleteModal(true)
+  }
+
   return (
     <React.Fragment>
+      <DeleteModal
+        show={deleteModal}
+        // onDeleteClick={handleDeleteUser}
+        onCloseClick={() => setDeleteModal(false)}
+      />
       <div className="page-content">
         <MetaTags>
           <title>SuperAdminManager | ForexTrade</title>
@@ -219,7 +231,7 @@ const SuperAdminManager = props => {
                                       {/* <div> */}
                                       <Link
                                         className="text-success"
-                                        onClick={() => setPopModel(true)}
+                                        onClick={toggle}
                                       >
                                         <i
                                           className="mdi mdi-pencil font-size-18"
@@ -230,7 +242,7 @@ const SuperAdminManager = props => {
                                         <i
                                           className="mdi mdi-delete font-size-18"
                                           id="deletetooltip"
-                                          onClick={() => onClickDelete(user)}
+                                          onClick={() => setDeleteModal(true)}
                                         ></i>
                                       </Link>
                                       {/* </div> */}

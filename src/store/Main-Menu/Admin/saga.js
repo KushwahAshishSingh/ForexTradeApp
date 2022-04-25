@@ -2,7 +2,7 @@ import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 // Login Redux States
 import { GET_ADMIN_USER, ADD_ADMIN_DATA } from "./actionType"
-import { getAdminSuccess, getAdminFail, addAdminDataSuccess } from "./action"
+import { getAdminSuccess, getAdminFail } from "./action"
 import { AdminAdd, getADMIN } from "../../../helpers/fakebackend_helper"
 import Swal from "sweetalert2"
 
@@ -18,33 +18,37 @@ function* getAdminUser() {
     const response = yield call(getADMIN)
     yield put(getAdminSuccess(response))
   } catch (error) {
-    yield put(getAdminFail(error))
+    // yield put(getAdminFail(error))
+    console.log(error)
   }
 }
 
 function* AddAdminInfo({ payload: { user, history } }) {
+  alert("welcome new admin")
   try {
+    alert("hello")
     const response = yield call(AdminAdd, {
       name: user.name,
       email: user.email,
       password: user.password,
     })
-    if (response === true) {
+    if (response.success === true) {
       Toast.fire({
         icon: "success",
         title: response.message,
       })
     }
-    yield put(addAdminDataSuccess(response))
     const response1 = yield call(getADMIN)
-    yield put(getAdminSuccess(response1))
-    history.push("/admin")
+    return yield put(getAdminSuccess(response1))
+    // history.push("/admin")
+    // alert("end of scope")
   } catch (error) {
+    alert("not entered")
     Toast.fire({
       icon: "error",
       title: "something went wrong",
     })
-    history.push("/admin")
+    // history.push("/admin")
   }
 }
 
