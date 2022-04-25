@@ -16,7 +16,7 @@ const SidebarContent = props => {
   const roleType = JSON.parse(localStorage.getItem("authUser")).roleType
   console.log(roleType)
 
-  const ref = useRef();
+  const ref = useRef()
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
     const pathName = props.location.pathname
@@ -83,10 +83,10 @@ const SidebarContent = props => {
           }
         }
       }
-      scrollElement(item);
+      scrollElement(item)
       return false
     }
-    scrollElement(item);
+    scrollElement(item)
     return false
   }
 
@@ -102,11 +102,11 @@ const SidebarContent = props => {
                 <span className="badge rounded-pill bg-info float-end">
                   04
                 </span> */}
-                {roleType === "SuperAdmin" ?
+                {roleType === "SuperAdmin" ? (
                   <span>{props.t("SuperAdmin Dashboards")}</span>
-                  :
+                ) : (
                   <span>{props.t("Admin Dashboards")}</span>
-                }
+                )}
               </Link>
             </li>
 
@@ -116,36 +116,39 @@ const SidebarContent = props => {
                 <span>{props.t("Main Menu")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                {roleType === "SuperAdmin" ? <>
-                  <li>
-                    <Link to="/super-admin-manager">
-                      {props.t("SuperAdmin Manager")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
-                  </li>
-                  <li>
-                    <Link to="/admin">{props.t("Admin")}</Link>
-                  </li>
-                </>
-                  :
+                {roleType === "SuperAdmin" ? (
+                  <>
+                    <li>
+                      <Link to="/super-admin-manager">
+                        {props.t("SuperAdmin Manager")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="super-admin-support">
+                        {props.t("SuperAdmin Support")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/admin">{props.t("Admin")}</Link>
+                    </li>
+                  </>
+                ) : (
                   <li>
                     <Link to="/user">{props.t("User")}</Link>
                   </li>
-                }
+                )}
               </ul>
             </li>
 
-            {/* <li className="menu-title">{props.t("Apps")}</li>
+            <li className="menu-title">{props.t("Apps")}</li>
 
-            <li>
-              <Link to="#" className=" ">
+            {/* <li>
+              <Link to="/Calendar" className=" ">
                 <i className="bx bx-calendar"></i>
                 <span>{props.t("Calendar")}</span>
               </Link>
-            </li>
-
+            </li> */}
+            {/*
             <li>
               <Link to="#" className="">
                 <i className="bx bx-chat"></i>
@@ -161,7 +164,7 @@ const SidebarContent = props => {
                 <span>{props.t("File Manager")}</span>
               </Link>
             </li>
-
+       
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-store"></i>
