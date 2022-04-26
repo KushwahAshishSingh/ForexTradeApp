@@ -17,6 +17,8 @@ import SuperAdminSupport from "pages/MainMenu/SuperAdminSupport/SuperAdminSuppor
 import Admin from "pages/MainMenu/Admin/Admin"
 import User from "pages/MainMenu/User/User"
 
+// Pages Calendar
+import Calendar from "../pages/Calendar/index"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -29,13 +31,13 @@ const authProtectedRoutes = [
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
 
   // main menu
-  { path: '/super-admin-manager', component: SuperAdminManager },
-  { path: '/super-admin-support', component: SuperAdminSupport },
-  { path: '/admin', component: Admin },
-  { path: '/user', component: User }
+  { path: "/super-admin-manager", component: SuperAdminManager },
+  { path: "/super-admin-support", component: SuperAdminSupport },
+  { path: "/admin", component: Admin },
+  { path: "/user", component: User },
 
-
-
+  // //calendar
+  { path: "/calendar", component: Calendar },
 ]
 
 const publicRoutes = [
