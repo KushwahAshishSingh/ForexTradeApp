@@ -1,5 +1,5 @@
 import axios from "axios"
-import { del, get, post, put } from "./api_helper"
+import { del, get, post, put, loginpost } from "./api_helper"
 import * as url from "./url_helper"
 
 // Gets the logged in user data from local session
@@ -46,7 +46,7 @@ const postFakeRegister = data => {
 }
 
 // Login Method
-const postLogin = data => post(url.POST_LOGIN, data)
+const postLogin = data => loginpost(url.POST_LOGIN, data)
 
 // Main Menu
 const SamAdd = data => post(url.SAM_Add, data)

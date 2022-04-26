@@ -24,7 +24,6 @@ const Toast = Swal.mixin({
 
 
 function* loginUser({ payload: { user, history } }) {
-  console.log("user", user)
   try {
     const response = yield call(postLogin, {
       email: user.email,
@@ -40,7 +39,6 @@ function* loginUser({ payload: { user, history } }) {
     localStorage.setItem("authToken", JSON.stringify(response.data.user && response.data.user.authToken))
     yield put(loginSuccess(response))
     history.push("/dashboard")
-    window.location.reload();
   } catch (error) {
     Toast.fire({
       icon: "error",

@@ -44,7 +44,6 @@ const Login = props => {
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log("values", values)
       dispatch(loginUser(values, props.history));
       resetForm({ values: '' });
     }

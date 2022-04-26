@@ -14,7 +14,6 @@ import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
   const roleType = JSON.parse(localStorage.getItem("authUser")).roleType
-  console.log(roleType)
 
   const ref = useRef();
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
