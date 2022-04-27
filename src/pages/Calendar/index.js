@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 import PropTypes from "prop-types"
 import { isEmpty } from "lodash"
+import "react-datepicker/dist/react-datepicker.css"
+import DatePicker from "react-datepicker"
 
 import {
   Button,
@@ -47,7 +49,8 @@ import { useSelector, useDispatch } from "react-redux"
 
 const Calender = props => {
   const dispatch = useDispatch()
-
+  const [startDate, setStartDate] = useState()
+  const [endDate, setEndDate] = useState()
   const [event, setEvent] = useState({})
 
   // events validation
@@ -317,20 +320,20 @@ const Calender = props => {
               <Card>
                 <CardBody>
                   <Row>
-                    <Col lg={3}>
+                    <Col lg={12}>
                       <Button
                         color="primary"
                         className="font-16 btn-block"
                         onClick={toggleCategory}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1" />
-                        Create New Event
+                        Create Appointment
                       </Button>
 
                       <div id="external-events" className="mt-3">
-                        <p className="text-muted">
+                        {/* <p className="text-muted">
                           Drag and drop your event or click in the calendar
-                        </p>
+                        </p> */}
                         {categories &&
                           categories.map((category, i) => (
                             <div
@@ -345,8 +348,8 @@ const Calender = props => {
                           ))}
                       </div>
 
-                      <div className="mt-5 d-none d-xl-block">
-                        <h5 className="text-center">How It Works ?</h5>
+                      {/* <div className="mt-5 d-none d-xl-block"> */}
+                      {/* <h5 className="text-center">How It Works ?</h5>
 
                         <ul className="ps-3">
                           <li className="text-muted mb-3">
@@ -365,10 +368,10 @@ const Calender = props => {
                             the leap into electronic typesetting, remaining
                             essentially unchanged.
                           </li>
-                        </ul>
-                      </div>
+                        </ul> */}
+                      {/* </div> */}
                     </Col>
-                    <Col className="col-lg-9">
+                    <Col className="col-lg-12">
                       {/* fullcalendar control */}
                       <FullCalendar
                         plugins={[
@@ -571,20 +574,26 @@ const Calender = props => {
 
                               <Col className="col-12 mb-3">
                                 <Label className="form-label">Start Date</Label>
-                                <Input
-                                  name="start"
-                                  type="date"
-                                  // value={event ? event.title : ""}
-                                  onChange={validation.handleChange}
-                                  onBlur={validation.handleBlur}
-                                  value={validation.values.start || ""}
-                                  invalid={
-                                    validation.touched.start &&
-                                    validation.errors.start
-                                      ? true
-                                      : false
-                                  }
-                                />
+
+                                <div>
+                                  <DatePicker
+                                    placeholderText=" dd-mm-yyyy"
+                                    // dateFormat={date}
+                                    onBlur={validation.handleBlur}
+                                    selected={startDate}
+                                    onChange={date => {
+                                      return setStartDate(date)
+                                    }}
+                                    minDate={new Date()}
+                                    invalid={
+                                      validation.touched.start &&
+                                      validation.errors.start
+                                        ? true
+                                        : false
+                                    }
+                                  />
+                                </div>
+
                                 {validation.touched.start &&
                                 validation.errors.start ? (
                                   <FormFeedback type="invalid">
@@ -594,16 +603,19 @@ const Calender = props => {
                               </Col>
                               <Col className="col-12 mb-3">
                                 <Label className="form-label">End Date</Label>
-                                <Input
-                                  name="enddate"
-                                  type="date"
-                                  // value={event ? event.title : ""}
-                                  onChange={validation.handleChange}
+
+                                <DatePicker
+                                  placeholderText=" dd-mm-yyyy"
+                                  // dateFormat={date}
                                   onBlur={validation.handleBlur}
-                                  value={validation.values.enddate || ""}
+                                  selected={endDate}
+                                  onChange={date => {
+                                    return setEndDate(date)
+                                  }}
+                                  minDate={new Date(startDate)}
                                   invalid={
-                                    validation.touched.enddate &&
-                                    validation.errors.enddate
+                                    validation.touched.start &&
+                                    validation.errors.start
                                       ? true
                                       : false
                                   }
@@ -828,13 +840,16 @@ const Calender = props => {
 
                               <Col className="col-12 mb-3">
                                 <Label className="form-label">Start Date</Label>
-                                <Input
-                                  name="start"
-                                  type="date"
-                                  // value={event ? event.title : ""}
-                                  onChange={categoryValidation.handleChange}
+
+                                <DatePicker
+                                  placeholderText=" dd-mm-yyyy"
+                                  // dateFormat={date}
                                   onBlur={categoryValidation.handleBlur}
-                                  value={categoryValidation.values.start || ""}
+                                  selected={startDate}
+                                  onChange={date => {
+                                    return setStartDate(date)
+                                  }}
+                                  minDate={new Date()}
                                   invalid={
                                     categoryValidation.touched.start &&
                                     categoryValidation.errors.start
@@ -851,18 +866,18 @@ const Calender = props => {
                               </Col>
                               <Col className="col-12 mb-3">
                                 <Label className="form-label">End Date</Label>
-                                <Input
-                                  name="enddate"
-                                  type="date"
-                                  // value={event ? event.title : ""}
-                                  onChange={categoryValidation.handleChange}
-                                  onBlur={categoryValidation.handleBlur}
-                                  value={
-                                    categoryValidation.values.enddate || ""
-                                  }
+                                <DatePicker
+                                  placeholderText=" dd-mm-yyyy"
+                                  // dateFormat={date}
+                                  onBlur={validation.handleBlur}
+                                  selected={endDate}
+                                  onChange={date => {
+                                    return setEndDate(date)
+                                  }}
+                                  minDate={new Date(startDate)}
                                   invalid={
-                                    categoryValidation.touched.enddate &&
-                                    categoryValidation.errors.enddate
+                                    validation.touched.start &&
+                                    validation.errors.start
                                       ? true
                                       : false
                                   }
