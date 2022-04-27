@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types"
 import {
   Dropdown,
   DropdownToggle,
@@ -14,7 +14,8 @@ import { connect } from "react-redux"
 import { withRouter, Link } from "react-router-dom"
 
 // users
-import user1 from "../../../assets/images/users/avatar-1.jpg"
+// import user1 from "../../../assets/images/users/avatar-1.jpg"
+import favicon from "../../../assets/images/favicon.ico"
 
 const ProfileMenu = props => {
   // Declare a new state variable, which we'll call "menu"
@@ -51,7 +52,7 @@ const ProfileMenu = props => {
         >
           <img
             className="rounded-circle header-profile-user"
-            src={user1}
+            src={favicon}
             alt="Header Avatar"
           />
           <span className="d-none d-xl-inline-block ms-2 me-1">{username}</span>
@@ -79,8 +80,6 @@ const ProfileMenu = props => {
           </DropdownItem> */}
           <div className="dropdown-divider" />
 
-
-
           <Link to="/logout" className="dropdown-item">
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
             <span>{props.t("Logout")}</span>
@@ -93,7 +92,7 @@ const ProfileMenu = props => {
 
 ProfileMenu.propTypes = {
   success: PropTypes.any,
-  t: PropTypes.any
+  t: PropTypes.any,
 }
 
 const mapStatetoProps = state => {
