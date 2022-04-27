@@ -17,6 +17,7 @@ import SuperAdminSupport from "pages/MainMenu/SuperAdminSupport/SuperAdminSuppor
 import Admin from "pages/MainMenu/Admin/Admin"
 import User from "pages/MainMenu/User/User"
 import AddUser from "pages/MainMenu/User/AddUser"
+import Staf from "pages/MainMenu/Staf/Staf"
 
 
 const authProtectedRoutes = [
@@ -34,6 +35,7 @@ const authProtectedRoutes = [
   { path: '/super-admin-support', component: SuperAdminSupport },
   { path: '/admin', component: Admin },
   { path: '/user', component: User },
+  { path: '/staff', component: Staf },
   { path: '/add-user', component: AddUser }
 
 
