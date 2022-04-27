@@ -10,18 +10,15 @@ import {
   postLogin,
   postJwtLogin,
   postSocialLogin,
-} from "../../../helpers/fakebackend_helper";
-import Swal from 'sweetalert2';
-
-
+} from "../../../helpers/fakebackend_helper"
+import Swal from "sweetalert2"
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'top-end',
+  position: "top-end",
   showConfirmButton: false,
-  timer: 2000
-});
-
+  timer: 2000,
+})
 
 function* loginUser({ payload: { user, history } }) {
   try {
@@ -29,21 +26,31 @@ function* loginUser({ payload: { user, history } }) {
       email: user.email,
       password: user.password,
     })
+    console.log(response, "this is login")
+    alert("ssdf")
     if (response.success === true) {
       Toast.fire({
         icon: "success",
         title: response.message,
-      });
+      })
     }
     localStorage.setItem("authUser", JSON.stringify(response.data.user))
-    localStorage.setItem("authToken", JSON.stringify(response.data.user && response.data.user.authToken))
+    localStorage.setItem(
+      "authToken",
+      JSON.stringify(response.data.user && response.data.user.authToken)
+    )
     yield put(loginSuccess(response))
     history.push("/dashboard")
+// <<<<<<< harish_dashboard
+// =======
+//     window.location.reload()
+// >>>>>>> main
   } catch (error) {
+    const response = yield call(postJwtLogin)
     Toast.fire({
       icon: "error",
-      title: "something went wrong"
-    });
+      title: "something went wrong",
+    })
   }
 }
 
@@ -66,11 +73,7 @@ function* socialLogin({ payload: { data, history, type } }) {
   try {
     if (process.env.REACT_APP_DEFAULTAUTH === "firebase") {
       const fireBaseBackend = getFirebaseBackend()
-      const response = yield call(
-        fireBaseBackend.socialLoginUser,
-        data,
-        type,
-      )
+      const response = yield call(fireBaseBackend.socialLoginUser, data, type)
       localStorage.setItem("authUser", JSON.stringify(response))
       yield put(loginSuccess(response))
     } else {
