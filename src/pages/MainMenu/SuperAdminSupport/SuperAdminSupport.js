@@ -174,16 +174,12 @@ const SuperAdminSupport = props => {
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>
-                                                    {state && state.map((item, index) => {
-                                                        return (
-                                                            <>
-                                                                <Tr key={index}>
-                                                                    <Td>{item.name}</Td>
-                                                                    <Td>{item.email}</Td>
-                                                                </Tr>
-                                                            </>
-                                                        )
-                                                    })}
+                                                    {state && state.map((item, index) =>
+                                                        <Tr key={index}>
+                                                            <Td>{item.name}</Td>
+                                                            <Td>{item.email}</Td>
+                                                        </Tr>
+                                                    )}
                                                 </Tbody>
                                             </Table>
 

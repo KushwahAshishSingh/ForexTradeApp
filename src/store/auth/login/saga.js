@@ -21,7 +21,6 @@ const Toast = Swal.mixin({
 })
 
 function* loginUser({ payload: { user, history } }) {
-  console.log("user", user)
   try {
     const response = yield call(postLogin, {
       email: user.email,
@@ -42,7 +41,10 @@ function* loginUser({ payload: { user, history } }) {
     )
     yield put(loginSuccess(response))
     history.push("/dashboard")
-    window.location.reload()
+// <<<<<<< harish_dashboard
+// =======
+//     window.location.reload()
+// >>>>>>> main
   } catch (error) {
     const response = yield call(postJwtLogin)
     Toast.fire({

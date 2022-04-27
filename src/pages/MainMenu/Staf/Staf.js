@@ -16,10 +16,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min';
 import "../../../assets/scss/datatables.scss"
-import moment from "moment";
 
 
-const User = props => {
+const Staff = props => {
     const history = useHistory();
     const dispatch = useDispatch();
     const state = useSelector((state) => {
@@ -30,9 +29,9 @@ const User = props => {
         dispatch(getUser())
     }, [])
 
-    const toggle = () => {
-        history.push('/add-user')
-    }
+    // const toggle = () => {
+    //     history.push('/add-user')
+    // }
 
 
 
@@ -60,61 +59,20 @@ const User = props => {
         sort: true
     },
     {
-        dataField: 'country',
-        text: 'Country',
-        sort: true
-    },
-    {
-        dataField: '',
-        text: 'Sales Agent',
-        sort: true
-    },
-    {
-        dataField: '',
-        text: 'Stage',
-        sort: true
-    },
-    {
         dataField: 'email',
         text: 'Email',
         sort: true
     },
-    {
-        dataField: '',
-        text: 'Phone',
-        sort: true
-    },
-    {
-        dataField: 'createdAt',
-        text: 'CreatedAt',
-        sort: true,
-        formatter: (cellContent, row) => handleValidDate(row.createdAt),
-    },
-    {
-        dataField: '',
-        text: 'Last Login',
-        sort: true
-    },
-    {
-        dataField: '',
-        text: 'Partner',
-        sort: true
-    },
     ];
-
-    const handleValidDate = date => {
-        const date1 = moment(date).format("DD/MM/YY");
-        return date1;
-    };
 
     return (
         <React.Fragment>
             <div className="page-content">
                 <MetaTags>
-                    <title>User | ForexTrade</title>
+                    <title>Staff | ForexTrade</title>
                 </MetaTags>
                 <Container fluid>
-                    <Breadcrumbs title="Main Menu" breadcrumbItem="User" />
+                    <Breadcrumbs title="Main Menu" breadcrumbItem="Staff" />
                     <Row>
                         <Col>
                             <Card>
@@ -152,10 +110,10 @@ const User = props => {
                                                                         type="button"
                                                                         color="success"
                                                                         className="btn-rounded  mb-2 me-2"
-                                                                        onClick={toggle}
+                                                                    // onClick={toggle}
                                                                     >
                                                                         <i className="mdi mdi-plus me-1" />
-                                                                        Add New User
+                                                                        Add New Staff
                                                                     </Button>
                                                                 </div>
                                                             </Col>
@@ -215,16 +173,10 @@ const User = props => {
     );
 };
 
-User.propTypes = {
-    orders: PropTypes.array,
-    onGetOrders: PropTypes.func,
-    onAddNewOrder: PropTypes.func,
-    onDeleteOrder: PropTypes.func,
-    onUpdateOrder: PropTypes.func,
-};
 
-export default withRouter(User);
 
-User.propTypes = {
+export default withRouter(Staff);
+
+Staff.propTypes = {
     history: PropTypes.object,
 };

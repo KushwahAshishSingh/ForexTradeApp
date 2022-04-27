@@ -14,7 +14,6 @@ import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
   const roleType = JSON.parse(localStorage.getItem("authUser")).roleType
-  console.log(roleType)
 
   const ref = useRef()
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
@@ -116,27 +115,52 @@ const SidebarContent = props => {
                 <span>{props.t("Main Menu")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                {roleType === "SuperAdmin" ? (
+                {roleType === "SuperAdmin" ? <>
+                  <li>
+                    <Link to="/super-admin-manager">
+                      {props.t("SuperAdmin Manager")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
+                  </li>
+                  <li>
+                    <Link to="/admin">{props.t("Admin")}</Link>
+                  </li>
+                </>
+                  :
                   <>
                     <li>
-                      <Link to="/super-admin-manager">
-                        {props.t("SuperAdmin Manager")}
-                      </Link>
+                      <Link to="/user">{props.t("User")}</Link>
                     </li>
                     <li>
-                      <Link to="super-admin-support">
-                        {props.t("SuperAdmin Support")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/admin">{props.t("Admin")}</Link>
+                      <Link to="/staff">{props.t("Staff")}</Link>
                     </li>
                   </>
-                ) : (
-                  <li>
-                    <Link to="/user">{props.t("User")}</Link>
-                  </li>
-                )}
+                }
+// =======
+//                 {roleType === "SuperAdmin" ? (
+//                   <>
+//                     <li>
+//                       <Link to="/super-admin-manager">
+//                         {props.t("SuperAdmin Manager")}
+//                       </Link>
+//                     </li>
+//                     <li>
+//                       <Link to="super-admin-support">
+//                         {props.t("SuperAdmin Support")}
+//                       </Link>
+//                     </li>
+//                     <li>
+//                       <Link to="/admin">{props.t("Admin")}</Link>
+//                     </li>
+//                   </>
+//                 ) : (
+//                   <li>
+//                     <Link to="/user">{props.t("User")}</Link>
+//                   </li>
+//                 )}
+// >>>>>>> main
               </ul>
             </li>
 
