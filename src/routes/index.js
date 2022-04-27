@@ -39,7 +39,7 @@ const authProtectedRoutes = [
   { path: '/admin', component: Admin },
   { path: '/user', component: User },
   { path: '/staff', component: Staf },
-  { path: '/add-user', component: AddUser }
+  { path: '/add-user', component: AddUser },
 
 
 // =======

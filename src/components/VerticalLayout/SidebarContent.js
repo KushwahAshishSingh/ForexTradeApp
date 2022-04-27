@@ -138,7 +138,11 @@ const SidebarContent = props => {
                     </li>
                   </>
                 }
-// =======
+
+              </ul>
+            </li>
+{/*
+            // =======
 //                 {roleType === "SuperAdmin" ? (
 //                   <>
 //                     <li>
@@ -161,9 +165,7 @@ const SidebarContent = props => {
 //                   </li>
 //                 )}
 // >>>>>>> main
-              </ul>
-            </li>
-
+*/}
             <li className="menu-title">{props.t("Apps")}</li>
 
             {/* <li>
