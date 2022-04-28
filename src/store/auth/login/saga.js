@@ -27,7 +27,7 @@ function* loginUser({ payload: { user, history } }) {
       password: user.password,
     })
     console.log(response, "this is login")
-    alert("ssdf")
+  
     if (response.success === true) {
       Toast.fire({
         icon: "success",
