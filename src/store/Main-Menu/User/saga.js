@@ -29,9 +29,47 @@ function* fetchUser() {
 function* AdminUsers({ payload: { user, history } }) {
     try {
         const response = yield call(UserAdd, {
+            salesagent: user.salesagent,
             name: user.name,
+            lastname: user.lastname,
             email: user.email,
-            password: user.password
+            password: user.password,
+            phonenumber: user.phonenumber,
+            taxnumber: user.taxnumber,
+            notes: user.notes,
+            tags: user.tags,
+            dob: user.dob,
+            phoneverified: user.phoneverified,
+            emailverified: user.emailverified,
+            kycverified: user.kycverified,
+            sendwelcomeemail: user.sendwelcomeemail,
+            sendemailverification: user.sendemailverification,
+            fax: user.fax,
+            addressone: user.addressone,
+            addresstwo: user.addresstwo,
+            city: user.city,
+            zipcode: user.zipcode,
+            locale: user.locale,
+            currency: user.currency,
+            state: user.state,
+            country: user.country,
+            totalnetworth: user.totalnetworth,
+            totalannualincome: user.totalannualincome,
+            employmentstatus: user.employmentstatus,
+            sourceofincome: user.sourceofincome,
+            forexandotherinstruments: user.forexandotherinstruments,
+            experiecneinyears: user.experiecneinyears,
+            qualificationyears: user.qualificationyears,
+            investmentinusd: user.investmentinusd,
+            notifications: user.notifications,
+            ibtype: user.ibtype,
+            targetcountry: user.targetcountry,
+            acquireclients: user.acquireclients,
+            websiteorsociallink: user.websiteorsociallink,
+            ibwithotherbroker: user.ibwithotherbroker,
+            currentnumberofclients: user.currentnumberofclients,
+            clientsinthreemonths: user.clientsinthreemonths,
+            avgmonthlytradingvolume: user.avgmonthlytradingvolume
         })
         if (response.success === true) {
             Toast.fire({

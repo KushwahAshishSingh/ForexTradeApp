@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 const SuperAdminManager = props => {
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
+    const [name, setName] = useState('hyyy')
 
     const dispatch = useDispatch();
     const state = useSelector((state) => {
@@ -51,17 +52,20 @@ const SuperAdminManager = props => {
 
     return (
         <React.Fragment>
+
             <div className="page-content">
                 <MetaTags>
                     <title>SuperAdminManager | ForexTrade</title>
                 </MetaTags>
                 <Container fluid>
                     <Breadcrumbs title="Main Menu" breadcrumbItem="Super Admin Manager" />
+
                     <Row>
                         <Col>
                             <Card>
                                 <CardBody>
                                     <Row className="mb-2">
+
                                         <Col sm="12">
                                             <div className="text-sm-end">
                                                 <Button

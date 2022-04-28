@@ -65,22 +65,23 @@ const User = props => {
         sort: true
     },
     {
-        dataField: '',
+        dataField: 'salesagent',
         text: 'Sales Agent',
         sort: true
     },
-    {
-        dataField: '',
-        text: 'Stage',
-        sort: true
-    },
+    // {
+    //     dataField: `${'New Lead'}`,
+    //     text: 'Stage',
+    //     sort: true,
+    //     defaultSorted: 'New Lead',
+    // },
     {
         dataField: 'email',
         text: 'Email',
         sort: true
     },
     {
-        dataField: '',
+        dataField: 'phonenumber',
         text: 'Phone',
         sort: true
     },
@@ -93,13 +94,14 @@ const User = props => {
     {
         dataField: '',
         text: 'Last Login',
-        sort: true
+        sort: true,
+        formatter: (cellContent, row) => handleValidDate(row.updatedAt),
     },
-    {
-        dataField: '',
-        text: 'Partner',
-        sort: true
-    },
+        // {
+        //     dataField: '',
+        //     text: 'Partner',
+        //     sort: true
+        // },
     ];
 
     const handleValidDate = date => {
