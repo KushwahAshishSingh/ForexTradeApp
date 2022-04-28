@@ -21,12 +21,15 @@ import samSaga from './Main-Menu/SuperAdminManager/saga';
 import AdminSaga from './Main-Menu/Admin/saga'
 import sasSaga from './Main-Menu/SuperAdminSupport/saga'
 import UserSaga from './Main-Menu/User/saga'
+import Staffaga from './Main-Menu/Staff/saga'
+
 
 
 
 export default function* rootSaga() {
   yield all([
     //public
+    fork(Staffaga),
     fork(UserSaga),
     fork(sasSaga),
     fork(AdminSaga),

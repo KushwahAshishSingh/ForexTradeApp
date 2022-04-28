@@ -10,7 +10,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { AdminUsers, getUser } from "store/actions";
+import { getStaff, StaffUsers } from "store/actions";
 // datatable related plugins
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, PaginationListStandalone, SizePerPageDropdownStandalone } from 'react-bootstrap-table2-paginator';
@@ -19,19 +19,41 @@ import "../../../assets/scss/datatables.scss"
 
 
 const Staff = props => {
+    const [modal, setModal] = useState(false);
+
     const history = useHistory();
     const dispatch = useDispatch();
     const state = useSelector((state) => {
-        return state?.UserReducer?.User?.data
+        return state?.StaffReducer?.Staff?.data
     })
+    const toggle = () => setModal(!modal);
 
     useEffect(() => {
-        dispatch(getUser())
+        dispatch(getStaff())
     }, [])
 
-    // const toggle = () => {
-    //     history.push('/add-user')
-    // }
+    const validation = useFormik({
+        // enableReinitialize : use this flag when initial values needs to be changed
+        enableReinitialize: true,
+
+        initialValues: {
+            name: '',
+            email: '',
+            password: ''
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().required("Please Enter Your Name"),
+            email: Yup.string().required("Please Enter Your Email"),
+            password: Yup.string().required("Please Enter Your Password")
+        }),
+        onSubmit: (values, { resetForm
+        }) => {
+            dispatch(StaffUsers(values, props.history));
+            setModal(!modal)
+            resetForm({ values: '' });
+            console.log("valllllll", values)
+        }
+    });
 
 
 
@@ -110,11 +132,92 @@ const Staff = props => {
                                                                         type="button"
                                                                         color="success"
                                                                         className="btn-rounded  mb-2 me-2"
-                                                                    // onClick={toggle}
+                                                                        onClick={toggle}
                                                                     >
                                                                         <i className="mdi mdi-plus me-1" />
                                                                         Add New Staff
                                                                     </Button>
+                                                                    <Modal isOpen={modal} toggle={toggle}
+                                                                    >
+                                                                        <ModalHeader toggle={toggle}>
+                                                                            Admin Staff
+                                                                        </ModalHeader>
+                                                                        <ModalBody>
+                                                                            <Form
+                                                                                className="form-horizontal"
+                                                                                onSubmit={(e) => {
+                                                                                    e.preventDefault();
+                                                                                    validation.handleSubmit();
+                                                                                    return false;
+                                                                                }}
+                                                                            >
+                                                                                <div className="mb-3">
+                                                                                    <Label className="form-label">Name</Label>
+                                                                                    <Input
+                                                                                        name="name"
+                                                                                        className="form-control"
+                                                                                        placeholder="Enter Your Name"
+                                                                                        type="name"
+                                                                                        onChange={validation.handleChange}
+                                                                                        onBlur={validation.handleBlur}
+                                                                                        value={validation.values.name || ""}
+                                                                                        invalid={
+                                                                                            validation.touched.name && validation.errors.name ? true : false
+                                                                                        }
+                                                                                    />
+                                                                                    {validation.touched.name && validation.errors.name ? (
+                                                                                        <FormFeedback type="invalid">{validation.errors.name}</FormFeedback>
+                                                                                    ) : null}
+                                                                                </div>
+                                                                                <div className="mb-3">
+                                                                                    <Label className="form-label">Email</Label>
+                                                                                    <Input
+                                                                                        name="email"
+                                                                                        className="form-control"
+                                                                                        placeholder="Enter email"
+                                                                                        type="email"
+                                                                                        onChange={validation.handleChange}
+                                                                                        onBlur={validation.handleBlur}
+                                                                                        value={validation.values.email || ""}
+                                                                                        invalid={
+                                                                                            validation.touched.email && validation.errors.email ? true : false
+                                                                                        }
+                                                                                    />
+                                                                                    {validation.touched.email && validation.errors.email ? (
+                                                                                        <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+                                                                                    ) : null}
+                                                                                </div>
+
+                                                                                <div className="mb-3">
+                                                                                    <Label className="form-label">Password</Label>
+                                                                                    <Input
+                                                                                        name="password"
+                                                                                        value={validation.values.password || ""}
+                                                                                        type="password"
+                                                                                        placeholder="Enter Password"
+                                                                                        onChange={validation.handleChange}
+                                                                                        onBlur={validation.handleBlur}
+                                                                                        invalid={
+                                                                                            validation.touched.password && validation.errors.password ? true : false
+                                                                                        }
+                                                                                    />
+                                                                                    {validation.touched.password && validation.errors.password ? (
+                                                                                        <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                                                                                    ) : null}
+                                                                                </div>
+
+                                                                                <div className="mt-3 d-grid">
+                                                                                    <button
+                                                                                        className="btn btn-primary btn-block"
+                                                                                        type="submit"
+                                                                                    >
+                                                                                        Save
+                                                                                    </button>
+                                                                                </div>
+                                                                            </Form>
+
+                                                                        </ModalBody>
+                                                                    </Modal>
                                                                 </div>
                                                             </Col>
                                                         </Row>

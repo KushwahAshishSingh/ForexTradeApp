@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import MetaTags from "react-meta-tags"
 import {
     Card, CardBody, Col, Container, Form, FormGroup, Input, Label, NavItem, NavLink, Row, TabContent, TabPane, FormFeedback
+    , Button
 } from "reactstrap"
 // Formik validation
 import * as Yup from "yup";
@@ -13,8 +14,9 @@ import Select from 'react-select';
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb";
 
-const AddUser = () => {
+const AddUser = (props) => {
     const [activeTab, setactiveTab] = useState(1)
+    const [selectedYear, setSelectedYear] = useState("");
 
     const [passedSteps, setPassedSteps] = useState([1])
 
@@ -33,20 +35,71 @@ const AddUser = () => {
         enableReinitialize: true,
 
         initialValues: {
-            sales_agent: '',
-            fullname: '',
+            salesagent: "",
+            name: "",
+            lastname: "",
+            email: "",
+            password: "",
+            phonenumber: "",
+            taxnumber: "",
+            notes: "",
+            tags: "",
+            dob: "",
+            phoneverified: '',
+            emailverified: '',
+            kycverified: "",
+            sendwelcomeemail: "",
+            sendemailverification: "",
+            fax: "",
+            addressone: "",
+            addresstwo: "",
+            city: "",
+            zipcode: "",
+            locale: "",
+            currency: "",
+            state: "",
+            country: "",
+            totalnetworth: "",
+            totalannualincome: "",
+            employmentstatus: "",
+            sourceofincome: "",
+            forexandotherinstruments: "",
+            experiecneinyears: "",
+            qualificationyears: "",
+            investmentinusd: "",
+            notifications: "",
+            ibtype: "",
+            targetcountry: "",
+            acquireclients: "",
+            websiteorsociallink: "",
+            ibwithotherbroker: "",
+            currentnumberofclients: "",
+            clientsinthreemonths: "",
+            avgmonthlytradingvolume: ""
         },
         validationSchema: Yup.object({
-            sales_agent: Yup.string().required("Please Select"),
-            fullname: Yup.string().required("Please Enter Your Name"),
+            salesagent: Yup.string().required("Select Year"),
+            name: Yup.string().required("Please Enter Your Name"),
         }),
         onSubmit: (values, { resetForm }) => {
             console.log(values)
-            //     dispatch(loginUser(values,));
+            //     dispatch(AdminUsers(values,));
             //     resetForm({ values: '' });
         }
     });
+    const handleYearChange = selectedYear => {
+        console.log(selectedYear);
+        setSelectedYear(selectedYear);
+    };
 
+    const yearOptions = [
+        { value: "1960", label: "1960" },
+        { value: "1961", label: "1961" },
+        { value: "1962", label: "1962" },
+        { value: "1963", label: "1963" },
+        { value: "1964", label: "1964" },
+        { value: "1965", label: "1965" }
+    ];
 
     return (
         <React.Fragment>
@@ -146,15 +199,16 @@ const AddUser = () => {
                                                                 <div className="mb-3">
                                                                     <Label>Sales Agent <span style={{ color: 'red' }}>*</span></Label>
                                                                     <Select
-                                                                        onChange={validation.handleChange}
-                                                                        onBlur={validation.handleBlur}
-                                                                        value={validation.values.sales_agent || ""}
-                                                                        invalid={
-                                                                            validation.touched.sales_agent && validation.errors.sales_agent ? true : false
-                                                                        }
-                                                                        name="sales_agent" />
-                                                                    {validation.touched.sales_agent && validation.errors.sales_agent ? (
-                                                                        <FormFeedback type="invalid">{validation.errors.sales_agent}</FormFeedback>
+                                                                        placeholder="salesagent"
+                                                                        value={validation.salesagent}
+                                                                        onChange={selectedOption => {
+                                                                            handleYearChange(selectedOption);
+                                                                        }}
+                                                                        options={yearOptions}
+                                                                        name="salesagent"
+                                                                    />
+                                                                    {validation.touched.salesagent && validation.errors.salesagent ? (
+                                                                        <FormFeedback >{validation.errors.salesagent}</FormFeedback>
                                                                     ) : null}
                                                                 </div>
                                                             </Col>
@@ -166,20 +220,20 @@ const AddUser = () => {
                                                                         Company Name/Full Name
                                                                     </Label>
                                                                     <Input
-                                                                        name="fullname"
+                                                                        name="name"
                                                                         type="text"
                                                                         className="form-control"
                                                                         id="basicpill-firstname-input1"
                                                                         placeholder="Enter Your Full Name"
                                                                         onChange={validation.handleChange}
                                                                         onBlur={validation.handleBlur}
-                                                                        value={validation.values.fullname || ""}
+                                                                        value={validation.values.name || ""}
                                                                         invalid={
-                                                                            validation.touched.fullname && validation.errors.fullname ? true : false
+                                                                            validation.touched.name && validation.errors.name ? true : false
                                                                         }
                                                                     />
-                                                                    {validation.touched.fullname && validation.errors.fullname ? (
-                                                                        <FormFeedback type="invalid">{validation.errors.fullname}</FormFeedback>
+                                                                    {validation.touched.name && validation.errors.name ? (
+                                                                        <FormFeedback type="invalid">{validation.errors.name}</FormFeedback>
                                                                     ) : null}
                                                                 </div>
                                                             </Col>
@@ -827,6 +881,7 @@ const AddUser = () => {
                                                         }}
                                                     >
                                                         Save
+
                                                     </Link>
                                                 </li>
                                             </ul>
