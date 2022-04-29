@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 import {
     Card, CardBody, Col, Container, Form, FormGroup, Input, Label, NavItem, NavLink, Row, TabContent, TabPane, FormFeedback
@@ -13,12 +13,23 @@ import Select from 'react-select';
 
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserDropDown } from "store/actions";
 
 const AddUser = (props) => {
     const [activeTab, setactiveTab] = useState(1)
     const [selectedYear, setSelectedYear] = useState("");
-
     const [passedSteps, setPassedSteps] = useState([1])
+
+    const dispatch = useDispatch();
+    const state = useSelector((state) => {
+        return state?.UserReducer?.UserDropDown?.data
+    })
+    // console.log("sss", state)
+
+    useEffect(() => {
+        dispatch(getUserDropDown())
+    }, [])
 
     function toggleTab(tab) {
         if (activeTab !== tab) {
@@ -93,12 +104,9 @@ const AddUser = (props) => {
     };
 
     const yearOptions = [
-        { value: "1960", label: "1960" },
-        { value: "1961", label: "1961" },
-        { value: "1962", label: "1962" },
-        { value: "1963", label: "1963" },
-        { value: "1964", label: "1964" },
-        { value: "1965", label: "1965" }
+        { value: "DIZICX", label: "DIZICX" },
+        { value: "DIZICX", label: "DIZICX" },
+        { value: "DIZICX", label: "DIZICX" }
     ];
 
     return (
@@ -199,16 +207,15 @@ const AddUser = (props) => {
                                                                 <div className="mb-3">
                                                                     <Label>Sales Agent <span style={{ color: 'red' }}>*</span></Label>
                                                                     <Select
-                                                                        placeholder="salesagent"
-                                                                        value={validation.salesagent}
-                                                                        onChange={selectedOption => {
-                                                                            handleYearChange(selectedOption);
-                                                                        }}
+                                                                        placeholder="DIZICX"
+                                                                        value={validation.values.salesagent || ""}
+                                                                        onChange={validation.handleChange}
                                                                         options={yearOptions}
                                                                         name="salesagent"
+                                                                        onBlur={validation.handleBlur}
                                                                     />
                                                                     {validation.touched.salesagent && validation.errors.salesagent ? (
-                                                                        <FormFeedback >{validation.errors.salesagent}</FormFeedback>
+                                                                        <FormFeedback  >{validation.errors.salesagent}</FormFeedback>
                                                                     ) : null}
                                                                 </div>
                                                             </Col>
@@ -217,7 +224,7 @@ const AddUser = (props) => {
                                                             <Col lg="6">
                                                                 <div className="mb-3">
                                                                     <Label for="basicpill-firstname-input1">
-                                                                        Company Name/Full Name
+                                                                        Company Name/Full Name<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
                                                                         name="name"
@@ -256,7 +263,7 @@ const AddUser = (props) => {
                                                             <Col lg="6">
                                                                 <div className="mb-3">
                                                                     <Label for="basicpill-email-input3">
-                                                                        E-Mail
+                                                                        E-Mail<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
                                                                         type="text"
@@ -269,7 +276,7 @@ const AddUser = (props) => {
                                                             <Col lg="6">
                                                                 <div className="mb-3">
                                                                     <Label for="basicpill-password-input4">
-                                                                        Password
+                                                                        Password<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
                                                                         type="password"
@@ -284,7 +291,7 @@ const AddUser = (props) => {
                                                             <Col lg="6">
                                                                 <div className="mb-3">
                                                                     <Label for="basicpill-phoneno-input3">
-                                                                        Phone No.
+                                                                        Phone No.<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
                                                                         type="text"
@@ -478,9 +485,6 @@ const AddUser = (props) => {
                                                                             <option defaultValue>
                                                                                 English
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -488,13 +492,17 @@ const AddUser = (props) => {
                                                                 <Col lg="6">
                                                                     <div className="mb-3">
                                                                         <Label>Currency</Label>
-                                                                        <select className="form-select">
-                                                                            <option defaultValue>
-                                                                                $- United States Doller
-                                                                            </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+
+                                                                        <select className="form-select" >
+                                                                            {state && state.currency.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option defaultValue>
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -520,9 +528,6 @@ const AddUser = (props) => {
                                                                             <option defaultValue>
                                                                                 India
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -573,11 +578,17 @@ const AddUser = (props) => {
                                                                         <Label>Total Estimated Net Worth($)?</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.TotalEstimatedNetWorth.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -587,11 +598,17 @@ const AddUser = (props) => {
                                                                         <Label>Total Estimated Annual Income($)?</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.TotalEstimatedAnnualIncome.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -602,11 +619,17 @@ const AddUser = (props) => {
                                                                         <Label>Your Employment Status</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.YourEmploymentStatus.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -616,11 +639,17 @@ const AddUser = (props) => {
                                                                         <Label>Source Of Income/Wealth</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.SourceOfIncomeOrWelth.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -631,11 +660,17 @@ const AddUser = (props) => {
                                                                         <Label>FOREX,CFDS and other Instruments</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.ForexCfdsAndOtherInstruments.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -649,11 +684,17 @@ const AddUser = (props) => {
                                                                         </Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.InitialInvestment.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -664,11 +705,17 @@ const AddUser = (props) => {
                                                                         <Label>I have previous qualifications and/or work experience in the financial service industry</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.WorkExperience.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -679,11 +726,17 @@ const AddUser = (props) => {
                                                                         <Label>Expected inital amount of investment in USD?</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.InitialInvestment.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -706,10 +759,10 @@ const AddUser = (props) => {
                                                                     <div className="mb-3">
                                                                         <Label>Notifications</Label>
                                                                         <Select
-                                                                            defaultValue={["mail", "database"]}
+                                                                            // defaultValue={["mail", "database"]}
                                                                             isMulti
                                                                             name="colors"
-                                                                            // options={colourOptions}
+                                                                            options={state && state.Notifications.map((item) => item)}
                                                                             className="basic-multi-select"
                                                                             classNamePrefix="select"
                                                                         />
@@ -736,11 +789,17 @@ const AddUser = (props) => {
                                                                         <Label>Ib Type</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.IbType.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -751,11 +810,17 @@ const AddUser = (props) => {
                                                                         <Label>Target Country</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.TargetCountry.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -766,11 +831,17 @@ const AddUser = (props) => {
                                                                         <Label>How do you Acquire Clients</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.AcquireClients.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -789,11 +860,17 @@ const AddUser = (props) => {
                                                                         <Label>Are You IB with any other brokers?</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.CurrentClients.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -804,11 +881,17 @@ const AddUser = (props) => {
                                                                         <Label>How many Client do you have currently?</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.CurrentClients.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -819,11 +902,17 @@ const AddUser = (props) => {
                                                                         <Label>How many clients do you expect introducing in the first months?</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.ClientsExpectInFirstThreeMonthes.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>
@@ -834,11 +923,17 @@ const AddUser = (props) => {
                                                                         <Label>Expecting Average Monthly Trading Volume</Label>
                                                                         <select className="form-select">
                                                                             <option defaultValue>
-                                                                                Select
+                                                                                Select-option
                                                                             </option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
+                                                                            {state && state.ExpectedAvgMonthlyTradingVolume.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option >
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
                                                                         </select>
                                                                     </div>
                                                                 </Col>

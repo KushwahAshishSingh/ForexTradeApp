@@ -1,6 +1,6 @@
 import {
     ADMIN_USERS,
-    ADMINUSER_SUCCESS, GET_ADMINUSER, GET_ADMINUSER_SUCCESS, GET_ADMINUSER_FAIL
+    ADMINUSER_SUCCESS, GET_ADMINUSER, GET_ADMINUSER_SUCCESS, GET_ADMINUSER_FAIL, GET_USERDROPDOWN, GET_USERDROPDOWN_SUCCESS, GET_USERDROPDOWN_FAIL
 } from "./actionType"
 
 export const AdminUsers = (user, history) => {
@@ -28,6 +28,20 @@ export const getAdminUserSuccess = products => ({
 
 export const getAdminUserFail = error => ({
     type: GET_ADMINUSER_FAIL,
+    payload: error,
+})
+
+export const getUserDropDown = () => ({
+    type: GET_USERDROPDOWN,
+})
+
+export const getUserDropDownSuccess = products => ({
+    type: GET_USERDROPDOWN_SUCCESS,
+    payload: products,
+})
+
+export const getUserDropDownFail = error => ({
+    type: GET_USERDROPDOWN_FAIL,
     payload: error,
 })
 

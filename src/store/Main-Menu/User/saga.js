@@ -1,9 +1,9 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
 
 // Login Redux States
-import { ADMIN_USERS, GET_ADMINUSER } from "./actionType"
-import { AdminUserSuccess, getAdminUserFail, getAdminUserSuccess, } from "./action"
-import { getUser, UserAdd } from "../../../helpers/fakebackend_helper"
+import { ADMIN_USERS, GET_ADMINUSER, GET_USERDROPDOWN } from "./actionType"
+import { AdminUserSuccess, getAdminUserFail, getAdminUserSuccess, getUserDropDownFail, getUserDropDownSuccess, } from "./action"
+import { getUser, getUserDropDown, UserAdd } from "../../../helpers/fakebackend_helper"
 import Swal from 'sweetalert2';
 
 
@@ -22,6 +22,23 @@ function* fetchUser() {
         yield put(getAdminUserSuccess(response))
     } catch (error) {
         yield put(getAdminUserFail(error))
+        Toast.fire({
+            icon: "error",
+            title: "something went wrong"
+        });
+    }
+}
+
+function* fetchUserDropDown() {
+    try {
+        const response = yield call(getUserDropDown)
+        yield put(getUserDropDownSuccess(response))
+    } catch (error) {
+        yield put(getUserDropDownFail(error))
+        Toast.fire({
+            icon: "error",
+            title: "something went wrong"
+        });
     }
 }
 
@@ -96,6 +113,7 @@ function* AdminUsers({ payload: { user, history } }) {
 
 function* UserSaga() {
     yield takeEvery(GET_ADMINUSER, fetchUser)
+    yield takeEvery(GET_USERDROPDOWN, fetchUserDropDown)
     yield takeEvery(ADMIN_USERS, AdminUsers)
 }
 
