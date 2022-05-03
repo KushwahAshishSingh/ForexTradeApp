@@ -115,20 +115,23 @@ const SidebarContent = props => {
                 <span>{props.t("Main Menu")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                {roleType === "SuperAdmin" ? <>
-                  <li>
-                    <Link to="/super-admin-manager">
-                      {props.t("SuperAdmin Manager")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
-                  </li>
-                  <li>
-                    <Link to="/admin">{props.t("Admin")}</Link>
-                  </li>
-                </>
-                  :
+                {roleType === "SuperAdmin" ? (
+                  <>
+                    <li>
+                      <Link to="/super-admin-manager">
+                        {props.t("SuperAdmin Manager")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="super-admin-support">
+                        {props.t("SuperAdmin Support")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/admin">{props.t("Admin")}</Link>
+                    </li>
+                  </>
+                ) : roleType === "Admin" ? (
                   <>
                     <li>
                       <Link to="/user">{props.t("User")}</Link>
@@ -137,11 +140,16 @@ const SidebarContent = props => {
                       <Link to="/staff">{props.t("Staff")}</Link>
                     </li>
                   </>
-                }
-
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/user">{props.t("User")}</Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </li>
-{/*
+            {/*
             // =======
 //                 {roleType === "SuperAdmin" ? (
 //                   <>
