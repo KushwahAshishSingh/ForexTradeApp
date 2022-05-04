@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 import {
     Card, CardBody, Col, Container, Form, FormGroup, Input, Label, NavItem, NavLink, Row, TabContent, TabPane, FormFeedback
-    , Button
+    , Button,
 } from "reactstrap"
 // Formik validation
 import * as Yup from "yup";
@@ -20,20 +20,22 @@ const AddUser = (props) => {
     const [activeTab, setactiveTab] = useState(1)
     const [selectedYear, setSelectedYear] = useState("");
     const [passedSteps, setPassedSteps] = useState([1])
+    const [saleagent, setSaleAgent] = useState('')
 
     const dispatch = useDispatch();
     const state = useSelector((state) => {
         return state?.UserReducer?.UserDropDown?.data
     })
-    // console.log("sss", state)
 
     useEffect(() => {
         dispatch(getUserDropDown())
     }, [])
 
     function toggleTab(tab) {
+        // console.log("tab", tab)
         if (activeTab !== tab) {
             var modifiedSteps = [...passedSteps, tab]
+            // console.log("modifiedSteps", modifiedSteps)
             if (tab >= 1 && tab <= 5) {
                 setactiveTab(tab)
                 setPassedSteps(modifiedSteps)
@@ -46,7 +48,7 @@ const AddUser = (props) => {
         enableReinitialize: true,
 
         initialValues: {
-            salesagent: "",
+            salesagent: '',
             name: "",
             lastname: "",
             email: "",
@@ -89,8 +91,13 @@ const AddUser = (props) => {
             avgmonthlytradingvolume: ""
         },
         validationSchema: Yup.object({
-            salesagent: Yup.string().required("Select Year"),
+            salesagent: Yup.string().required("Select Sales Agent"),
             name: Yup.string().required("Please Enter Your Name"),
+            email: Yup.string().required("Please Enter Your Email"),
+            password: Yup.string().required("Please Enter Your Password"),
+            phonenumber: Yup.string().required("Please Enter Your Phone-Number"),
+            addressone: Yup.string().required("Please Enter Your Address"),
+
         }),
         onSubmit: (values, { resetForm }) => {
             console.log(values)
@@ -98,15 +105,21 @@ const AddUser = (props) => {
             //     resetForm({ values: '' });
         }
     });
-    const handleYearChange = selectedYear => {
-        console.log(selectedYear);
+    const handleSelectBox = (a) => {
+        // console.log('selectedYear', a);
+        setSaleAgent(a.value);
+    };
+    const handleYearChange = (selectedYear, values) => {
+        // console.log("ttt", selectedYear, values)
+        // values.salesagent = selectedYear.value;
+        // console.log(selectedYear);
         setSelectedYear(selectedYear);
     };
 
     const yearOptions = [
-        { value: "DIZICX", label: "DIZICX" },
-        { value: "DIZICX", label: "DIZICX" },
-        { value: "DIZICX", label: "DIZICX" }
+        { value: "DIZICX", label: "DIZICX1" },
+        { value: "DIZICX", label: "DIZICX2" },
+        { value: "DIZICX", label: "DIZICX3" }
     ];
 
     return (
@@ -208,14 +221,27 @@ const AddUser = (props) => {
                                                                     <Label>Sales Agent <span style={{ color: 'red' }}>*</span></Label>
                                                                     <Select
                                                                         placeholder="DIZICX"
-                                                                        value={validation.values.salesagent || ""}
-                                                                        onChange={validation.handleChange}
+                                                                        value={selectedYear}
                                                                         options={yearOptions}
                                                                         name="salesagent"
-                                                                        onBlur={validation.handleBlur}
+                                                                        onBlur={validation.handleBlur('salesagent')}
+                                                                        isClearable={true}
+                                                                        onChange={selectedOption => {
+                                                                            handleYearChange(selectedOption);
+                                                                            validation.handleChange("salesagent")(selectedOption.value);
+                                                                        }}
+                                                                    />
+                                                                    <Input
+                                                                        name="salesagent"
+                                                                        tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                                                        value={validation.values.salesagent || ""}
+                                                                        invalid={
+                                                                            validation.touched.salesagent && validation.errors.salesagent ? true : false
+                                                                        }
+                                                                        readOnly
                                                                     />
                                                                     {validation.touched.salesagent && validation.errors.salesagent ? (
-                                                                        <FormFeedback  >{validation.errors.salesagent}</FormFeedback>
+                                                                        <FormFeedback type="invalid">{validation.errors.salesagent}</FormFeedback>
                                                                     ) : null}
                                                                 </div>
                                                             </Col>
@@ -230,7 +256,7 @@ const AddUser = (props) => {
                                                                         name="name"
                                                                         type="text"
                                                                         className="form-control"
-                                                                        id="basicpill-firstname-input1"
+                                                                        id="basicpill-name-input1"
                                                                         placeholder="Enter Your Full Name"
                                                                         onChange={validation.handleChange}
                                                                         onBlur={validation.handleBlur}
@@ -266,11 +292,21 @@ const AddUser = (props) => {
                                                                         E-Mail<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
-                                                                        type="text"
+                                                                        name="email"
+                                                                        type="email"
                                                                         className="form-control"
-                                                                        id="basicpill-email-input3"
-                                                                        placeholder="Enter Your Email ID"
+                                                                        id="basicpill-email-input1"
+                                                                        placeholder="Enter Your Email"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.email || ""}
+                                                                        invalid={
+                                                                            validation.touched.email && validation.errors.email ? true : false
+                                                                        }
                                                                     />
+                                                                    {validation.touched.email && validation.errors.email ? (
+                                                                        <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+                                                                    ) : null}
                                                                 </div>
                                                             </Col>
                                                             <Col lg="6">
@@ -279,11 +315,21 @@ const AddUser = (props) => {
                                                                         Password<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
+                                                                        name="password"
                                                                         type="password"
                                                                         className="form-control"
-                                                                        id="basicpill-password-input4"
-                                                                        placeholder="Enter Your Password"
+                                                                        id="basicpill-password-input1"
+                                                                        placeholder="Enter Your Full Password"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.password || ""}
+                                                                        invalid={
+                                                                            validation.touched.password && validation.errors.password ? true : false
+                                                                        }
                                                                     />
+                                                                    {validation.touched.password && validation.errors.password ? (
+                                                                        <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                                                                    ) : null}
                                                                 </div>
                                                             </Col>
                                                         </Row>
@@ -294,11 +340,21 @@ const AddUser = (props) => {
                                                                         Phone No.<span style={{ color: 'red' }}>*</span>
                                                                     </Label>
                                                                     <Input
+                                                                        name="phonenumber"
                                                                         type="text"
                                                                         className="form-control"
-                                                                        id="basicpill-phoneno-input3"
-                                                                        placeholder="Enter Your Phone NUmber"
+                                                                        id="basicpill-firstname-input1"
+                                                                        placeholder="Enter Your Phone Number"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.phonenumber || ""}
+                                                                        invalid={
+                                                                            validation.touched.phonenumber && validation.errors.phonenumber ? true : false
+                                                                        }
                                                                     />
+                                                                    {validation.touched.phonenumber && validation.errors.phonenumber ? (
+                                                                        <FormFeedback type="invalid">{validation.errors.phonenumber}</FormFeedback>
+                                                                    ) : null}
                                                                 </div>
                                                             </Col>
                                                             <Col lg="6">
@@ -307,10 +363,14 @@ const AddUser = (props) => {
                                                                         Tax Number
                                                                     </Label>
                                                                     <Input
-                                                                        type="password"
+                                                                        name='taxnumber'
+                                                                        type="text"
                                                                         className="form-control"
                                                                         id="basicpill-tax-input4"
                                                                         placeholder="Enter Your Tax Number"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.taxnumber || ""}
                                                                     />
                                                                 </div>
                                                             </Col>
@@ -322,10 +382,14 @@ const AddUser = (props) => {
                                                                         Address
                                                                     </Label>
                                                                     <textarea
+                                                                        name='notes'
                                                                         id="basicpill-address-input1"
                                                                         className="form-control"
                                                                         rows="2"
                                                                         placeholder="Enter Your Address"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.notes || ""}
                                                                     />
                                                                 </div>
                                                             </Col>
@@ -337,10 +401,14 @@ const AddUser = (props) => {
                                                                         Tags
                                                                     </Label>
                                                                     <Input
+                                                                        name='tags'
                                                                         type="text"
                                                                         className="form-control"
                                                                         id="basicpill-tag-input3"
                                                                         placeholder="Enter Your Tag"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.tags || ""}
                                                                     />
                                                                 </div>
                                                             </Col>
@@ -350,10 +418,14 @@ const AddUser = (props) => {
                                                                         Date Of Birth
                                                                     </Label>
                                                                     <Input
+                                                                        name="dob"
                                                                         type="date"
                                                                         className="form-control"
                                                                         id="basicpill-date-input4"
                                                                         placeholder="Please Select Date"
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.dob || ""}
                                                                     />
                                                                 </div>
                                                             </Col>
@@ -364,7 +436,11 @@ const AddUser = (props) => {
                                                                     check
                                                                     inline
                                                                 >
-                                                                    <Input type="checkbox" />
+                                                                    <Input type="checkbox"
+                                                                        name='phoneverified'
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.phoneverified || ""} />
                                                                     <Label check>
                                                                         Phone Verified
                                                                     </Label>
@@ -373,7 +449,11 @@ const AddUser = (props) => {
                                                                     check
                                                                     inline
                                                                 >
-                                                                    <Input type="checkbox" />
+                                                                    <Input type="checkbox"
+                                                                        name='emailverified'
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.emailverified || ""} />
                                                                     <Label check>
                                                                         Email Verified
                                                                     </Label>
@@ -382,7 +462,11 @@ const AddUser = (props) => {
                                                                     check
                                                                     inline
                                                                 >
-                                                                    <Input type="checkbox" />
+                                                                    <Input type="checkbox"
+                                                                        name='kycverified'
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.kycverified || ""} />
                                                                     <Label check>
                                                                         KYC Verified
                                                                     </Label>
@@ -391,7 +475,11 @@ const AddUser = (props) => {
                                                                     check
                                                                     inline
                                                                 >
-                                                                    <Input type="checkbox" />
+                                                                    <Input type="checkbox"
+                                                                        name='sendwelcomeemail'
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.sendwelcomeemail || ""} />
                                                                     <Label check>
                                                                         Send Welcome Email
                                                                     </Label>
@@ -400,7 +488,11 @@ const AddUser = (props) => {
                                                                     check
                                                                     inline
                                                                 >
-                                                                    <Input type="checkbox" />
+                                                                    <Input type="checkbox"
+                                                                        name='sendemailverification'
+                                                                        onChange={validation.handleChange}
+                                                                        onBlur={validation.handleBlur}
+                                                                        value={validation.values.sendemailverification || ""} />
                                                                     <Label check>
                                                                         Send Email Verification
                                                                     </Label>
@@ -414,11 +506,33 @@ const AddUser = (props) => {
                                                                 </div>
                                                             </Col>
                                                         </Row>
+                                                        <div className="actions clearfix" style={{ textAlign: "right" }}>
+                                                            <Button style={{ marginRight: "15px", backgroundColor: '#556ee6' }} type='button' className={activeTab === 1 ? "previous disabled" : "previous"}>
+                                                                <Link style={{ color: '#fff' }} to="#"
+                                                                    onClick={() => { toggleTab(activeTab - 1) }}>
+                                                                    Previous
+                                                                </Link>
+                                                            </Button>
+                                                            <Button style={{ backgroundColor: '#556ee6' }} type="submit" className={activeTab === 5 ? "next " : "next"}>
+                                                                <Link style={{ color: '#fff' }}
+                                                                    to="#"
+                                                                    onClick={() => {
+                                                                        toggleTab(activeTab + 1)
+                                                                    }}
+                                                                >
+                                                                    Save
+                                                                </Link>
+                                                            </Button>
+                                                        </div>
                                                     </Form>
                                                 </TabPane>
                                                 <TabPane tabId={2}>
                                                     <div>
-                                                        <Form>
+                                                        <Form onSubmit={(e) => {
+                                                            e.preventDefault();
+                                                            validation.handleSubmit();
+                                                            return false;
+                                                        }}>
                                                             <Row>
                                                                 <Col lg="6">
                                                                     <div className="mb-3">
@@ -426,11 +540,21 @@ const AddUser = (props) => {
                                                                             Address 1
                                                                         </Label>
                                                                         <textarea
+                                                                            name="addressone"
                                                                             id="basicpill-address1-input1"
                                                                             className="form-control"
                                                                             rows="4"
                                                                             placeholder="Enter Your Address"
+                                                                            onChange={validation.handleChange}
+                                                                            onBlur={validation.handleBlur}
+                                                                            value={validation.values.addressone || ""}
+                                                                            invalid={
+                                                                                validation.touched.addressone && validation.errors.addressone ? true : false
+                                                                            }
                                                                         />
+                                                                        {validation.touched.addressone && validation.errors.addressone ? (
+                                                                            <FormFeedback type="invalid">{validation.errors.addressone}</FormFeedback>
+                                                                        ) : null}
                                                                     </div>
                                                                 </Col>
 
@@ -440,10 +564,14 @@ const AddUser = (props) => {
                                                                             Address 2
                                                                         </Label>
                                                                         <textarea
-                                                                            id="basicpill-address2-input1"
+                                                                            name="addresstwo"
+                                                                            id="basicpill-address1-input1"
                                                                             className="form-control"
                                                                             rows="4"
                                                                             placeholder="Enter Your Address"
+                                                                            onChange={validation.handleChange}
+                                                                            onBlur={validation.handleBlur}
+                                                                            value={validation.values.addresstwo || ""}
                                                                         />
                                                                     </div>
                                                                 </Col>
@@ -455,10 +583,14 @@ const AddUser = (props) => {
                                                                             City
                                                                         </Label>
                                                                         <Input
+                                                                            name='city'
                                                                             type="text"
                                                                             className="form-control"
                                                                             id="basicpill-city-input7"
                                                                             placeholder="Enter Your City"
+                                                                            onChange={validation.handleChange}
+                                                                            onBlur={validation.handleBlur}
+                                                                            value={validation.values.city || ""}
                                                                         />
                                                                     </div>
                                                                 </Col>
@@ -469,10 +601,14 @@ const AddUser = (props) => {
                                                                             Zip Code
                                                                         </Label>
                                                                         <Input
+                                                                            name='zipcode'
                                                                             type="text"
                                                                             className="form-control"
                                                                             id="basicpill-zipcode-input8"
                                                                             placeholder="Enter Your Zip Code"
+                                                                            onChange={validation.handleChange}
+                                                                            onBlur={validation.handleBlur}
+                                                                            value={validation.values.zipcode || ""}
                                                                         />
                                                                     </div>
                                                                 </Col>
@@ -481,11 +617,24 @@ const AddUser = (props) => {
                                                                 <Col lg="6">
                                                                     <div className="mb-3">
                                                                         <Label>Locale</Label>
-                                                                        <select className="form-select">
+                                                                        <select name='locale' className="form-select"
+                                                                            onChange={validation.handleChange}
+                                                                            value={validation.values.locale || ""}
+                                                                            onBlur={validation.handleBlur}
+                                                                            invalid={
+                                                                                validation.touched.locale && validation.errors.locale ? true : false
+                                                                            }
+                                                                        >
                                                                             <option defaultValue>
+                                                                                please select
+                                                                            </option>
+                                                                            <option >
                                                                                 English
                                                                             </option>
                                                                         </select>
+                                                                        {validation.touched.locale && validation.errors.locale ? (
+                                                                            <FormFeedback type="invalid">{validation.errors.locale}</FormFeedback>
+                                                                        ) : null}
                                                                     </div>
                                                                 </Col>
 
@@ -493,8 +642,53 @@ const AddUser = (props) => {
                                                                     <div className="mb-3">
                                                                         <Label>Currency</Label>
 
-                                                                        <select className="form-select" >
+                                                                        <select name='currency' className="form-select" onChange={validation.handleChange}
+                                                                            value={validation.values.currency || ""}
+                                                                            onBlur={validation.handleBlur}
+                                                                            invalid={
+                                                                                validation.touched.currency && validation.errors.currency ? true : false
+                                                                            }>
                                                                             {state && state.currency.map((item) => {
+                                                                                return (
+                                                                                    <React.Fragment key={item}>
+                                                                                        <option defaultValue>
+                                                                                            {item}
+                                                                                        </option>
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            })}
+                                                                        </select>
+                                                                        {validation.touched.currency && validation.errors.currency ? (
+                                                                            <FormFeedback type="invalid">{validation.errors.currency}</FormFeedback>
+                                                                        ) : null}
+                                                                    </div>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row>
+                                                                <Col lg="6">
+                                                                    <div className="mb-3">
+                                                                        <Label for="basicpill-state-input8">
+                                                                            State
+                                                                        </Label>
+                                                                        <Input
+                                                                            name='state'
+                                                                            type="text"
+                                                                            className="form-control"
+                                                                            id="basicpill-state-input8"
+                                                                            placeholder="Enter Your State"
+                                                                            onChange={validation.handleChange}
+                                                                            value={validation.values.state || ""}
+
+                                                                        />
+                                                                    </div>
+                                                                </Col>
+                                                                <Col lg="6">
+                                                                    <div className="mb-3">
+                                                                        <Label>Country</Label>
+                                                                        <select className="form-select" name='country'
+                                                                            onChange={validation.handleChange}
+                                                                            value={validation.values.country || ""}>
+                                                                            {state && state.TargetCountry.map((item) => {
                                                                                 return (
                                                                                     <React.Fragment key={item}>
                                                                                         <option defaultValue>
@@ -510,39 +704,17 @@ const AddUser = (props) => {
                                                             <Row>
                                                                 <Col lg="6">
                                                                     <div className="mb-3">
-                                                                        <Label for="basicpill-state-input8">
-                                                                            State
-                                                                        </Label>
-                                                                        <Input
-                                                                            type="text"
-                                                                            className="form-control"
-                                                                            id="basicpill-state-input8"
-                                                                            placeholder="Enter Your State"
-                                                                        />
-                                                                    </div>
-                                                                </Col>
-                                                                <Col lg="6">
-                                                                    <div className="mb-3">
-                                                                        <Label>Country</Label>
-                                                                        <select className="form-select">
-                                                                            <option defaultValue>
-                                                                                India
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-                                                                </Col>
-                                                            </Row>
-                                                            <Row>
-                                                                <Col lg="6">
-                                                                    <div className="mb-3">
                                                                         <Label for="basicpill-fax-input8">
                                                                             Fax
                                                                         </Label>
                                                                         <Input
+                                                                            name='fax'
                                                                             type="text"
                                                                             className="form-control"
                                                                             id="basicpill-fax-input8"
                                                                             placeholder="Enter Your State"
+                                                                            onChange={validation.handleChange}
+                                                                            value={validation.values.fax || ""}
                                                                         />
                                                                     </div>
                                                                 </Col>
@@ -551,11 +723,15 @@ const AddUser = (props) => {
                                                                         <Label for="exampleFile">
                                                                             Logo
                                                                         </Label>
-                                                                        <Input
-                                                                            id="exampleFile"
-                                                                            name="file"
+                                                                        <input
+                                                                            className="form-control"
+                                                                            id="file"
+                                                                            name="serviceImage"
+                                                                            // value={values.serviceImage}
                                                                             type="file"
+                                                                        // onChange={event => setFieldValue('serviceImage', event.currentTarget.files[0])}
                                                                         />
+
                                                                     </div>
                                                                 </Col>
                                                                 <Row>
@@ -566,17 +742,42 @@ const AddUser = (props) => {
                                                                     </Col>
                                                                 </Row>
                                                             </Row>
+                                                            <div className="actions clearfix" style={{ textAlign: "right" }}>
+                                                                <Button style={{ marginRight: "15px", backgroundColor: '#556ee6' }} type='button' className={activeTab === 1 ? "previous disabled" : "previous"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab - 1)
+                                                                        }}
+                                                                    >Previous</Link>
+                                                                </Button>
+                                                                <Button style={{ backgroundColor: '#556ee6' }} type="submit" className={activeTab === 5 ? "next " : "next"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab + 1)
+                                                                        }}
+                                                                    >Save</Link>
+
+
+                                                                </Button>
+                                                            </div>
                                                         </Form>
                                                     </div>
                                                 </TabPane>
                                                 <TabPane tabId={3}>
                                                     <div>
-                                                        <Form>
+                                                        <Form onSubmit={(e) => {
+                                                            e.preventDefault();
+                                                            validation.handleSubmit();
+                                                            return false;
+                                                        }}>
                                                             <Row>
                                                                 <Col lg="6">
                                                                     <div className="mb-3">
                                                                         <Label>Total Estimated Net Worth($)?</Label>
-                                                                        <select className="form-select">
+                                                                        <select className="form-select" name='totalnetworth' onChange={validation.handleChange}
+                                                                            value={validation.values.totalnetworth || ""}>
                                                                             <option defaultValue>
                                                                                 Select-option
                                                                             </option>
@@ -596,7 +797,7 @@ const AddUser = (props) => {
                                                                 <Col lg="6">
                                                                     <div className="mb-3">
                                                                         <Label>Total Estimated Annual Income($)?</Label>
-                                                                        <select className="form-select">
+                                                                        <select className="form-select" >
                                                                             <option defaultValue>
                                                                                 Select-option
                                                                             </option>
@@ -748,12 +949,36 @@ const AddUser = (props) => {
                                                                     </div>
                                                                 </Col>
                                                             </Row>
+                                                            <div className="actions clearfix" style={{ textAlign: "right" }}  >
+                                                                <Button style={{ marginRight: "15px", backgroundColor: '#556ee6' }} type='button' className={activeTab === 1 ? "previous disabled" : "previous"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab - 1)
+                                                                        }}
+                                                                    >Previous</Link>
+                                                                </Button>
+                                                                <Button style={{ backgroundColor: '#556ee6' }} type="submit" className={activeTab === 5 ? "next " : "next"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab + 1)
+                                                                        }}
+                                                                    >Save</Link>
+
+
+                                                                </Button>
+                                                            </div>
                                                         </Form>
                                                     </div>
                                                 </TabPane>
                                                 <TabPane tabId={4}>
                                                     <div>
-                                                        <Form>
+                                                        <Form onSubmit={(e) => {
+                                                            e.preventDefault();
+                                                            validation.handleSubmit();
+                                                            return false;
+                                                        }}>
                                                             <Row>
                                                                 <Col lg="12">
                                                                     <div className="mb-3">
@@ -761,10 +986,12 @@ const AddUser = (props) => {
                                                                         <Select
                                                                             // defaultValue={["mail", "database"]}
                                                                             isMulti
-                                                                            name="colors"
-                                                                            options={state && state.Notifications.map((item) => item)}
+                                                                            name="notifications"
+                                                                            options={state && state.Notifications}
                                                                             className="basic-multi-select"
                                                                             classNamePrefix="select"
+                                                                            onChange={validation.handleChange}
+                                                                            value={validation.values.notifications || ''}
                                                                         />
                                                                     </div>
                                                                 </Col>
@@ -776,13 +1003,37 @@ const AddUser = (props) => {
                                                                     </div>
                                                                 </Col>
                                                             </Row>
+                                                            <div className="actions clearfix" style={{ textAlign: "right" }}  >
+                                                                <Button style={{ marginRight: "15px", backgroundColor: '#556ee6' }} type='button' className={activeTab === 1 ? "previous disabled" : "previous"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab - 1)
+                                                                        }}
+                                                                    >Previous</Link>
+                                                                </Button>
+                                                                <Button style={{ backgroundColor: '#556ee6' }} type="submit" className={activeTab === 5 ? "next " : "next"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab + 1)
+                                                                        }}
+                                                                    >Save</Link>
+
+
+                                                                </Button>
+                                                            </div>
                                                         </Form>
 
                                                     </div>
                                                 </TabPane>
                                                 <TabPane tabId={5}>
                                                     <div>
-                                                        <Form>
+                                                        <Form onSubmit={(e) => {
+                                                            e.preventDefault();
+                                                            validation.handleSubmit();
+                                                            return false;
+                                                        }}>
                                                             <Row>
                                                                 <Col lg="12">
                                                                     <div className="mb-3">
@@ -945,12 +1196,32 @@ const AddUser = (props) => {
                                                                     </div>
                                                                 </Col>
                                                             </Row>
+                                                            <div className="actions clearfix" style={{ textAlign: "right" }}  >
+                                                                <Button style={{ marginRight: "15px", backgroundColor: '#556ee6' }} type='button' className={activeTab === 1 ? "previous disabled" : "previous"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab - 1)
+                                                                        }}
+                                                                    >Previous</Link>
+                                                                </Button>
+                                                                <Button style={{ backgroundColor: '#556ee6' }} type="submit" className={activeTab === 5 ? "next " : "next"}>
+                                                                    <Link style={{ color: '#fff' }}
+                                                                        to="#"
+                                                                        onClick={() => {
+                                                                            toggleTab(activeTab + 1)
+                                                                        }}
+                                                                    >
+                                                                        Save
+                                                                    </Link>
+                                                                </Button>
+                                                            </div>
                                                         </Form>
                                                     </div>
                                                 </TabPane>
                                             </TabContent>
                                         </div>
-                                        <div className="actions clearfix">
+                                        {/* <div className="actions clearfix">
                                             <ul>
                                                 <li
                                                     className={
@@ -980,7 +1251,7 @@ const AddUser = (props) => {
                                                     </Link>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </CardBody>
                             </Card>

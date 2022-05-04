@@ -42,7 +42,6 @@ function* loginUser({ payload: { user, history } }) {
     history.push("/dashboard")
 
   } catch (error) {
-    const response = yield call(postJwtLogin)
     Toast.fire({
       icon: "error",
       title: "something went wrong",

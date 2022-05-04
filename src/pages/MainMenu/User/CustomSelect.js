@@ -1,14 +1,15 @@
-import React from 'react';
-import Select from 'react-select';
-
-function SelectField(FieldProps) {
+export default function FormikReactSelect(props) {
+    const options = [
+        { value: '1', label: 'White' },
+        { value: '2', label: 'Yellow' },
+    ];
     return (
-        <Select
-            options={FieldProps.options}
-            {...FieldProps.field}
-            onChange={option => FieldProps.form.setFieldValue(FieldProps.field.name, option)}
-        />
-    )
+        <Formik>
+            {formProps => (
+                <Form>
+                    <Field name='SelectColor' options={options} component={SelectField} />
+                </Form>
+            )}
+        </Formik>
+    );
 }
-
-export default SelectField;
