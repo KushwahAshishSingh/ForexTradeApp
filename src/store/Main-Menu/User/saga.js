@@ -1,23 +1,18 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects"
-
-// Login Redux States
-// <<<<<<< chandra_AdminStaff
-import { ADMIN_USERS, GET_ADMINUSER } from "./actionType"
+import { ADMIN_USERS, GET_ADMINUSER, GET_USERDROPDOWN } from "./actionType"
 import {
   AdminUserSuccess,
   getAdminUserFail,
   getAdminUserSuccess,
+  getUserDropDownFail,
+  getUserDropDownSuccess,
 } from "./action"
-import { getUser, UserAdd } from "../../../helpers/fakebackend_helper"
+import {
+  getUser,
+  getUserDropDown,
+  UserAdd,
+} from "../../../helpers/fakebackend_helper"
 import Swal from "sweetalert2"
-// =======
-// import { ADMIN_USERS, GET_ADMINUSER, GET_USERDROPDOWN } from "./actionType"
-// import { AdminUserSuccess, getAdminUserFail, getAdminUserSuccess, getUserDropDownFail, getUserDropDownSuccess, } from "./action"
-// import { getUser, getUserDropDown, UserAdd } from "../../../helpers/fakebackend_helper"
-// import Swal from 'sweetalert2';
-
-
-// >>>>>>> main
 
 const Toast = Swal.mixin({
   toast: true,
@@ -27,38 +22,29 @@ const Toast = Swal.mixin({
 })
 
 function* fetchUser() {
-// <<<<<<< chandra_AdminStaff
   try {
     const response = yield call(getUser)
     yield put(getAdminUserSuccess(response))
   } catch (error) {
     yield put(getAdminUserFail(error))
+    Toast.fire({
+      icon: "error",
+      title: "something went wrong",
+    })
   }
-// =======
-//     try {
-//         const response = yield call(getUser)
-//         yield put(getAdminUserSuccess(response))
-//     } catch (error) {
-//         yield put(getAdminUserFail(error))
-//         Toast.fire({
-//             icon: "error",
-//             title: "something went wrong"
-//         });
-//     }
-// }
+}
 
-// function* fetchUserDropDown() {
-//     try {
-//         const response = yield call(getUserDropDown)
-//         yield put(getUserDropDownSuccess(response))
-//     } catch (error) {
-//         yield put(getUserDropDownFail(error))
-//         Toast.fire({
-//             icon: "error",
-//             title: "something went wrong"
-//         });
-//     }
-// >>>>>>> main
+function* fetchUserDropDown() {
+  try {
+    const response = yield call(getUserDropDown)
+    yield put(getUserDropDownSuccess(response))
+  } catch (error) {
+    yield put(getUserDropDownFail(error))
+    Toast.fire({
+      icon: "error",
+      title: "something went wrong",
+    })
+  }
 }
 
 function* AdminUsers({ payload: { user, history } }) {
@@ -126,14 +112,9 @@ function* AdminUsers({ payload: { user, history } }) {
 }
 
 function* UserSaga() {
-// <<<<<<< chandra_AdminStaff
   yield takeEvery(GET_ADMINUSER, fetchUser)
+  yield takeEvery(GET_USERDROPDOWN, fetchUserDropDown)
   yield takeEvery(ADMIN_USERS, AdminUsers)
-// =======
-//     yield takeEvery(GET_ADMINUSER, fetchUser)
-//     yield takeEvery(GET_USERDROPDOWN, fetchUserDropDown)
-//     yield takeEvery(ADMIN_USERS, AdminUsers)
-// >>>>>>> main
 }
 
 export default UserSaga

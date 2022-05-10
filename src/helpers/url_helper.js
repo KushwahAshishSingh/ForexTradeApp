@@ -26,9 +26,6 @@ export const USER_GET_LIST = "client/user/list"
 export const USER_DROPDOWN_GET_LIST = "client/client/dropdown/list"
 export const STAFF_GET_LIST = "client/user/stafflist"
 
-
-
-
 //PROFILE
 export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile"
 export const POST_EDIT_PROFILE = "/post-fake-profile"
