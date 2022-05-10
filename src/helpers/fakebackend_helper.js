@@ -56,6 +56,7 @@ const UserAdd = data => post(url.USER_Add, data)
 const StaffAdd = data => post(url.STAFF_Add, data)
 
 export const getUser = () => get(url.USER_GET_LIST)
+export const getUserDropDown = () => get(url.USER_DROPDOWN_GET_LIST)
 export const getStaff = () => get(url.STAFF_GET_LIST)
 export const getSAM = () => get(url.SAM_GET_LIST)
 export const getSAS = () => get(url.SAS_GET_LIST)

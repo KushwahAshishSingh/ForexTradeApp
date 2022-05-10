@@ -26,8 +26,7 @@ function* loginUser({ payload: { user, history } }) {
       email: user.email,
       password: user.password,
     })
-    console.log(response, "this is login")
-  
+
     if (response.success === true) {
       Toast.fire({
         icon: "success",
@@ -41,12 +40,8 @@ function* loginUser({ payload: { user, history } }) {
     )
     yield put(loginSuccess(response))
     history.push("/dashboard")
-// <<<<<<< harish_dashboard
-// =======
-//     window.location.reload()
-// >>>>>>> main
+
   } catch (error) {
-    const response = yield call(postJwtLogin)
     Toast.fire({
       icon: "error",
       title: "something went wrong",

@@ -23,6 +23,7 @@ export const SAM_GET_LIST = "list/superadminsmanagerlist"
 export const SAS_GET_LIST = "list/superadminssupportlist"
 export const ADMIN_GET_LIST = "list/admins"
 export const USER_GET_LIST = "client/user/list"
+export const USER_DROPDOWN_GET_LIST = "client/client/dropdown/list"
 export const STAFF_GET_LIST = "client/user/stafflist"
 
 
