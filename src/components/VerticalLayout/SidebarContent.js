@@ -115,20 +115,23 @@ const SidebarContent = props => {
                 <span>{props.t("Main Menu")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
-                {roleType === "SuperAdmin" ? <>
-                  <li>
-                    <Link to="/super-admin-manager">
-                      {props.t("SuperAdmin Manager")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="super-admin-support">{props.t("SuperAdmin Support")}</Link>
-                  </li>
-                  <li>
-                    <Link to="/admin">{props.t("Admin")}</Link>
-                  </li>
-                </>
-                  :
+                {roleType === "SuperAdmin" ? (
+                  <>
+                    <li>
+                      <Link to="/super-admin-manager">
+                        {props.t("SuperAdmin Manager")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="super-admin-support">
+                        {props.t("SuperAdmin Support")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/admin">{props.t("Admin")}</Link>
+                    </li>
+                  </>
+                ) : roleType === "Admin" ? (
                   <>
                     <li>
                       <Link to="/user">{props.t("User")}</Link>
@@ -137,11 +140,16 @@ const SidebarContent = props => {
                       <Link to="/staff">{props.t("Staff")}</Link>
                     </li>
                   </>
-                }
-
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/user">{props.t("User")}</Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </li>
-{/*
+            {/*
             // =======
 //                 {roleType === "SuperAdmin" ? (
 //                   <>
@@ -166,7 +174,7 @@ const SidebarContent = props => {
 //                 )}
 // >>>>>>> main
 */}
-            <li className="menu-title">{props.t("Apps")}</li>
+            {/* <li className="menu-title">{props.t("Apps")}</li> */}
 
             {/* <li>
               <Link to="/Calendar" className=" ">
@@ -189,45 +197,43 @@ const SidebarContent = props => {
                 </span>
                 <span>{props.t("File Manager")}</span>
               </Link>
-            </li>
-       
+            </li>*/}
+
             <li>
               <Link to="/#" className="has-arrow">
-                <i className="bx bx-store"></i>
-                <span>{props.t("Ecommerce")}</span>
+                <i className="bx bx-cog"></i>
+                <span>{props.t("SETTINGS")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
-                  <Link to="#">{props.t("Products")}</Link>
-                </li>
-                <li>
-                  <Link to="#">
-                    {props.t("Product Detail")}
+                  <Link to="/general-setting">
+                    {props.t("General Settings")}
                   </Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Orders")}</Link>
+                  <Link to="/system-setting">{props.t("System Setting")}</Link>
+                </li>
+                {/* <li>
+                  <Link to="#">{props.t("Payment Settings")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Customers")}</Link>
+                  <Link to="#">{props.t("Opportunities Settings")}</Link>
                 </li>
                 <li>
-                  <Link to="#">{props.t("Cart")}</Link>
-                </li>
-                <li>
+                  <Link to="#">{props.t("Lead Settings")}</Link>
+                </li> */}
+                {/* <li>
                   <Link to="#">{props.t("Checkout")}</Link>
                 </li>
                 <li>
                   <Link to="#">{props.t("Shops")}</Link>
                 </li>
                 <li>
-                  <Link to="#">
-                    {props.t("Add Product")}
-                  </Link>
-                </li>
+                  <Link to="#">{props.t("Add Product")}</Link>
+                </li> */}
               </ul>
             </li>
-
+            {/*
             <li>
               <Link to="/#" className="has-arrow ">
                 <i className="bx bx-bitcoin"></i>

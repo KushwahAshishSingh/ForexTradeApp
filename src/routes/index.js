@@ -21,6 +21,8 @@ import Staf from "pages/MainMenu/Staf/Staf"
 
 // Pages Calendar
 import Calendar from "../pages/Calendar/index"
+import GeneralSetting from "pages/Setting/GeneralSetting/GeneralSetting"
+import SystemSetting from "pages/Setting/SystemSetting/SystemSetting"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -34,20 +36,24 @@ const authProtectedRoutes = [
 
   // main menu
 
-  { path: '/super-admin-manager', component: SuperAdminManager },
-  { path: '/super-admin-support', component: SuperAdminSupport },
-  { path: '/admin', component: Admin },
-  { path: '/user', component: User },
-  { path: '/staff', component: Staf },
-  { path: '/add-user', component: AddUser },
+  { path: "/super-admin-manager", component: SuperAdminManager },
+  { path: "/super-admin-support", component: SuperAdminSupport },
+  { path: "/admin", component: Admin },
+  { path: "/user", component: User },
+  { path: "/staff", component: Staf },
+  { path: "/add-user", component: AddUser },
 
+  // General Setting
 
-// =======
-//   { path: "/super-admin-manager", component: SuperAdminManager },
-//   { path: "/super-admin-support", component: SuperAdminSupport },
-//   { path: "/admin", component: Admin },
-//   { path: "/user", component: User },
-// >>>>>>> main
+  { path: "/general-setting", component: GeneralSetting },
+  { path: "/system-setting", component: SystemSetting },
+
+  // =======
+  //   { path: "/super-admin-manager", component: SuperAdminManager },
+  //   { path: "/super-admin-support", component: SuperAdminSupport },
+  //   { path: "/admin", component: Admin },
+  //   { path: "/user", component: User },
+  // >>>>>>> main
 
   // //calendar
   { path: "/calendar", component: Calendar },
