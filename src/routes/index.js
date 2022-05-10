@@ -18,6 +18,7 @@ import Admin from "pages/MainMenu/Admin/Admin"
 import User from "pages/MainMenu/User/User"
 import AddUser from "pages/MainMenu/User/AddUser"
 import Staf from "pages/MainMenu/Staf/Staf"
+import ViewProfile from "pages/MainMenu/User/ViewProfile"
 
 // Pages Calendar
 import Calendar from "../pages/Calendar/index"
@@ -42,6 +43,7 @@ const authProtectedRoutes = [
   { path: "/user", component: User },
   { path: "/staff", component: Staf },
   { path: "/add-user", component: AddUser },
+  { path: "/view-profile", component: ViewProfile },
 
   // General Setting
 

@@ -27,6 +27,10 @@ import {
   ModalHeader,
   Form,
   UncontrolledTooltip,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
 } from "reactstrap"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 // Formik validation
@@ -262,6 +266,10 @@ const User = props => {
     history.push("/add-user")
   }
 
+  const ViewProfile = () => {
+    history.push("/view-profile")
+  }
+
   // Select All Button operation
   const selectRow = {
     mode: "checkbox",
@@ -333,28 +341,42 @@ const User = props => {
       // eslint-disable-next-line react/display-name
       formatter: (cellContent, order) => (
         <>
-          <div className="d-flex gap-3">
+          <UncontrolledDropdown direction="left">
             {permissions === "read" ? (
               ""
             ) : (
-              <Link to="#" className="text-success" onClick={toggle}>
-                <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
-                <UncontrolledTooltip placement="top" target="edittooltip">
-                  Edit
-                </UncontrolledTooltip>
-              </Link>
+              <>
+                <DropdownToggle href="#" className="card-drop " tag="i">
+                  <i className="bx bx-cog  font-size-18" />
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-end">
+                  <DropdownItem href="#" onClick={ViewProfile}>
+                    {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                    View
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={toggle}>
+                    Deposit
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={toggle}>
+                    Withdrawal
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={toggle}>
+                    {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
+                    Transfer
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={toggle}>
+                    Bonus
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={toggle}>
+                    Live Accounts
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={toggle}>
+                    Demo Accoun Update
+                  </DropdownItem>
+                </DropdownMenu>
+              </>
             )}
-            {/* <Link
-              to="#"
-              className="text-danger"
-              onClick={() => onClickDelete(order)}
-            >
-              <i className="mdi mdi-delete font-size-18" id="deletetooltip" />
-              <UncontrolledTooltip placement="top" target="deletetooltip">
-                Delete
-              </UncontrolledTooltip>
-            </Link> */}
-          </div>
+          </UncontrolledDropdown>
         </>
       ),
     },
