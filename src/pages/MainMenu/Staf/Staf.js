@@ -47,7 +47,6 @@ const Staff = props => {
     return state?.StaffReducer?.Staff?.data
   })
 
-  //   console.log(state, "sdfsfsdfsf")
   const toggle = () => setModal(!modal)
 
   useEffect(() => {
@@ -275,10 +274,13 @@ const Staff = props => {
                                                 <option>read</option>
                                                 <option>update</option>
                                               </select>
-                                              {validation.touched.password &&
-                                              validation.errors.password ? (
+                                              {validation.touched.permissions &&
+                                              validation.errors.permissions ? (
                                                 <FormFeedback type="invalid">
-                                                  {validation.errors.password}
+                                                  {
+                                                    validation.errors
+                                                      .permissions
+                                                  }
                                                 </FormFeedback>
                                               ) : null}
                                             </div>

@@ -37,7 +37,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
-import { AdminUsers, getUser } from "store/actions"
+import { AdminUsers, getUser, viewUserProfile } from "store/actions"
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
 import paginationFactory, {
@@ -60,6 +60,12 @@ const User = props => {
   const state = useSelector(state => {
     return state?.UserReducer?.User?.data
   })
+
+  // const id = state?.map(e => e.id)
+  // console.log(id, "llllllllllll")
+
+  // const indexValue = state?.findIndex(e => e.id )
+  // console.log(indexValue, "======")
 
   const [activeTab, setactiveTab] = useState(1)
   const [selectedYear, setSelectedYear] = useState("")
@@ -266,7 +272,8 @@ const User = props => {
     history.push("/add-user")
   }
 
-  const ViewProfile = () => {
+  const ViewProfile = id => {
+    dispatch(viewUserProfile(id))
     history.push("/view-profile")
   }
 
@@ -350,27 +357,35 @@ const User = props => {
                   <i className="bx bx-cog  font-size-18" />
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-menu-end">
-                  <DropdownItem href="#" onClick={ViewProfile}>
-                    {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
-                    View
-                  </DropdownItem>
-                  <DropdownItem href="#" onClick={toggle}>
+                  {state.map(user => {
+                    return (
+                      <DropdownItem
+                        key={user.id}
+                        href="#"
+                        onClick={() => ViewProfile(user.id)}
+                      >
+                        {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                        View
+                      </DropdownItem>
+                    )
+                  })}
+                  <DropdownItem href="#" onClick={{}}>
                     Deposit
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={toggle}>
+                  <DropdownItem href="#" onClick={{}}>
                     Withdrawal
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={toggle}>
+                  <DropdownItem href="#" onClick={{}}>
                     {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
                     Transfer
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={toggle}>
+                  <DropdownItem href="#" onClick={{}}>
                     Bonus
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={toggle}>
+                  <DropdownItem href="#" onClick={{}}>
                     Live Accounts
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={toggle}>
+                  <DropdownItem href="#" onClick={{}}>
                     Demo Accoun Update
                   </DropdownItem>
                 </DropdownMenu>
