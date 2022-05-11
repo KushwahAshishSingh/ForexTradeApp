@@ -98,90 +98,68 @@ const SidebarContent = props => {
             <li>
               <Link to="/dashboard" className="">
                 {" "}
-              </Link>
-              {/* <i className="bx bx-home-circle"></i>
+                {/* <i className="bx bx-home-circle"></i>
                 <span className="badge rounded-pill bg-info float-end">
                   04
                 </span> */}
-              {roleType === "SuperAdmin" ? (
-                <>
-                  <span className="ms-5">
-                    {props.t("SuperAdmin Dashboards")}
-                  </span>
-                  <li>
-                    <Link to="/admin">
-                      <i className="bx bx-store" />
-                      {props.t("Admin")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/super-admin-support">
-                      <i className="bx bx-store" />
-                      {props.t("SuperAdmin Support")}
-                    </Link>
-                  </li>
-                </>
-              ) : roleType === "Admin" ? (
-                <>
-                  <span className="ms-5">{props.t("Admin Dashboards")}</span>
-                  <li>
-                    <Link to="/staff">
-                      <i className="bx bx-store" />
-                      {props.t("Staff")}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/user">
-                      <i className="bx bx-store" />
-                      {props.t("User")}
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link to="/user">
-                      <i className="bx bx-store" />
-                      {props.t("User")}
-                    </Link>
-                  </li>
-                </>
-              )}
+                {roleType === "SuperAdmin" ? (
+                  <span>{props.t("SuperAdmin Dashboards")}</span>
+                ) : (
+                  <span>{props.t("Admin Dashboards")}</span>
+                )}
+              </Link>
             </li>
 
-            {/* <li>
-              <Link to="/#" className="has-arrow">
-                <i className="bx bx-store"></i>
-                <span>{props.t("Main Menu")}</span>
-              </Link>
-              <ul>
-                {roleType === "SuperAdmin" ? (
-                  <>
-                    <li>
-                      <Link to="/admin">{props.t("Admin")}</Link>
-                    </li>
-                    <li>
-                      <Link to="/staff">{props.t("Staff")}</Link>
-                    </li>
-                  </>
-                ) : roleType === "Admin" ? (
-                  <>
-                    <li>
-                      <Link to="/user">{props.t("User")}</Link>
-                    </li>
-                    <li>
-                      <Link to="/staff">{props.t("Staff")}</Link>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      <Link to="/user">{props.t("User")}</Link>
-                    </li>
-                  </>
-                )}
-              </ul>
-            </li> */}
+            {roleType === "SuperAdmin" ? (
+              <>
+                <li>
+                  <Link to="/admin">
+                    <i className="bx bx-store" />
+                    <span> {props.t("Admin")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/super-admin-support">
+                    <i className="bx bx-store" />
+                    <span>{props.t("SuperAdmin Support")}</span>
+                  </Link>
+                </li>
+              </>
+            ) : roleType === "Admin" ? (
+              <>
+                <li>
+                  <Link to="/user">
+                    <i className="bx bx-store" />
+                    <span>{props.t("User")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/staff">
+                    <i className="bx bx-store" />
+                    <span>{props.t("Staff")}</span>
+                  </Link>
+                </li>
+              </>
+            ) : roleType === "SuperAdminStaff" ? (
+              <>
+                <li>
+                  <Link to="/admin">
+                    <i className="bx bx-store" />
+                    <span> {props.t("Admin")}</span>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/user">
+                    <i className="bx bx-store" />
+                    <span>{props.t("User")}</span>
+                  </Link>
+                </li>
+              </>
+            )}
+
             {/*
             // =======
 //                 {roleType === "SuperAdmin" ? (
@@ -206,9 +184,10 @@ const SidebarContent = props => {
 //                   </li>
 //                 )}
 // >>>>>>> main
-*/}
-            {/* <li className="menu-title">{props.t("Apps")}</li> */}
 
+*/}
+
+            {/* <li className="menu-title">{props.t("Apps")}</li> */}
             {/* <li>
               <Link to="/Calendar" className=" ">
                 <i className="bx bx-calendar"></i>
@@ -231,11 +210,10 @@ const SidebarContent = props => {
                 <span>{props.t("File Manager")}</span>
               </Link>
             </li>*/}
-
             <li>
               <Link to="/#" className="has-arrow">
                 <i className="bx bx-cog"></i>
-                <span>{props.t("SETTINGS")}</span>
+                <span>{props.t("Settings")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>
