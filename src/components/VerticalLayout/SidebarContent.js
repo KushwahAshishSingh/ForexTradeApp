@@ -97,7 +97,6 @@ const SidebarContent = props => {
             <li className="menu-title">{props.t("Menu")} </li>
             <li>
               <Link to="/dashboard" className="">
-                {" "}
                 {/* <i className="bx bx-home-circle"></i>
                 <span className="badge rounded-pill bg-info float-end">
                   04
