@@ -30,7 +30,6 @@ import { AdminUser, getAdmin } from "store/actions"
 
 const Admin = props => {
   const permissions = JSON.parse(localStorage.getItem("authUser")).permissions
-  console.log(permissions, "permissins")
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
 
@@ -80,7 +79,9 @@ const Admin = props => {
                   <Row className="mb-2">
                     <Col sm="12">
                       <div className="text-sm-end">
-                        {permissions === "read" || "update" ? (
+                        {permissions === "read" ? (
+                          ""
+                        ) : permissions === "update" ? (
                           ""
                         ) : (
                           <>
