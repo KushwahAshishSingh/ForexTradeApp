@@ -18,16 +18,13 @@ export const SAM_Add = "create/superadminmanager"
 export const USER_Add = "create/client/user"
 export const STAFF_Add = "create/client/staff"
 export const ADMIN_ADD = "create/admin"
-export const SAS_ADD = "create/superAdminsupport"
+export const SAS_ADD = "create/superadminsupport"
 export const SAM_GET_LIST = "list/superadminsmanagerlist"
 export const SAS_GET_LIST = "list/superadminssupportlist"
 export const ADMIN_GET_LIST = "list/admins"
 export const USER_GET_LIST = "client/user/list"
 export const USER_DROPDOWN_GET_LIST = "client/client/dropdown/list"
 export const STAFF_GET_LIST = "client/user/stafflist"
-
-
-
 
 //PROFILE
 export const POST_EDIT_JWT_PROFILE = "/post-jwt-profile"
