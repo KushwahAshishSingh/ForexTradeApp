@@ -1,9 +1,7 @@
 import MetaTags from "react-meta-tags"
 import React, { useEffect, useState } from "react"
 import { Container, Row, Col, Card, CardBody } from "reactstrap"
-import { getSas, SasUser } from "store/actions"
-import { getSasSuccess } from "store/actions"
-import { useParams } from "react-router-dom"
+
 //redux
 import { useSelector, useDispatch } from "react-redux"
 
@@ -14,11 +12,10 @@ import Breadcrumb from "../../../components/Common/Breadcrumb"
 import avatar from "../../../assets/images/users/avatar-1.jpg"
 
 const ViewStaffProfile = () => {
-  const dispatch = useDispatch()
-  const { id } = useParams()
   const staffDetails = useSelector(
     state => state?.SuperAdminSupportReducer?.profile
   )
+
   const [superStaffData, setSuperStaffData] = useState({})
 
   useEffect(() => {
@@ -64,25 +61,27 @@ const ViewStaffProfile = () => {
                           Role-Type :{superStaffData.roleType}
                         </p>
                       </div>
-                      {/* <div className="mt-4">
+                      <div className="mt-4">
                         <h5>Contact</h5>
                         <p className="mb-1">
-                          PhoneNo: {staffDetails.phonenumber}
+                          PhoneNo: {superStaffData.phonenumber}
                         </p>
-                        <p className="mb-1">E-Mail: {staffDetails.email}</p>
+                        <p className="mb-1">E-Mail: {superStaffData.email}</p>
                       </div>
                       <div className="mt-4">
                         <h5>Address</h5>
                         <p className="mb-1">
-                          Address 1 : {staffDetails.addressone}
+                          Address 1 : {superStaffData.addressone}
                         </p>
                         <p className="mb-1">
-                          Address 1 : {staffDetails.addresstwo}
+                          Address 1 : {superStaffData.addresstwo}
                         </p>
-                        <p className="mb-1">City : {staffDetails.city}</p>
-                        <p className="mb-1">State : {staffDetails.state}</p>
-                        <p className="mb-1">Country : {staffDetails.country}</p>
-                      </div> */}
+                        <p className="mb-1">City : {superStaffData.city}</p>
+                        <p className="mb-1">State : {superStaffData.state}</p>
+                        <p className="mb-1">
+                          Country : {superStaffData.country}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </CardBody>
