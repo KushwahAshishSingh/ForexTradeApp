@@ -1,9 +1,11 @@
 import MetaTags from "react-meta-tags"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Container, Row, Col, Card, CardBody } from "reactstrap"
-
+import { getSas, SasUser } from "store/actions"
+import { getSasSuccess } from "store/actions"
+import { useParams } from "react-router-dom"
 //redux
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 import { withRouter } from "react-router-dom"
 
@@ -11,8 +13,25 @@ import { withRouter } from "react-router-dom"
 import Breadcrumb from "../../../components/Common/Breadcrumb"
 import avatar from "../../../assets/images/users/avatar-1.jpg"
 
-const ViewProfile = props => {
-  const userDetails = useSelector(state => state?.UserReducer?.profile)
+const ViewStaffProfile = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const staffDetails = useSelector(
+    state => state?.SuperAdminSupportReducer?.profile
+  )
+  const [superStaffData, setSuperStaffData] = useState({})
+
+  useEffect(() => {
+    //localStorage.setItem(JSON.stringify(staffDetails))
+    if (Object.keys(staffDetails).length === 0) {
+      const data = JSON.parse(localStorage.getItem("profileData"))
+      setSuperStaffData(data)
+    } else {
+      localStorage.setItem("profileData", JSON.stringify(staffDetails))
+      setSuperStaffData(staffDetails)
+    }
+    console.log(superStaffData)
+  }, [])
 
   return (
     <React.Fragment>
@@ -38,32 +57,32 @@ const ViewProfile = props => {
                     </div>
                     <div className="flex-grow-1 align-self-center">
                       <div className="text-muted">
-                        <h5>Name:{userDetails.name}</h5>
+                        <h5>Name:{superStaffData.name}</h5>
 
-                        <p className="mb-2">Id no: {userDetails.id}</p>
+                        <p className="mb-2">Id no: {superStaffData.id}</p>
                         <p className="ms-0">
-                          Role-Type :{userDetails.roleType}
+                          Role-Type :{superStaffData.roleType}
                         </p>
                       </div>
-                      <div className="mt-4">
+                      {/* <div className="mt-4">
                         <h5>Contact</h5>
                         <p className="mb-1">
-                          PhoneNo: {userDetails.phonenumber}
+                          PhoneNo: {staffDetails.phonenumber}
                         </p>
-                        <p className="mb-1">E-Mail: {userDetails.email}</p>
+                        <p className="mb-1">E-Mail: {staffDetails.email}</p>
                       </div>
                       <div className="mt-4">
                         <h5>Address</h5>
                         <p className="mb-1">
-                          Address 1 : {userDetails.addressone}
+                          Address 1 : {staffDetails.addressone}
                         </p>
                         <p className="mb-1">
-                          Address 1 : {userDetails.addresstwo}
+                          Address 1 : {staffDetails.addresstwo}
                         </p>
-                        <p className="mb-1">City : {userDetails.city}</p>
-                        <p className="mb-1">State : {userDetails.state}</p>
-                        <p className="mb-1">Country : {userDetails.country}</p>
-                      </div>
+                        <p className="mb-1">City : {staffDetails.city}</p>
+                        <p className="mb-1">State : {staffDetails.state}</p>
+                        <p className="mb-1">Country : {staffDetails.country}</p>
+                      </div> */}
                     </div>
                   </div>
                 </CardBody>
@@ -76,4 +95,4 @@ const ViewProfile = props => {
   )
 }
 
-export default withRouter(ViewProfile)
+export default withRouter(ViewStaffProfile)

@@ -61,12 +61,6 @@ const User = props => {
     return state?.UserReducer?.User?.data
   })
 
-  // const id = state?.map(e => e.id)
-  // console.log(id, "llllllllllll")
-
-  // const indexValue = state?.findIndex(e => e.id )
-  // console.log(indexValue, "======")
-
   const [activeTab, setactiveTab] = useState(1)
   const [selectedYear, setSelectedYear] = useState("")
 
@@ -112,6 +106,11 @@ const User = props => {
   })
 
   const [modal, setModal] = useState(false)
+
+  const handleCustomerClick = arg => {
+    const userprofile = arg
+    ViewProfile(userprofile.id)
+  }
 
   // const [isEdit, setIsEdit] = useState(false)
   // const validation = useFormik({
@@ -251,19 +250,6 @@ const User = props => {
     }
   }
 
-  const handleOrderClick = arg => {
-    const order = arg
-
-    setOrder({
-      salesagent: order && order.salesagent,
-      name: order && order.name,
-    })
-
-    setIsEdit(true)
-
-    togg()
-  }
-
   useEffect(() => {
     dispatch(getUser())
   }, [])
@@ -346,7 +332,7 @@ const User = props => {
       isDummyField: true,
       text: "Action",
       // eslint-disable-next-line react/display-name
-      formatter: (cellContent, order) => (
+      formatter: (cellContent, id) => (
         <>
           <UncontrolledDropdown direction="left">
             {permissions === "read" ? (
@@ -356,20 +342,20 @@ const User = props => {
                 <DropdownToggle href="#" className="card-drop " tag="i">
                   <i className="bx bx-cog  font-size-18" />
                 </DropdownToggle>
+
                 <DropdownMenu className="dropdown-menu-end">
-                  {state.map(user => {
-                    return (
-                      <DropdownItem
-                        key={user.id}
-                        href="#"
-                        onClick={() => ViewProfile(user.id)}
-                      >
-                        {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
-                        View
-                      </DropdownItem>
-                    )
-                  })}
-                  <DropdownItem href="#" onClick={{}}>
+                  <DropdownItem
+                    href="#"
+                    onClick={() => handleCustomerClick(id)}
+                  >
+                    {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                    View
+                  </DropdownItem>
+
+                  <DropdownItem
+                    href="#"
+                    // onClick={() => handleCustomerClick(id)}
+                  >
                     Deposit
                   </DropdownItem>
                   <DropdownItem href="#" onClick={{}}>

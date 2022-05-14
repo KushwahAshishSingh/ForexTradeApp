@@ -19,6 +19,10 @@ import {
   ModalBody,
   ModalHeader,
   Form,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap"
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
@@ -27,6 +31,7 @@ import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
 import { AdminUser, getAdmin } from "store/actions"
+import DeleteModal from "../../../components/Common/DeleteModal"
 
 const Admin = props => {
   const permissions = JSON.parse(localStorage.getItem("authUser")).permissions
@@ -38,7 +43,6 @@ const Admin = props => {
   const state = useSelector(state => {
     return state.Admin.Admin.data
   })
-
   useEffect(() => {
     dispatch(getAdmin())
   }, [])
@@ -64,8 +68,15 @@ const Admin = props => {
     },
   })
 
+  const [deleteModal, setDeleteModal] = useState(false)
+
   return (
     <React.Fragment>
+      <DeleteModal
+        show={deleteModal}
+        // onDeleteClick={handleDeleteUser}
+        onCloseClick={() => setDeleteModal(false)}
+      />
       <div className="page-content">
         <MetaTags>
           <title>Admin | ForexTrade</title>
@@ -79,11 +90,8 @@ const Admin = props => {
                   <Row className="mb-2">
                     <Col sm="12">
                       <div className="text-sm-end">
-                        {permissions === "read" ? (
-                          ""
-                        ) : permissions === "update" ? (
-                          ""
-                        ) : (
+                        {permissions === "read" ||
+                        permissions === "update" ? null : (
                           <>
                             <Button
                               type="button"
@@ -206,7 +214,8 @@ const Admin = props => {
                         <Thead>
                           <Tr>
                             <Th data-priority="1">Name</Th>
-                            <Th data-priority="3">Email</Th>
+                            <Th data-priority="1">Email</Th>
+                            <Th data-priority="1">Action</Th>
                           </Tr>
                         </Thead>
                         <Tbody>
@@ -215,6 +224,62 @@ const Admin = props => {
                               <Tr key={index}>
                                 <Td>{item.name}</Td>
                                 <Td>{item.email}</Td>
+                                <Td>
+                                  {permissions === "create" ||
+                                  permissions === "read" ? null : (
+                                    <>
+                                      <UncontrolledDropdown direction="left">
+                                        <select
+                                          href="#"
+                                          className="card-drop "
+                                          tag="i"
+                                        >
+                                          {/* <DropdownMenu className="dropdown-menu-end"> */}
+                                          <option>
+                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                            View
+                                          </option>
+                                          <option>
+                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                            Deposit
+                                          </option>
+                                          <option>
+                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                            Withdrawal
+                                          </option>
+                                          <option>
+                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                            Live Accounts
+                                          </option>
+                                          <option>
+                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                            Transfer
+                                          </option>
+                                        </select>
+                                        {/* <DropdownItem href="#" onClick={{}}>
+                                        Deposit
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Withdrawal
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
+                                        {/* Transfer
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Bonus
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Live Accounts
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Demo Accoun Update */}
+                                        {/* </DropdownItem>  */}
+                                        {/* </DropdownMenu> */}
+                                      </UncontrolledDropdown>
+                                    </>
+                                  )}
+                                </Td>
                               </Tr>
                             ))}
                         </Tbody>

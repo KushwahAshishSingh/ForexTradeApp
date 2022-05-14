@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import MetaTags from "react-meta-tags"
 import PropTypes from "prop-types"
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link, useHistory } from "react-router-dom"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 import {
@@ -19,6 +19,10 @@ import {
   ModalBody,
   ModalHeader,
   Form,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from "reactstrap"
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
@@ -26,16 +30,16 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
-import { getSas, SasUser } from "store/actions"
+import { getSas, SasUser, viewSuperStaffProfile } from "store/actions"
 
 const SuperAdminSupport = props => {
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
-
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const state = useSelector(state => {
-    return state.SuperAdminSupportReducer.sasanager.data
+    return state?.SuperAdminSupportReducer?.sasanager?.data
   })
 
   useEffect(() => {
@@ -64,6 +68,11 @@ const SuperAdminSupport = props => {
       resetForm({ values: "" })
     },
   })
+
+  const ViewProfile = id => {
+    dispatch(viewSuperStaffProfile(id))
+    history.push(`/view-staff-profile/${id}`)
+  }
 
   return (
     <React.Fragment>
@@ -223,6 +232,7 @@ const SuperAdminSupport = props => {
                           <Tr>
                             <Th data-priority="1">Name</Th>
                             <Th data-priority="3">Email</Th>
+                            <Th data-priority="2">Action</Th>
                           </Tr>
                         </Thead>
                         <Tbody>
@@ -231,6 +241,46 @@ const SuperAdminSupport = props => {
                               <Tr key={index}>
                                 <Td>{item.name}</Td>
                                 <Td>{item.email}</Td>
+                                <Td>
+                                  <UncontrolledDropdown direction="left">
+                                    <DropdownToggle
+                                      href="#"
+                                      className="card-drop "
+                                      tag="i"
+                                    >
+                                      <i className="bx bx-cog  font-size-18" />
+                                    </DropdownToggle>
+                                    <DropdownMenu className="dropdown-menu-end">
+                                      <DropdownItem
+                                        href="#"
+                                        onClick={() => ViewProfile(item.id)}
+                                      >
+                                        {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                        View
+                                      </DropdownItem>
+
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Deposit
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Withdrawal
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
+                                        Transfer
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Bonus
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Live Accounts
+                                      </DropdownItem>
+                                      <DropdownItem href="#" onClick={{}}>
+                                        Demo Accoun Update
+                                      </DropdownItem>
+                                    </DropdownMenu>
+                                  </UncontrolledDropdown>
+                                </Td>
                               </Tr>
                             ))}
                         </Tbody>
