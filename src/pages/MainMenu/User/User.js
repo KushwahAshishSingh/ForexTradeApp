@@ -27,13 +27,17 @@ import {
   ModalHeader,
   Form,
   UncontrolledTooltip,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
 } from "reactstrap"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 // Formik validation
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
-import { AdminUsers, getUser } from "store/actions"
+import { AdminUsers, getUser, viewUserProfile } from "store/actions"
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
 import paginationFactory, {
@@ -102,6 +106,11 @@ const User = props => {
   })
 
   const [modal, setModal] = useState(false)
+
+  const handleCustomerClick = arg => {
+    const userprofile = arg
+    ViewProfile(userprofile.id)
+  }
 
   // const [isEdit, setIsEdit] = useState(false)
   // const validation = useFormik({
@@ -241,25 +250,17 @@ const User = props => {
     }
   }
 
-  const handleOrderClick = arg => {
-    const order = arg
-
-    setOrder({
-      salesagent: order && order.salesagent,
-      name: order && order.name,
-    })
-
-    setIsEdit(true)
-
-    togg()
-  }
-
   useEffect(() => {
     dispatch(getUser())
   }, [])
 
   const toggle = () => {
     history.push("/add-user")
+  }
+
+  const ViewProfile = id => {
+    dispatch(viewUserProfile(id))
+    history.push("/view-profile")
   }
 
   // Select All Button operation
@@ -331,30 +332,52 @@ const User = props => {
       isDummyField: true,
       text: "Action",
       // eslint-disable-next-line react/display-name
-      formatter: (cellContent, order) => (
+      formatter: (cellContent, id) => (
         <>
-          <div className="d-flex gap-3">
+          <UncontrolledDropdown direction="left">
             {permissions === "read" ? (
               ""
             ) : (
-              <Link to="#" className="text-success" onClick={toggle}>
-                <i className="mdi mdi-pencil font-size-18" id="edittooltip" />
-                <UncontrolledTooltip placement="top" target="edittooltip">
-                  Edit
-                </UncontrolledTooltip>
-              </Link>
+              <>
+                <DropdownToggle href="#" className="card-drop " tag="i">
+                  <i className="bx bx-cog  font-size-18" />
+                </DropdownToggle>
+
+                <DropdownMenu className="dropdown-menu-end">
+                  <DropdownItem
+                    href="#"
+                    onClick={() => handleCustomerClick(id)}
+                  >
+                    {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                    View
+                  </DropdownItem>
+
+                  <DropdownItem
+                    href="#"
+                    // onClick={() => handleCustomerClick(id)}
+                  >
+                    Deposit
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Withdrawal
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
+                    Transfer
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Bonus
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Live Accounts
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Demo Accoun Update
+                  </DropdownItem>
+                </DropdownMenu>
+              </>
             )}
-            {/* <Link
-              to="#"
-              className="text-danger"
-              onClick={() => onClickDelete(order)}
-            >
-              <i className="mdi mdi-delete font-size-18" id="deletetooltip" />
-              <UncontrolledTooltip placement="top" target="deletetooltip">
-                Delete
-              </UncontrolledTooltip>
-            </Link> */}
-          </div>
+          </UncontrolledDropdown>
         </>
       ),
     },

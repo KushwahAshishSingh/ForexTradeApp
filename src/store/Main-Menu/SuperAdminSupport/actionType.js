@@ -3,4 +3,4 @@ export const SAS_SUCCESS = "SAS_SUCCESS"
 export const GET_SAS = "GET_SAS"
 export const GET_SAS_SUCCESS = "GET_SAS_SUCCESS"
 export const GET_SAS_FAIL = "GET_SAS_FAIL"
-
+export const SUPER_STAFF_PROFILE = "SUPER_STAFF_PROFILE"

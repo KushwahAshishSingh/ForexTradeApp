@@ -43,7 +43,7 @@ const SystemSetting = () => {
           {/* <Breadcrumbs title="Forms" breadcrumbItem="Form Elements" /> */}
 
           <Row>
-            <Col>
+            <Col lg="6">
               <Card>
                 <CardBody>
                   <CardTitle className="h4">System Setting</CardTitle>
@@ -214,7 +214,7 @@ const SystemSetting = () => {
                   </Row> */}
 
                   <Row className="mb-3">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                       <label
                         htmlFor="example-text-input"
                         className="col-md-6 col-form-label"
@@ -227,9 +227,10 @@ const SystemSetting = () => {
                         defaultValue="5"
                       />
                     </div>
-
+                  </Row>
+                  <Row className="mb-3">
                     {/* <Col lg=""> */}
-                    <div className="mb-3 col-md-6">
+                    <div className="mb-3 col-md-12">
                       <label className="col-md-6 col-form-label">
                         Default Language
                       </label>
