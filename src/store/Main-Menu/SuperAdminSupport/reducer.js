@@ -30,6 +30,7 @@ const SuperAdminSupportReducer = (state = initialState, action) => {
     case GET_SAS_SUCCESS:
       return {
         ...state,
+        loading: true,
         sasanager: action.payload,
       }
 

@@ -100,7 +100,7 @@ const SuperAdminSupport = props => {
                         </Button>
                         <Modal isOpen={modal} toggle={toggle}>
                           <ModalHeader toggle={toggle}>
-                            SuperAdminSupport
+                            SuperAdmin Staff
                           </ModalHeader>
                           <ModalBody>
                             <Form

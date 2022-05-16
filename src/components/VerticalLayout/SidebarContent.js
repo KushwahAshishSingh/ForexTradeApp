@@ -120,7 +120,7 @@ const SidebarContent = props => {
                 <li>
                   <Link to="/super-admin-support">
                     <i className="bx bx-store" />
-                    <span>{props.t("SuperAdmin Support")}</span>
+                    <span>{props.t("SuperAdmin Staff")}</span>
                   </Link>
                 </li>
               </>

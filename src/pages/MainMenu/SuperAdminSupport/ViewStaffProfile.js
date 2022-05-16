@@ -1,11 +1,13 @@
 import MetaTags from "react-meta-tags"
 import React, { useEffect, useState } from "react"
-import { Container, Row, Col, Card, CardBody } from "reactstrap"
+import { Container, Row, Col, Card, CardBody, Button } from "reactstrap"
 
 //redux
 import { useSelector, useDispatch } from "react-redux"
 
 import { withRouter } from "react-router-dom"
+
+import favicon from "../../../assets/images/favicon.ico"
 
 //Import Breadcrumb
 import Breadcrumb from "../../../components/Common/Breadcrumb"
@@ -52,35 +54,92 @@ const ViewStaffProfile = () => {
                         className="avatar-md rounded-circle img-thumbnail"
                       />
                     </div>
-                    <div className="flex-grow-1 align-self-center">
-                      <div className="text-muted">
-                        <h5>Name:{superStaffData.name}</h5>
+                    <div className="flex-grow-1 align-self-center ">
+                      <div
+                        className="text-muted  "
+                        style={{ marginLeft: "15px" }}
+                      >
+                        <h2 className="mb-1">{superStaffData.name}</h2>
+                        <p className="mb-1">{superStaffData.name}</p>
+                      </div>
+                      <div
+                        style={{
+                          position: "relative",
+                          right: "60px",
+                          marginTop: "18px",
+                        }}
+                      >
+                        <div style={{ paddingTop: "15px" }}>
+                          <Button style={{ marginRight: "5px" }}>
+                            SendEmail
+                          </Button>
+                          <Button style={{ marginRight: "5px" }}>
+                            <i
+                              className="mdi mdi-pencil "
+                              style={{ marginRight: "3px" }}
+                            />
+                            Update
+                          </Button>
+                          <Button style={{}}>
+                            <i className="mdi mdi-delete"></i>
+                          </Button>
+                          <p
+                            style={{ fontSize: "15px", margin: "8px" }}
+                            className="ms-0"
+                          >
+                            {superStaffData.roleType}
+                          </p>
+                        </div>
 
-                        <p className="mb-2">Id no: {superStaffData.id}</p>
-                        <p className="ms-0">
-                          Role-Type :{superStaffData.roleType}
-                        </p>
-                      </div>
-                      <div className="mt-4">
-                        <h5>Contact</h5>
-                        <p className="mb-1">
-                          PhoneNo: {superStaffData.phonenumber}
-                        </p>
-                        <p className="mb-1">E-Mail: {superStaffData.email}</p>
-                      </div>
-                      <div className="mt-4">
-                        <h5>Address</h5>
-                        <p className="mb-1">
-                          Address 1 : {superStaffData.addressone}
-                        </p>
-                        <p className="mb-1">
-                          Address 1 : {superStaffData.addresstwo}
-                        </p>
-                        <p className="mb-1">City : {superStaffData.city}</p>
-                        <p className="mb-1">State : {superStaffData.state}</p>
-                        <p className="mb-1">
-                          Country : {superStaffData.country}
-                        </p>
+                        <hr />
+                        <div className="text-muted font-size-15">
+                          <img
+                            style={{ width: "10%", height: "auto" }}
+                            src={favicon}
+                            alt=""
+                            className="avatar-md rounded-circle img-thumbnail"
+                          />
+                          <h5>DIZICX</h5>
+                        </div>
+                        <hr />
+                        <div className="text-muted ">
+                          <p className="mb-1">CreatedAt:</p>
+                          <h5>{superStaffData.createdAt}</h5>
+                        </div>
+
+                        <hr />
+                        <div className="text-muted">
+                          <p className="mb-0">Notes:</p>
+                          <h5 className="">No Notes</h5>
+                        </div>
+
+                        <hr />
+                        <div className="mt-2">
+                          <h5>Contact</h5>
+                          <p className="mb-1">
+                            PhoneNo: {superStaffData.phonenumber}
+                          </p>
+                          <p className="mb-1">E-Mail: {superStaffData.email}</p>
+                        </div>
+                        <hr />
+                        <div className="mt-2">
+                          <p className="mb-1">SOCIAL</p>
+                        </div>
+                        <hr />
+                        <div className="mt-2">
+                          <h5>Address</h5>
+                          <p className="mb-1">
+                            Address 1 : {superStaffData.addressone}
+                          </p>
+                          <p className="mb-1">
+                            Address 1 : {superStaffData.addresstwo}
+                          </p>
+                          <p className="mb-1">City : {superStaffData.city}</p>
+                          <p className="mb-1">State : {superStaffData.state}</p>
+                          <p className="mb-1">
+                            Country : {superStaffData.country}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
