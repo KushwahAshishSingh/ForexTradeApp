@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import MetaTags from "react-meta-tags"
 import PropTypes from "prop-types"
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link, useHistory } from "react-router-dom"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 import {
@@ -30,19 +30,21 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
-import { AdminUser, getAdmin } from "store/actions"
+import { AdminUser, getAdmin, adminProfile } from "store/actions"
 import DeleteModal from "../../../components/Common/DeleteModal"
 
 const Admin = props => {
   const permissions = JSON.parse(localStorage.getItem("authUser")).permissions
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
+  const history = useHistory()
 
   const dispatch = useDispatch()
 
   const state = useSelector(state => {
     return state.Admin.Admin.data
   })
+  // console.log(state, "+++++")
   useEffect(() => {
     dispatch(getAdmin())
   }, [])
@@ -67,6 +69,12 @@ const Admin = props => {
       resetForm({ values: "" })
     },
   })
+
+  // VIEW PROFILE
+  const adminViewProfile = id => {
+    dispatch(adminProfile(id))
+    history.push(`/admin-profile/${id}`)
+  }
 
   const [deleteModal, setDeleteModal] = useState(false)
 
@@ -227,57 +235,48 @@ const Admin = props => {
                                 <Td>
                                   {permissions === "create" ||
                                   permissions === "read" ? null : (
-                                    <>
+                                    <React.Fragment>
                                       <UncontrolledDropdown direction="left">
-                                        <select
+                                        <DropdownToggle
                                           href="#"
                                           className="card-drop "
                                           tag="i"
                                         >
-                                          {/* <DropdownMenu className="dropdown-menu-end"> */}
-                                          <option>
+                                          <i className="bx bx-cog  font-size-18" />
+                                        </DropdownToggle>
+                                        <DropdownMenu className="dropdown-menu-end">
+                                          <DropdownItem
+                                            href="#"
+                                            onClick={() =>
+                                              adminViewProfile(item.id)
+                                            }
+                                          >
                                             {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
                                             View
-                                          </option>
-                                          <option>
-                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                          </DropdownItem>
+
+                                          <DropdownItem href="#" onClick={{}}>
                                             Deposit
-                                          </option>
-                                          <option>
-                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                          </DropdownItem>
+                                          <DropdownItem href="#" onClick={{}}>
                                             Withdrawal
-                                          </option>
-                                          <option>
-                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
-                                            Live Accounts
-                                          </option>
-                                          <option>
-                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                                          </DropdownItem>
+                                          <DropdownItem href="#" onClick={{}}>
+                                            {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
                                             Transfer
-                                          </option>
-                                        </select>
-                                        {/* <DropdownItem href="#" onClick={{}}>
-                                        Deposit
-                                      </DropdownItem>
-                                      <DropdownItem href="#" onClick={{}}>
-                                        Withdrawal
-                                      </DropdownItem>
-                                      <DropdownItem href="#" onClick={{}}>
-                                        {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
-                                        {/* Transfer
-                                      </DropdownItem>
-                                      <DropdownItem href="#" onClick={{}}>
-                                        Bonus
-                                      </DropdownItem>
-                                      <DropdownItem href="#" onClick={{}}>
-                                        Live Accounts
-                                      </DropdownItem>
-                                      <DropdownItem href="#" onClick={{}}>
-                                        Demo Accoun Update */}
-                                        {/* </DropdownItem>  */}
-                                        {/* </DropdownMenu> */}
+                                          </DropdownItem>
+                                          <DropdownItem href="#" onClick={{}}>
+                                            Bonus
+                                          </DropdownItem>
+                                          <DropdownItem href="#" onClick={{}}>
+                                            Live Accounts
+                                          </DropdownItem>
+                                          <DropdownItem href="#" onClick={{}}>
+                                            Demo Account Update
+                                          </DropdownItem>
+                                        </DropdownMenu>
                                       </UncontrolledDropdown>
-                                    </>
+                                    </React.Fragment>
                                   )}
                                 </Td>
                               </Tr>

@@ -1,11 +1,11 @@
 import MetaTags from "react-meta-tags"
-import React, { useEffect, useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Container, Row, Col, Card, CardBody, Button } from "reactstrap"
 
 //redux
 import { useSelector } from "react-redux"
 
-import { useHistory, withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
 import favicon from "../../../assets/images/favicon.ico"
 
@@ -13,29 +13,19 @@ import favicon from "../../../assets/images/favicon.ico"
 import Breadcrumb from "../../../components/Common/Breadcrumb"
 import avatar from "../../../assets/images/users/avatar-1.jpg"
 
-const ViewStaffProfile = () => {
-  const history = useHistory()
-  const staffDetails = useSelector(
-    state => state?.SuperAdminSupportReducer?.profile
-  )
-
-  const [superStaffData, setSuperStaffData] = useState({})
+const AdminViewProfile = () => {
+  const [adminProfile, setAdiminProfile] = useState({})
+  const adminDetails = useSelector(state => state.Admin.profile)
 
   useEffect(() => {
-    //localStorage.setItem(JSON.stringify(staffDetails))
-    if (Object.keys(staffDetails).length === 0) {
-      const data = JSON.parse(localStorage.getItem("profileData"))
-      setSuperStaffData(data)
+    if (Object.keys(adminDetails).length === 0) {
+      const data = JSON.parse(localStorage.getItem("adminProfile"))
+      setAdiminProfile(data)
     } else {
-      localStorage.setItem("profileData", JSON.stringify(staffDetails))
-      setSuperStaffData(staffDetails)
+      localStorage.setItem("adminProfile", JSON.stringify(adminDetails))
+      setAdiminProfile(adminDetails)
     }
-    console.log(superStaffData)
   }, [])
-
-  const toggle = () => {
-    history.push("/add-user")
-  }
 
   return (
     <React.Fragment>
@@ -64,8 +54,8 @@ const ViewStaffProfile = () => {
                         className="text-muted  "
                         style={{ marginLeft: "15px" }}
                       >
-                        <h2 className="mb-1">{superStaffData.name}</h2>
-                        <p className="mb-1">{superStaffData.name}</p>
+                        <h2 className="mb-1">{adminProfile.name}</h2>
+                        <p className="mb-1">{adminProfile.name}</p>
                       </div>
                       <div
                         style={{
@@ -78,10 +68,7 @@ const ViewStaffProfile = () => {
                           <Button style={{ marginRight: "5px" }}>
                             SendEmail
                           </Button>
-                          <Button
-                            style={{ marginRight: "5px" }}
-                            onClick={toggle}
-                          >
+                          <Button style={{ marginRight: "5px" }}>
                             <i
                               className="mdi mdi-pencil "
                               style={{ marginRight: "3px" }}
@@ -95,7 +82,7 @@ const ViewStaffProfile = () => {
                             style={{ fontSize: "15px", margin: "8px" }}
                             className="ms-0"
                           >
-                            {superStaffData.roleType}
+                            {adminProfile.roleType}
                           </p>
                         </div>
 
@@ -112,7 +99,7 @@ const ViewStaffProfile = () => {
                         <hr />
                         <div className="text-muted ">
                           <p className="mb-1">CreatedAt:</p>
-                          <h5>{superStaffData.createdAt}</h5>
+                          <h5>{adminProfile.createdAt}</h5>
                         </div>
 
                         <hr />
@@ -124,10 +111,8 @@ const ViewStaffProfile = () => {
                         <hr />
                         <div className="mt-2">
                           <h5>Contact</h5>
-                          <p className="mb-1">
-                            PhoneNo: {superStaffData.phonenumber}
-                          </p>
-                          <p className="mb-1">E-Mail: {superStaffData.email}</p>
+                          <p className="mb-1">PhoneNo:</p>
+                          <p className="mb-1">E-Mail: {adminProfile.email}</p>
                         </div>
                         <hr />
                         <div className="mt-2">
@@ -136,17 +121,11 @@ const ViewStaffProfile = () => {
                         <hr />
                         <div className="mt-2">
                           <h5>Address</h5>
-                          <p className="mb-1">
-                            Address 1 : {superStaffData.addressone}
-                          </p>
-                          <p className="mb-1">
-                            Address 1 : {superStaffData.addresstwo}
-                          </p>
-                          <p className="mb-1">City : {superStaffData.city}</p>
-                          <p className="mb-1">State : {superStaffData.state}</p>
-                          <p className="mb-1">
-                            Country : {superStaffData.country}
-                          </p>
+                          <p className="mb-1">Address 1 :</p>
+                          <p className="mb-1">Address 1 :</p>
+                          <p className="mb-1">City : </p>
+                          <p className="mb-1">State : </p>
+                          <p className="mb-1">Country :</p>
                         </div>
                       </div>
                     </div>
@@ -161,4 +140,4 @@ const ViewStaffProfile = () => {
   )
 }
 
-export default withRouter(ViewStaffProfile)
+export default withRouter(AdminViewProfile)

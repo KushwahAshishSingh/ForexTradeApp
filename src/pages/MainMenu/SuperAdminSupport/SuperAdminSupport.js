@@ -78,10 +78,10 @@ const SuperAdminSupport = props => {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>SuperAdminSupport | ForexTrade</title>
+          <title>SuperAdminStaff | ForexTrade</title>
         </MetaTags>
         <Container fluid>
-          <Breadcrumbs title="Main Menu" breadcrumbItem="Super Admin Support" />
+          <Breadcrumbs title="Main Menu" breadcrumbItem="Super Admin Staff" />
           <Row>
             <Col>
               <Card>
@@ -276,7 +276,7 @@ const SuperAdminSupport = props => {
                                         Live Accounts
                                       </DropdownItem>
                                       <DropdownItem href="#" onClick={{}}>
-                                        Demo Accoun Update
+                                        Demo Account Update
                                       </DropdownItem>
                                     </DropdownMenu>
                                   </UncontrolledDropdown>
