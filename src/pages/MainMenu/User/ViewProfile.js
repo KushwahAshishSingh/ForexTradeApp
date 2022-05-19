@@ -1,6 +1,7 @@
 import MetaTags from "react-meta-tags"
 import React from "react"
 import { Container, Row, Col, Card, CardBody } from "reactstrap"
+import UserDetails from "./UserDetails"
 
 //redux
 import { useSelector } from "react-redux"
@@ -17,6 +18,7 @@ const ViewProfile = props => {
   return (
     <React.Fragment>
       <div className="page-content">
+        <UserDetails />
         <MetaTags>
           <title>Profile | Skote - React Admin & Dashboard Template</title>
         </MetaTags>

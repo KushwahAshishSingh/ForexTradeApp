@@ -5,7 +5,7 @@ import { Container, Row, Col, Card, CardBody, Button } from "reactstrap"
 //redux
 import { useSelector } from "react-redux"
 
-import { useHistory, withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
 import favicon from "../../../assets/images/favicon.ico"
 
@@ -14,7 +14,6 @@ import Breadcrumb from "../../../components/Common/Breadcrumb"
 import avatar from "../../../assets/images/users/avatar-1.jpg"
 
 const ViewStaffProfile = () => {
-  const history = useHistory()
   const staffDetails = useSelector(
     state => state?.SuperAdminSupportReducer?.profile
   )
@@ -32,10 +31,6 @@ const ViewStaffProfile = () => {
     }
     console.log(superStaffData)
   }, [])
-
-  const toggle = () => {
-    history.push("/add-user")
-  }
 
   return (
     <React.Fragment>
@@ -78,10 +73,7 @@ const ViewStaffProfile = () => {
                           <Button style={{ marginRight: "5px" }}>
                             SendEmail
                           </Button>
-                          <Button
-                            style={{ marginRight: "5px" }}
-                            onClick={toggle}
-                          >
+                          <Button style={{ marginRight: "5px" }}>
                             <i
                               className="mdi mdi-pencil "
                               style={{ marginRight: "3px" }}

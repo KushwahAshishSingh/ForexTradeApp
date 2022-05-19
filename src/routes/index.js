@@ -21,11 +21,17 @@ import Staf from "pages/MainMenu/Staf/Staf"
 import ViewProfile from "pages/MainMenu/User/ViewProfile"
 import ViewStaffProfile from "pages/MainMenu/SuperAdminSupport/ViewStaffProfile"
 import AdminViewProfile from "pages/MainMenu/Admin/AdminViewProfile"
+import Deposit from "pages/MainMenu/User/Deposit"
 
 // Pages Calendar
 import Calendar from "../pages/Calendar/index"
 import GeneralSetting from "pages/Setting/GeneralSetting/GeneralSetting"
 import SystemSetting from "pages/Setting/SystemSetting/SystemSetting"
+import WithDrawal from "pages/MainMenu/User/WithDrawal"
+import Transfer from "pages/MainMenu/User/Transfer"
+import Bonus from "pages/MainMenu/User/Bonus"
+import LiveAccounts from "pages/MainMenu/User/LiveAccounts"
+import DemoAccounts from "pages/MainMenu/User/DemoAccounts"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -48,6 +54,12 @@ const authProtectedRoutes = [
   { path: "/view-profile", component: ViewProfile },
   { path: "/view-staff-profile/:id", component: ViewStaffProfile },
   { path: "/admin-profile/:id", component: AdminViewProfile },
+  { path: "/deposit", component: Deposit },
+  { path: "/with-drawal", component: WithDrawal },
+  { path: "/transfer", component: Transfer },
+  { path: "/bonus", component: Bonus },
+  { path: "/live-accounts", component: LiveAccounts },
+  { path: "/demo-accounts", component: DemoAccounts },
 
   // General Setting
 

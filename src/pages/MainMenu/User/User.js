@@ -106,10 +106,15 @@ const User = props => {
   })
 
   const [modal, setModal] = useState(false)
-
+  // view user profile
   const handleCustomerClick = arg => {
     const userprofile = arg
     ViewProfile(userprofile.id)
+  }
+
+  const ViewProfile = id => {
+    dispatch(viewUserProfile(id))
+    history.push("/view-profile")
   }
 
   // const [isEdit, setIsEdit] = useState(false)
@@ -224,6 +229,37 @@ const User = props => {
   //   },
   // })
 
+  // Deposite section
+
+  const depositHandler = () => {
+    history.push("/deposit")
+  }
+
+  // withdrawal handler
+  const drawalHandler = () => {
+    history.push("/with-drawal")
+  }
+
+  // tranfer handler
+  const transferHandler = () => {
+    history.push(`/transfer`)
+  }
+
+  // bonus handler
+  const bonusHandler = () => {
+    history.push(`/bonus`)
+  }
+
+  // live Account handler
+  const liveAccountsHandler = () => {
+    history.push(`/live-accounts`)
+  }
+
+  // demo Account handler
+  const demoAccountsHandler = () => {
+    history.push(`/demo-accounts`)
+  }
+
   useEffect(() => {
     if (state && !state.length) {
       dispatch(getUser())
@@ -256,11 +292,6 @@ const User = props => {
 
   const toggle = () => {
     history.push("/add-user")
-  }
-
-  const ViewProfile = id => {
-    dispatch(viewUserProfile(id))
-    history.push("/view-profile")
   }
 
   // Select All Button operation
@@ -352,27 +383,33 @@ const User = props => {
                     View
                   </DropdownItem>
 
-                  <DropdownItem
-                    href="#"
-                    // onClick={() => handleCustomerClick(id)}
-                  >
+                  <DropdownItem href="#" onClick={depositHandler}>
                     Deposit
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={{}}>
+                  <DropdownItem href="#" onClick={drawalHandler}>
                     Withdrawal
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={{}}>
+                  <DropdownItem href="#" onClick={() => transferHandler()}>
                     {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
                     Transfer
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={{}}>
+                  <DropdownItem href="#" onClick={bonusHandler}>
                     Bonus
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={{}}>
+                  <DropdownItem href="#" onClick={liveAccountsHandler}>
                     Live Accounts
                   </DropdownItem>
-                  <DropdownItem href="#" onClick={{}}>
+                  <DropdownItem href="#" onClick={demoAccountsHandler}>
                     Demo Accoun Update
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Update
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Delete
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Client
                   </DropdownItem>
                 </DropdownMenu>
               </>

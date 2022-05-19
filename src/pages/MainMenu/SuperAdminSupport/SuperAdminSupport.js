@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import MetaTags from "react-meta-tags"
 import PropTypes from "prop-types"
-import { withRouter, Link, useHistory } from "react-router-dom"
+import { withRouter, useHistory } from "react-router-dom"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 import {
@@ -37,6 +37,9 @@ const SuperAdminSupport = props => {
   const toggle = () => setModal(!modal)
   const history = useHistory()
   const dispatch = useDispatch()
+  const [isEdit, setIsEdit] = useState(false)
+  const [superStaffList, setSuperStaffList] = useState(null)
+  // console.log(superStaffList, "sdfsggf")
 
   const state = useSelector(state => {
     return state?.SuperAdminSupportReducer?.sasanager?.data
@@ -51,10 +54,10 @@ const SuperAdminSupport = props => {
     enableReinitialize: true,
 
     initialValues: {
-      name: "",
-      email: "",
+      name: (superStaffList && superStaffList.name) || "",
+      email: (superStaffList && superStaffList.email) || "",
       password: "",
-      permissions: "",
+      permissions: (superStaffList && superStaffList.permissions) || "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Please Enter Your Name"),
@@ -63,15 +66,54 @@ const SuperAdminSupport = props => {
       permissions: Yup.string().required("Please select one option"),
     }),
     onSubmit: (values, { resetForm }) => {
-      dispatch(SasUser(values, props.history))
+      if (isEdit) {
+        const updateStaff = {
+          name: values.name,
+          email: values.email,
+          permissions: values.permissions,
+        }
+        validation.resetForm()
+        setIsEdit(false)
+      } else {
+        const addNewStaff = {
+          name: values["name"],
+          email: values["email"],
+          password: values["password"],
+          permissions: values["permissions"],
+        }
+        dispatch(SasUser(addNewStaff, props.history))
+        validation.resetForm()
+      }
       setModal(!modal)
-      resetForm({ values: "" })
     },
   })
 
   const ViewProfile = id => {
     dispatch(viewSuperStaffProfile(id))
     history.push(`/view-staff-profile/${id}`)
+  }
+
+  const updateHandler = data => {
+    const staffList = data
+
+    setSuperStaffList({
+      name: staffList.name,
+      email: staffList.email,
+      permissions: staffList.permissions,
+    })
+    setIsEdit(true)
+    toggle()
+  }
+
+  const addNewSuperStaff = () => {
+    setSuperStaffList({
+      name: "",
+      email: "",
+      password: "",
+      permissions: "",
+    })
+    setIsEdit(false)
+    toggle()
   }
 
   return (
@@ -93,14 +135,14 @@ const SuperAdminSupport = props => {
                           type="button"
                           color="success"
                           className="btn-rounded  mb-2 me-2"
-                          onClick={toggle}
+                          onClick={() => addNewSuperStaff()}
                         >
                           <i className="mdi mdi-plus me-1" />
-                          Add New
+                          Create Staff
                         </Button>
                         <Modal isOpen={modal} toggle={toggle}>
                           <ModalHeader toggle={toggle}>
-                            SuperAdmin Staff
+                            {!!isEdit ? "Edit Staff" : "Add Staff"}
                           </ModalHeader>
                           <ModalBody>
                             <Form
@@ -275,8 +317,12 @@ const SuperAdminSupport = props => {
                                       <DropdownItem href="#" onClick={{}}>
                                         Live Accounts
                                       </DropdownItem>
-                                      <DropdownItem href="#" onClick={{}}>
-                                        Demo Account Update
+                                      {/* {console.log(item, "hell")} */}
+                                      <DropdownItem
+                                        href="#"
+                                        onClick={() => updateHandler(item)}
+                                      >
+                                        Update
                                       </DropdownItem>
                                     </DropdownMenu>
                                   </UncontrolledDropdown>
