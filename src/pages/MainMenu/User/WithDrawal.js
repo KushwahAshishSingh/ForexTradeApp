@@ -170,7 +170,7 @@ const Drawal = props => {
 
                                   <Modal isOpen={modal} toggle={toggle}>
                                     <ModalHeader toggle={toggle}>
-                                      Create Deposit
+                                      Create WithDrawal
                                     </ModalHeader>
                                     <ModalBody>
                                       <Form
@@ -341,9 +341,11 @@ const Drawal = props => {
 
                                         <div className="mt-3 col-md-12 text-end">
                                           <button
-                                            className="btn me-1 btn-primary btn-block"
-                                            type="submit"
-                                            onClick={toggle}
+                                            className="btn btn-primary btn-block me-1"
+                                            onClick={e => {
+                                              e.preventDefault()
+                                              setModal(false)
+                                            }}
                                           >
                                             close
                                           </button>

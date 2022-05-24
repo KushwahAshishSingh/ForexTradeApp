@@ -32,6 +32,9 @@ import Transfer from "pages/MainMenu/User/Transfer"
 import Bonus from "pages/MainMenu/User/Bonus"
 import LiveAccounts from "pages/MainMenu/User/LiveAccounts"
 import DemoAccounts from "pages/MainMenu/User/DemoAccounts"
+import Email from "pages/Contents/Email/Email"
+import FormEditors from "pages/Contents/Email/EmailCreate"
+import Tickets from "pages/Tickets/Ticket/Tickets"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -66,6 +69,12 @@ const authProtectedRoutes = [
   { path: "/general-setting", component: GeneralSetting },
   { path: "/system-setting", component: SystemSetting },
 
+  // Contents
+  { path: "/E-Mail", component: Email },
+  { path: "/email-create", component: FormEditors },
+
+  // Tickets
+  { path: "/tickets", component: Tickets },
   // =======
   //   { path: "/super-admin-manager", component: SuperAdminManager },
   //   { path: "/super-admin-support", component: SuperAdminSupport },

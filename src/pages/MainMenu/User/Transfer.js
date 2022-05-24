@@ -176,7 +176,7 @@ const Transfer = props => {
 
                                   <Modal isOpen={modal} toggle={toggle}>
                                     <ModalHeader toggle={toggle}>
-                                      Create Deposit
+                                      Create Transfer
                                     </ModalHeader>
                                     <ModalBody>
                                       <Form
@@ -358,8 +358,11 @@ const Transfer = props => {
 
                                         <div className="mt-3 col-md-12 text-end">
                                           <button
-                                            className="btn me-1 btn-primary btn-block"
-                                            onClick={() => setModal(false)}
+                                            className="btn btn-primary btn-block me-1"
+                                            onClick={e => {
+                                              e.preventDefault()
+                                              setModal(false)
+                                            }}
                                           >
                                             close
                                           </button>

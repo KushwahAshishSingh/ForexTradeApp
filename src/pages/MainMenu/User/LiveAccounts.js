@@ -415,7 +415,10 @@ const LiveAccounts = props => {
                                         <div className="mt-3 col-md-12 text-end">
                                           <button
                                             className="btn me-1 btn-primary btn-block"
-                                            onClick={() => setModal(false)}
+                                            onClick={e => {
+                                              e.preventDefault()
+                                              setModal(false)
+                                            }}
                                           >
                                             close
                                           </button>

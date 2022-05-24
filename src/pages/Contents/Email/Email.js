@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 // import PropTypes from "prop-types"
-import { withRouter } from "react-router-dom"
+import { withRouter, useHistory } from "react-router-dom"
 
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
@@ -43,32 +43,55 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min"
 import "../../../assets/scss/datatables.scss"
 
-const Bonus = props => {
-  const [bonus, setBonus] = useState([])
+const emailDetail = [
+  {
+    email: "introducing broker information",
+    subject: "Introducing Broker Updation",
+  },
+
+  {
+    email: "staff email welcome",
+    subject: "staff email welcome",
+  },
+  {
+    email: "	verification otp email",
+    subject: "OTP Verification Email - DIZICX",
+  },
+  {
+    email: "ld account create new email",
+    subject: "Introducing Broker Updation",
+  },
+]
+
+const Email = props => {
+  const [email, setEmail] = useState(emailDetail)
+  const history = useHistory()
   // console.log(bonus, "hekkkkkk")
   const [modal, setModal] = useState(false)
-  const toggle = () => setModal(!modal)
+
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
 
     initialValues: {
-      name: "",
-      accountNumber: "",
-      bonus: "",
-      amount: "",
+      email: "",
+      subject: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Please Enter Your Name"),
-      amount: Yup.string().required("Please Enter Your Amount"),
+      email: Yup.string().required("Please Enter Your email"),
+      subject: Yup.string().required("Please Enter Your subject"),
     }),
     onSubmit: (values, { resetForm }) => {
-      setBonus([...bonus, values])
+      setEmail([...email, values])
       // dispatch(StaffUsers(values, props.history))
-      setModal(!modal)
+      setModal(false)
       resetForm({ values: "" })
     },
   })
+
+  const selectRow = {
+    mode: "checkbox",
+  }
 
   const defaultSorted = [
     {
@@ -78,66 +101,56 @@ const Bonus = props => {
   ]
 
   const pageOptions = {
-    sizePerPage: 1,
+    sizePerPage: 3,
     // totalSize: state && state.length, // replace later with size(customers),
     custom: true,
   }
 
   const columns = [
     {
-      dataField: "name",
-      text: "Client Name",
+      dataField: "email",
+      text: "Email Type",
       sort: true,
     },
     {
-      dataField: "accountNumber",
-      text: "Account Number",
-      sort: true,
-    },
-    {
-      dataField: "bonus",
-      text: "Bonus",
+      dataField: "subject",
+      text: "Subject",
       sort: true,
     },
 
     {
-      dataField: "amount",
-      text: "Amount",
-      sort: true,
-    },
-    {
-      dataField: "expiryDate",
-      text: "Expiry Date",
-      sort: true,
-    },
-    {
-      dataField: "status",
-      text: "Status",
-      sort: true,
-      // formatter: (cellContent, row) => handleValidDate(row.createdAt),
-    },
-    {
       dataField: "",
-      text: "Action",
+      text: "Settings",
       sort: true,
-      // formatter: (cellContent, row) => handleValidDate(row.updatedAt),
+      formatter: (cellContent, row) => (
+        <div className=" col-md-12 me-2 ">
+          <button
+            className="btn me-1 btn-primary btn-block "
+            // onClick={() => setModal(false)}
+          >
+            Edit
+          </button>
+          <button className="btn btn-primary btn-block" type="submit">
+            Delete
+          </button>
+        </div>
+      ),
     },
   ]
 
-  // const handleValidDate = date => {
-  //   const date1 = moment(date).format("DD/MM/YY")
-  //   return date1
-  // }
+  const createEmailHandler = () => {
+    history.push(`/email-create`)
+  }
 
   return (
     <>
       <React.Fragment>
         <div className="page-content">
           <MetaTags>
-            <title>Bonus | ForexTrade</title>
+            <title>Email | ForexTrade</title>
           </MetaTags>
           <Container fluid>
-            <Breadcrumbs title="User" breadcrumbItem="Bonus" />
+            <Breadcrumbs title="Content" breadcrumbItem="Email" />
             <Row>
               <Col>
                 <Card>
@@ -146,13 +159,13 @@ const Bonus = props => {
                       pagination={paginationFactory(pageOptions)}
                       keyField="id"
                       columns={columns}
-                      data={bonus && bonus}
+                      data={email && email}
                     >
                       {({ paginationProps, paginationTableProps }) => (
                         <ToolkitProvider
                           keyField="id"
                           columns={columns}
-                          data={bonus || []}
+                          data={email || []}
                           search
                         >
                           {toolkitProps => (
@@ -162,14 +175,24 @@ const Bonus = props => {
                                   <Button
                                     type="button"
                                     className="btn-rectangle  mb-2 me-2"
-                                    onClick={toggle}
+                                    onClick={createEmailHandler}
                                   >
-                                    Add Bonus
+                                    Email Create
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    className="btn-rectangle  mb-2 me-2"
+                                    onClick={() => setModal(true)}
+                                  >
+                                    +Add Email Type
                                   </Button>
 
-                                  <Modal isOpen={modal} toggle={toggle}>
-                                    <ModalHeader toggle={toggle}>
-                                      Create Bonus
+                                  <Modal
+                                    isOpen={modal}
+                                    toggle={() => setModal(!modal)}
+                                  >
+                                    <ModalHeader toggle={() => setModal(false)}>
+                                      Add Email Type
                                     </ModalHeader>
                                     <ModalBody>
                                       <Form
@@ -181,116 +204,69 @@ const Bonus = props => {
                                         }}
                                       >
                                         <div className="mb-3">
-                                          <Label>Bonus Type</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="bonus"
-                                            value={
-                                              validation.values.bonus || ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                            <option>Welcome Bonus</option>
-                                            <option>Deposit Bonus</option>
-                                            <option>Birthday Bonus</option>
-                                            <option>other</option>
-                                          </select>
-                                          {validation.touched.bonus &&
-                                          validation.errors.bonus ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.bonus}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
                                           <Label className="form-label">
-                                            Client Name
+                                            Email Type
+                                            <span>*</span>
                                           </Label>
                                           <Input
-                                            name="name"
+                                            name="emailtype"
                                             className="form-control"
-                                            placeholder="Enter Your Name"
+                                            placeholder="Enter Your Email Type"
                                             type="name"
                                             onChange={validation.handleChange}
                                             onBlur={validation.handleBlur}
-                                            value={validation.values.name || ""}
+                                            value={
+                                              validation.values.emailtype || ""
+                                            }
                                             invalid={
-                                              validation.touched.name &&
-                                              validation.errors.name
+                                              validation.touched.emailtype &&
+                                              validation.errors.emailtype
                                                 ? true
                                                 : false
                                             }
                                           />
-                                          {validation.touched.name &&
-                                          validation.errors.name ? (
+                                          {validation.touched.emailtype &&
+                                          validation.errors.emailtype ? (
                                             <FormFeedback type="invalid">
-                                              {validation.errors.name}
+                                              {validation.errors.emailtype}
                                             </FormFeedback>
                                           ) : null}
                                         </div>
-
-                                        <div className="mb-3">
-                                          <Label>Account Number</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="accountNumber"
-                                            value={
-                                              validation.values.accountNumber ||
-                                              ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                            <option>123456789</option>
-                                          </select>
-                                          {validation.touched.accountNumber &&
-                                          validation.errors.accountNumber ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.accountNumber}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
                                         <div className="mb-3">
                                           <Label className="form-label">
-                                            Amount
+                                            Email Subject
+                                            <span>*</span>
                                           </Label>
                                           <Input
-                                            name="amount"
+                                            name="emailsubject"
                                             className="form-control"
-                                            placeholder="Enter Your Amount"
-                                            type="number"
+                                            placeholder="Enter email"
+                                            type="email"
                                             onChange={validation.handleChange}
                                             onBlur={validation.handleBlur}
                                             value={
-                                              validation.values.amount || ""
+                                              validation.values.emailsubject ||
+                                              ""
                                             }
                                             invalid={
-                                              validation.touched.amount &&
-                                              validation.errors.amount
+                                              validation.touched.emailsubject &&
+                                              validation.errors.emailsubject
                                                 ? true
                                                 : false
                                             }
                                           />
-                                          {validation.touched.amount &&
-                                          validation.errors.amount ? (
+                                          {validation.touched.emailsubject &&
+                                          validation.errors.emailsubject ? (
                                             <FormFeedback type="invalid">
-                                              {validation.errors.amount}
+                                              {validation.errors.emailsubject}
                                             </FormFeedback>
                                           ) : null}
                                         </div>
 
                                         <div className="mt-3 col-md-12 text-end">
                                           <button
-                                            className="btn btn-primary btn-block me-1"
-                                            onClick={e => {
-                                              e.preventDefault()
-                                              setModal(false)
-                                            }}
+                                            className="btn me-1 btn-primary btn-block"
+                                            onClick={() => setModal(false)}
                                           >
                                             close
                                           </button>
@@ -315,6 +291,7 @@ const Bonus = props => {
                                       responsive
                                       bordered={false}
                                       striped={false}
+                                      selectRow={selectRow}
                                       // defaultSorted={defaultSorted}
                                       classes={
                                         "table align-middle table-nowrap"
@@ -360,7 +337,7 @@ const Bonus = props => {
 //   onUpdateOrder: PropTypes.func,
 // }
 
-export default withRouter(Bonus)
+export default withRouter(Email)
 
 // Deposit.propTypes = {
 //   history: PropTypes.object,

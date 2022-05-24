@@ -27,7 +27,7 @@ import Select from "react-select"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 import { useDispatch, useSelector } from "react-redux"
-import { getUserDropDown } from "store/actions"
+import { getUserDropDown, AdminUsers } from "store/actions"
 
 const AddUser = props => {
   const [activeTab, setactiveTab] = useState(1)
@@ -106,18 +106,18 @@ const AddUser = props => {
       clientsinthreemonths: "",
       avgmonthlytradingvolume: "",
     },
-    validationSchema: Yup.object({
-      salesagent: Yup.string().required("Select Sales Agent"),
-      name: Yup.string().required("Please Enter Your Name"),
-      email: Yup.string().required("Please Enter Your Email"),
-      password: Yup.string().required("Please Enter Your Password"),
-      phonenumber: Yup.string().required("Please Enter Your Phone-Number"),
-      addressone: Yup.string().required("Please Enter Your Address"),
-    }),
+    // validationSchema: Yup.object({
+    //   salesagent: Yup.string().required("Select Sales Agent"),
+    //   name: Yup.string().required("Please Enter Your Name"),
+    //   email: Yup.string().required("Please Enter Your Email"),
+    //   password: Yup.string().required("Please Enter Your Password"),
+    //   phonenumber: Yup.string().required("Please Enter Your Phone-Number"),
+    //   addressone: Yup.string().required("Please Enter Your Address"),
+    // }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values)
-      //     dispatch(AdminUsers(values,));
-      //     resetForm({ values: '' });
+      console.log(values, "kkkklklkl")
+      dispatch(AdminUsers(values))
+      resetForm({ values: "" })
     },
   })
   const handleSelectBox = a => {
@@ -312,11 +312,27 @@ const AddUser = props => {
                                     Last Name
                                   </Label>
                                   <Input
+                                    name="lastname"
                                     type="text"
                                     className="form-control"
                                     id="basicpill-lastname-input2"
                                     placeholder="Enter Your Last Name"
+                                    onChange={validation.handleChange}
+                                    onBlur={validation.handleBlur}
+                                    value={validation.values.lastname || ""}
+                                    invalid={
+                                      validation.touched.lastname &&
+                                      validation.errors.lastname
+                                        ? true
+                                        : false
+                                    }
                                   />
+                                  {validation.touched.lastname &&
+                                  validation.errors.lastname ? (
+                                    <FormFeedback type="invalid">
+                                      {validation.errors.lastname}
+                                    </FormFeedback>
+                                  ) : null}
                                 </div>
                               </Col>
                             </Row>
@@ -583,12 +599,9 @@ const AddUser = props => {
                                   Previous
                                 </Link>
                               </Button>
-                              <Button
-                                style={{ backgroundColor: "#556ee6" }}
-                                type="submit"
-                                className={activeTab === 5 ? "next " : "next"}
-                              >
+                              <Button style={{ backgroundColor: "#556ee6" }}>
                                 <Link
+                                  className={activeTab === 5 ? "next " : "next"}
                                   style={{ color: "#fff" }}
                                   to="#"
                                   onClick={() => {
@@ -870,12 +883,11 @@ const AddUser = props => {
                                     Previous
                                   </Link>
                                 </Button>
-                                <Button
-                                  style={{ backgroundColor: "#556ee6" }}
-                                  type="submit"
-                                  className={activeTab === 5 ? "next " : "next"}
-                                >
+                                <Button style={{ backgroundColor: "#556ee6" }}>
                                   <Link
+                                    className={
+                                      activeTab === 5 ? "next " : "next"
+                                    }
                                     style={{ color: "#fff" }}
                                     to="#"
                                     onClick={() => {
@@ -1124,12 +1136,11 @@ const AddUser = props => {
                                     Previous
                                   </Link>
                                 </Button>
-                                <Button
-                                  style={{ backgroundColor: "#556ee6" }}
-                                  type="submit"
-                                  className={activeTab === 5 ? "next " : "next"}
-                                >
+                                <Button style={{ backgroundColor: "#556ee6" }}>
                                   <Link
+                                    className={
+                                      activeTab === 5 ? "next " : "next"
+                                    }
                                     style={{ color: "#fff" }}
                                     to="#"
                                     onClick={() => {
@@ -1206,12 +1217,11 @@ const AddUser = props => {
                                     Previous
                                   </Link>
                                 </Button>
-                                <Button
-                                  style={{ backgroundColor: "#556ee6" }}
-                                  type="submit"
-                                  className={activeTab === 5 ? "next " : "next"}
-                                >
+                                <Button>
                                   <Link
+                                    className={
+                                      activeTab === 5 ? "next " : "next"
+                                    }
                                     style={{ color: "#fff" }}
                                     to="#"
                                     onClick={() => {
@@ -1435,15 +1445,15 @@ const AddUser = props => {
                                   type="submit"
                                   className={activeTab === 5 ? "next " : "next"}
                                 >
-                                  <Link
+                                  {/* <Link
                                     style={{ color: "#fff" }}
                                     to="#"
                                     onClick={() => {
                                       toggleTab(activeTab + 1)
                                     }}
-                                  >
-                                    Save
-                                  </Link>
+                                  > */}
+                                  Submit
+                                  {/* </Link> */}
                                 </Button>
                               </div>
                             </Form>

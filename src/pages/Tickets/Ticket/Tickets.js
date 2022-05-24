@@ -47,10 +47,10 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min"
 import "../../../assets/scss/datatables.scss"
 
-const DemoAccounts = props => {
+const Tickets = props => {
   const [liveAccounts, setLiveAccounts] = useState([])
   const [modal, setModal] = useState(false)
-  // const toggle = () => setModal(!modal)
+  const toggle = () => setModal(!modal)
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
@@ -72,7 +72,7 @@ const DemoAccounts = props => {
     onSubmit: (values, { resetForm }) => {
       // dispatch(StaffUsers(values, props.history))
       setLiveAccounts([...liveAccounts, values])
-      setModal(() => setModal(false))
+      setModal(!modal)
       resetForm({ values: "" })
       // console.log(values, "helllooo")
     },
@@ -93,56 +93,29 @@ const DemoAccounts = props => {
 
   const columns = [
     {
-      dataField: "accountnumber",
-      text: "Account number",
+      dataField: "subject",
+      text: "Subject",
       sort: true,
     },
     {
-      dataField: "accounttype",
-      text: "Account Type",
+      dataField: "reporter",
+      text: "Reporter",
       sort: true,
     },
     {
-      dataField: "platform",
-      text: "Platform type",
+      dataField: "priority",
+      text: "Priority",
       sort: true,
     },
     {
-      dataField: "group",
-      text: "Group",
-      sort: true,
-    },
-
-    {
-      dataField: "client",
-      text: "Client",
+      dataField: "date",
+      text: "Date",
       sort: true,
     },
 
     {
-      dataField: "currency",
-      text: "Currency",
-      sort: true,
-    },
-
-    {
-      dataField: "leverage",
-      text: "Leverage",
-      sort: true,
-    },
-    {
-      dataField: "balance",
-      text: "Balance",
-      sort: true,
-    },
-    {
-      dataField: "createdat",
-      text: "Created At",
-      sort: true,
-    },
-    {
-      dataField: "agent",
-      text: "Agent",
+      dataField: "department",
+      text: "Department",
       sort: true,
     },
 
@@ -150,34 +123,12 @@ const DemoAccounts = props => {
       dataField: "status",
       text: "Status",
       sort: true,
-      // formatter: (cellContent, row) => handleValidDate(row.createdAt),
     },
-    {
-      dataField: "menu",
-      isDummyField: true,
-      editable: false,
-      text: "Setting",
-      // eslint-disable-next-line react/display-name
-      formatter: (cellContent, user) => (
-        <div className="d-flex gap-3">
-          <UncontrolledDropdown direction="left">
-            <DropdownToggle href="#" className="card-drop " tag="i">
-              <i className="bx bx-cog  font-size-18" />
-            </DropdownToggle>
 
-            <DropdownMenu className="dropdown-menu-end">
-              <DropdownItem href="#" onClick={{}}>
-                {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
-                Deposit
-              </DropdownItem>
-              <DropdownItem href="#" onClick={{}}>
-                {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
-                WithDrawal
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
-      ),
+    {
+      dataField: "duedate",
+      text: "Due Date",
+      sort: true,
     },
   ]
 
@@ -191,10 +142,10 @@ const DemoAccounts = props => {
       <React.Fragment>
         <div className="page-content">
           <MetaTags>
-            <title>Demo Accounts | ForexTrade</title>
+            <title>Tickets | ForexTrade</title>
           </MetaTags>
           <Container fluid>
-            <Breadcrumbs title="User" breadcrumbItem="Demo Accounts" />
+            <Breadcrumbs title="Tickets" breadcrumbItem="Ticket" />
             <Row>
               <Col>
                 <Card>
@@ -219,17 +170,14 @@ const DemoAccounts = props => {
                                   <Button
                                     type="button"
                                     className="btn-rectangle  mb-2 me-2"
-                                    onClick={() => setModal(true)}
+                                    onClick={toggle}
                                   >
-                                    Create Demo Accounts
+                                    Create Tickets
                                   </Button>
 
-                                  <Modal
-                                    isOpen={modal}
-                                    toggle={() => setModal(!modal)}
-                                  >
-                                    <ModalHeader toggle={() => setModal(false)}>
-                                      Create Demo Accounts
+                                  <Modal isOpen={modal} toggle={toggle}>
+                                    <ModalHeader toggle={toggle}>
+                                      Create Tickets
                                     </ModalHeader>
                                     <ModalBody>
                                       <Form
@@ -425,7 +373,6 @@ const DemoAccounts = props => {
                                           >
                                             close
                                           </button>
-
                                           <button
                                             className="btn btn-primary btn-block"
                                             type="submit"
@@ -492,7 +439,7 @@ const DemoAccounts = props => {
 //   onUpdateOrder: PropTypes.func,
 // }
 
-export default withRouter(DemoAccounts)
+export default withRouter(Tickets)
 
 // Deposit.propTypes = {
 //   history: PropTypes.object,

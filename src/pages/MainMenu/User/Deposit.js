@@ -67,7 +67,6 @@ const Deposit = props => {
       // dispatch(StaffUsers(values, props.history))
       setModal(!modal)
       resetForm({ values: "" })
-      console.log(values, "helllooo")
     },
   })
 
@@ -360,9 +359,11 @@ const Deposit = props => {
 
                                         <div className="mt-3 col-md-12 text-end">
                                           <button
-                                            className="btn me-1 btn-primary btn-block"
-                                            type="submit"
-                                            onClick={toggle}
+                                            className="btn btn-primary btn-block me-1"
+                                            onClick={e => {
+                                              e.preventDefault()
+                                              setModal(false)
+                                            }}
                                           >
                                             close
                                           </button>

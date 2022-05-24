@@ -129,7 +129,7 @@ const SidebarContent = props => {
                 <li>
                   <Link to="/user">
                     <i className="bx bx-store" />
-                    <span>{props.t("User")}</span>
+                    <span>{props.t("Client")}</span>
                   </Link>
                 </li>
                 <li>
@@ -159,6 +159,60 @@ const SidebarContent = props => {
               </>
             )}
 
+            <li>
+              <Link to="/#" className="has-arrow">
+                <i className="bx bx-cog"></i>
+                <span>{props.t("Settings")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/general-setting">
+                    {props.t("General Settings")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/system-setting">{props.t("System Setting")}</Link>
+                </li>
+
+                {/* <li>
+                  <Link to="#">{props.t("Payment Settings")}</Link>
+                </li>
+                <li>
+                  <Link to="#">{props.t("Opportunities Settings")}</Link>
+                </li>
+                <li>
+                  <Link to="#">{props.t("Lead Settings")}</Link>
+                </li> */}
+                {/* <li>
+                  <Link to="#">{props.t("Checkout")}</Link>
+                </li>
+                <li>
+                  <Link to="#">{props.t("Shops")}</Link>
+                </li>
+                <li>
+                  <Link to="#">{props.t("Add Product")}</Link>
+                </li> */}
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/#" className="has-arrow ">
+                <i className="bx bx-envelope"></i>
+                <span>{props.t("Contents")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+                <li>
+                  <Link to="/E-Mail">{props.t("E-Mail")}</Link>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <Link to="/tickets" className=" ">
+                <i className="bx bx-calendar"></i>
+                <span>{props.t("Ticket")}</span>
+              </Link>
+            </li>
             {/*
             // =======
 //                 {roleType === "SuperAdmin" ? (
@@ -209,40 +263,7 @@ const SidebarContent = props => {
                 <span>{props.t("File Manager")}</span>
               </Link>
             </li>*/}
-            <li>
-              <Link to="/#" className="has-arrow">
-                <i className="bx bx-cog"></i>
-                <span>{props.t("Settings")}</span>
-              </Link>
-              <ul className="sub-menu" aria-expanded="false">
-                <li>
-                  <Link to="/general-setting">
-                    {props.t("General Settings")}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/system-setting">{props.t("System Setting")}</Link>
-                </li>
-                {/* <li>
-                  <Link to="#">{props.t("Payment Settings")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Opportunities Settings")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Lead Settings")}</Link>
-                </li> */}
-                {/* <li>
-                  <Link to="#">{props.t("Checkout")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Shops")}</Link>
-                </li>
-                <li>
-                  <Link to="#">{props.t("Add Product")}</Link>
-                </li> */}
-              </ul>
-            </li>
+
             {/*
             <li>
               <Link to="/#" className="has-arrow ">

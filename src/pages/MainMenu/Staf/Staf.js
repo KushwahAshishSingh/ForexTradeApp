@@ -69,10 +69,10 @@ const Staff = props => {
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: (values, { resetForm }) => {
-      // dispatch(StaffUsers(values, props.history))
+      dispatch(StaffUsers(values, props.history))
       setModal(!modal)
       resetForm({ values: "" })
-      console.log("valllllll", values)
+      // console.log("valllllll", values)
     },
   })
 
