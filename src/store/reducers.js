@@ -34,28 +34,26 @@ import tasks from "./tasks/reducer"
 import contacts from "./contacts/reducer"
 
 //mails
-import mails from "./mails/reducer";
+import mails from "./mails/reducer"
 
-//Dashboard 
-import Dashboard from "./dashboard/reducer";
+//Dashboard
+import Dashboard from "./dashboard/reducer"
 
 //Dasboard saas
-import DashboardSaas from "./dashboard-saas/reducer";
+import DashboardSaas from "./dashboard-saas/reducer"
 
 //main menu
-import SuperAdminManagerReducer from './Main-Menu/SuperAdminManager/reducer'
-import Admin from './Main-Menu/Admin/reducer'
-import SuperAdminSupportReducer from './Main-Menu/SuperAdminSupport/reducer'
-import UserReducer from './Main-Menu/User/reducer'
-import StaffReducer from './Main-Menu/Staff/reducer'
-
-
-
-
-
-
+import SuperAdminManagerReducer from "./Main-Menu/SuperAdminManager/reducer"
+import Admin from "./Main-Menu/Admin/reducer"
+import SuperAdminSupportReducer from "./Main-Menu/SuperAdminSupport/reducer"
+import UserReducer from "./Main-Menu/User/reducer"
+import StaffReducer from "./Main-Menu/Staff/reducer"
+import TicketReducer from "./Main-Menu/Tickets/reducer"
+import emailReducer from "./Main-Menu/Email/reducer"
 const rootReducer = combineReducers({
   // public
+  emailReducer,
+  TicketReducer,
   StaffReducer,
   UserReducer,
   SuperAdminSupportReducer,
@@ -76,7 +74,7 @@ const rootReducer = combineReducers({
   tasks,
   contacts,
   Dashboard,
-  DashboardSaas
+  DashboardSaas,
 })
 
 export default rootReducer

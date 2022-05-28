@@ -43,9 +43,31 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min"
 import "../../../assets/scss/datatables.scss"
 
+const depositDetail = [
+  {
+    name: "chandra",
+    accountNumber: 12315464,
+    paymentMethod: "cash Deposit",
+    amount: 2328,
+    paymentDate: "12/05/2020",
+    status: "pending",
+  },
+  {
+    name: "rahul",
+    accountNumber: 878975464,
+    paymentMethod: "online",
+    amount: 1200,
+    paymentDate: "1/03/2021",
+    status: "completed",
+  },
+]
+
 const Deposit = props => {
   const [modal, setModal] = useState(false)
+  const [deposit, setDeposit] = useState([...depositDetail])
+
   const toggle = () => setModal(!modal)
+  const [receiptPhoto, setReceiptPhoto] = useState(true)
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
@@ -64,6 +86,8 @@ const Deposit = props => {
       comment: Yup.string().required("Please Enter Your Comment"),
     }),
     onSubmit: (values, { resetForm }) => {
+      setDeposit([...deposit, values])
+      console.log(values, "sfdsf")
       // dispatch(StaffUsers(values, props.history))
       setModal(!modal)
       resetForm({ values: "" })
@@ -78,7 +102,7 @@ const Deposit = props => {
   ]
 
   const pageOptions = {
-    sizePerPage: 1,
+    sizePerPage: 2,
     // totalSize: state && state.length, // replace later with size(customers),
     custom: true,
   }
@@ -110,7 +134,7 @@ const Deposit = props => {
       sort: true,
     },
     {
-      dataField: date,
+      dataField: "paymentDate",
       text: "Payment Date",
       sort: true,
     },
@@ -124,7 +148,13 @@ const Deposit = props => {
       dataField: "",
       text: "Action",
       sort: true,
-      // formatter: (cellContent, row) => handleValidDate(row.updatedAt),
+      formatter: (cellContent, row) => (
+        <div className=" col-md-12 me-2 ">
+          <button className="btn btn-primary btn-block" type="submit">
+            Delete
+          </button>
+        </div>
+      ),
     },
   ]
 
@@ -132,6 +162,14 @@ const Deposit = props => {
   //   const date1 = moment(date).format("DD/MM/YY")
   //   return date1
   // }
+  const addDepositHandler = () => {
+    toggle()
+    setReceiptPhoto(true)
+  }
+  const manualDepositHandler = () => {
+    toggle()
+    setReceiptPhoto(false)
+  }
 
   return (
     <>
@@ -150,13 +188,13 @@ const Deposit = props => {
                       pagination={paginationFactory(pageOptions)}
                       keyField="id"
                       columns={columns}
-                      // data={state && state}
+                      data={deposit && deposit}
                     >
                       {({ paginationProps, paginationTableProps }) => (
                         <ToolkitProvider
                           keyField="id"
                           columns={columns}
-                          data={[]}
+                          data={deposit || []}
                           search
                         >
                           {toolkitProps => (
@@ -167,14 +205,14 @@ const Deposit = props => {
                                     <Button
                                       type="button"
                                       className="btn-rectangle  mb-2 me-2"
-                                      onClick={toggle}
+                                      onClick={addDepositHandler}
                                     >
                                       Add Deposit
                                     </Button>
                                     <Button
                                       type="button"
                                       className="btn-rectangle  mb-2 "
-                                      onClick={toggle}
+                                      onClick={manualDepositHandler}
                                     >
                                       Manual Deposit
                                     </Button>
@@ -191,7 +229,11 @@ const Deposit = props => {
                                       Total of Completed Deposits :
                                     </p>
                                   </span>
-                                  <Modal isOpen={modal} toggle={toggle}>
+                                  <Modal
+                                    isOpen={modal}
+                                    toggle={toggle}
+                                    backdrop="static"
+                                  >
                                     <ModalHeader toggle={toggle}>
                                       Create Deposit
                                     </ModalHeader>
@@ -310,23 +352,25 @@ const Deposit = props => {
                                           ) : null}
                                         </div>
 
-                                        <Col sm={12}>
-                                          <div className="mb-3">
-                                            <div>
-                                              <Label
-                                                htmlFor="formFile"
-                                                className="form-label"
-                                              >
-                                                Small file input example
-                                              </Label>
-                                              <Input
-                                                className="form-control"
-                                                id="formFile"
-                                                type="file"
-                                              />
+                                        {receiptPhoto ? (
+                                          <Col sm={12}>
+                                            <div className="mb-3">
+                                              <div>
+                                                <Label
+                                                  htmlFor="formFile"
+                                                  className="form-label"
+                                                >
+                                                  Receipt Photo
+                                                </Label>
+                                                <Input
+                                                  className="form-control"
+                                                  id="formFile"
+                                                  type="file"
+                                                />
+                                              </div>
                                             </div>
-                                          </div>
-                                        </Col>
+                                          </Col>
+                                        ) : null}
 
                                         <div className="mb-3">
                                           <Label className="form-label">

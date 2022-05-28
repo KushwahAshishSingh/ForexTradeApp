@@ -14,21 +14,20 @@ import invoiceSaga from "./invoices/saga"
 import projectsSaga from "./projects/saga"
 import tasksSaga from "./tasks/saga"
 import mailsSaga from "./mails/saga"
-import contactsSaga from "./contacts/saga";
-import dashboardSaga from "./dashboard/saga";
-import dashboardSaasSaga from "./dashboard-saas/saga";
-import samSaga from './Main-Menu/SuperAdminManager/saga';
-import AdminSaga from './Main-Menu/Admin/saga'
-import sasSaga from './Main-Menu/SuperAdminSupport/saga'
-import UserSaga from './Main-Menu/User/saga'
-import Staffaga from './Main-Menu/Staff/saga'
-
-
-
+import contactsSaga from "./contacts/saga"
+import dashboardSaga from "./dashboard/saga"
+import dashboardSaasSaga from "./dashboard-saas/saga"
+import samSaga from "./Main-Menu/SuperAdminManager/saga"
+import AdminSaga from "./Main-Menu/Admin/saga"
+import sasSaga from "./Main-Menu/SuperAdminSupport/saga"
+import UserSaga from "./Main-Menu/User/saga"
+import Staffaga from "./Main-Menu/Staff/saga"
+import TicketSaga from "./Main-Menu/Tickets/saga"
 
 export default function* rootSaga() {
   yield all([
     //public
+    // fork(TicketSaga),
     fork(Staffaga),
     fork(UserSaga),
     fork(sasSaga),
@@ -49,6 +48,6 @@ export default function* rootSaga() {
     fork(tasksSaga),
     fork(contactsSaga),
     fork(dashboardSaga),
-    fork(dashboardSaasSaga)
+    fork(dashboardSaasSaga),
   ])
 }

@@ -60,21 +60,20 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         UserDropDown: action.payload,
       }
-
+      break
     case GET_USERDROPDOWN_FAIL:
       return {
         ...state,
         error: action.payload,
       }
-
+      break
     case PROFILE_VIEW:
-      //   console.log({ kkk: action.payload }, "pagal++++")
       const viewUser = state.User.data.find(e => e.id === action.payload)
       return {
         ...state,
         profile: viewUser,
       }
-
+      break
     default:
       state = { ...state }
       break

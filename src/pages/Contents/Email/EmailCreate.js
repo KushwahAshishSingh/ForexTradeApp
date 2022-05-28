@@ -22,7 +22,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 
-const FormEditors = () => {
+const EmailCreate = () => {
   return (
     <React.Fragment>
       <div className="page-content">
@@ -45,7 +45,7 @@ const FormEditors = () => {
                 className="form-select"
                 name="emailtype"
                 // onBlur={validation.handleBlur}
-                // value={validation.values.accountNumber || ""}
+                // value={validation.values.emailtype || ""}
                 // onChange={validation.handleChange}
               >
                 <option>select option</option>
@@ -53,31 +53,31 @@ const FormEditors = () => {
                 <option>api</option>
                 <option>email with api</option>
               </select>
-              {/* {validation.touched.accountNumber &&
-            validation.errors.accountNumber ? (
+              {/* {validation.touched.emailtype &&
+            validation.errors.emailtype ? (
               <FormFeedback type="invalid">
-                {validation.errors.accountNumber}
+                {validation.errors.emailtype}
               </FormFeedback>
-            ) : null} */}
+            ) : null}
             </div>
 
             <div className="mb-3">
               <Label className="form-label">Email Subject</Label>
               <Input
-                name="name"
+                name="emailsubject"
                 className="form-control"
                 placeholder="Enter Your Email Subject"
                 type="text"
                 // onChange={validation.handleChange}
                 // onBlur={validation.handleBlur}
-                // value={validation.values.name || ""}
+                // value={validation.values.emailsubject || ""}
                 // invalid={
-                //   validation.touched.name && validation.errors.name ? true : false
+                //   validation.touched.emailsubject && validation.errors.emailsubject ? true : false
                 // }
               />
-              {/* {validation.touched.name && validation.errors.name ? (
+              {/* {validation.touched.emailsubject && validation.errors.emailsubject ? (
               <FormFeedback type="invalid">
-                {validation.errors.name}
+                {validation.errors.emailsubject}
               </FormFeedback>
             ) : null} */}
             </div>
@@ -103,20 +103,20 @@ const FormEditors = () => {
             <div className="mb-3">
               <Label className="form-label">Email Replace</Label>
               <Input
-                name="name"
+                name="emailreplace"
                 className="form-control"
                 placeholder="Enter Your Email Subject"
                 type="textarea"
                 // onChange={validation.handleChange}
                 // onBlur={validation.handleBlur}
-                // value={validation.values.name || ""}
+                // value={validation.values.emailreplace || ""}
                 // invalid={
-                //   validation.touched.name && validation.errors.name ? true : false
+                //   validation.touched.emailreplace && validation.errors.emailreplace ? true : false
                 // }
               />
-              {/* {validation.touched.name && validation.errors.name ? (
+              {/* {validation.touched.emailreplace && validation.errors.emailreplace ? (
               <FormFeedback type="invalid">
-                {validation.errors.name}
+                {validation.errors.emailreplace}
               </FormFeedback>
             ) : null} */}
             </div>
@@ -133,4 +133,4 @@ const FormEditors = () => {
   )
 }
 
-export default FormEditors
+export default EmailCreate

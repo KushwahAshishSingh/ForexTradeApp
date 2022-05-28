@@ -24,7 +24,16 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap"
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table"
+
+import BootstrapTable from "react-bootstrap-table-next"
+import paginationFactory, {
+  PaginationProvider,
+} from "react-bootstrap-table2-paginator"
+
+import ToolkitProvider, {
+  Search,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min"
+
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 // Formik validation
 import * as Yup from "yup"
@@ -42,7 +51,7 @@ const Admin = props => {
   const dispatch = useDispatch()
 
   const state = useSelector(state => {
-    return state.Admin.Admin.data
+    return state?.Admin?.Admin?.data
   })
   // console.log(state, "+++++")
   useEffect(() => {
@@ -72,9 +81,85 @@ const Admin = props => {
 
   // VIEW PROFILE
   const adminViewProfile = id => {
+    console.log(id, "sdfsdfdsf")
     dispatch(adminProfile(id))
     history.push(`/admin-profile/${id}`)
   }
+
+  const { SearchBar } = Search
+
+  const selectRow = {
+    mode: "checkbox",
+  }
+
+  const defaultSorted = [
+    {
+      dataField: "id",
+      order: "asc",
+    },
+  ]
+
+  const columns = [
+    {
+      dataField: "name",
+      text: "Name",
+      sort: true,
+    },
+    {
+      dataField: "email",
+      text: "Email",
+      sort: true,
+    },
+
+    {
+      dataField: "action",
+      isDummyField: true,
+      text: "Action",
+      // eslint-disable-next-line react/display-name
+      formatter: (cellContent, id) => (
+        <>
+          <UncontrolledDropdown direction="left">
+            {permissions === "create" || permissions === "read" ? null : (
+              <>
+                <DropdownToggle href="#" className="card-drop " tag="i">
+                  <i className="bx bx-cog  font-size-18" />
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-end">
+                  <DropdownItem
+                    href="#"
+                    onClick={() => adminViewProfile(id.id)}
+                  >
+                    {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
+                    View
+                  </DropdownItem>
+
+                  <DropdownItem href="#" onClick={{}}>
+                    Deposit
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Withdrawal
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
+                    Transfer
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Bonus
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Live Accounts
+                  </DropdownItem>
+                  <DropdownItem href="#" onClick={{}}>
+                    Demo Account Update
+                  </DropdownItem>
+                </DropdownMenu>
+              </>
+            )}
+          </UncontrolledDropdown>
+        </>
+      ),
+    },
+  ]
 
   const [deleteModal, setDeleteModal] = useState(false)
 
@@ -95,196 +180,174 @@ const Admin = props => {
             <Col>
               <Card>
                 <CardBody>
-                  <Row className="mb-2">
-                    <Col sm="12">
-                      <div className="text-sm-end">
-                        {permissions === "read" ||
-                        permissions === "update" ? null : (
-                          <>
-                            <Button
-                              type="button"
-                              color="success"
-                              className="btn-rounded  mb-2 me-2"
-                              onClick={toggle}
-                            >
-                              <i className="mdi mdi-plus me-1" />
-                              Add New
-                            </Button>
-                          </>
-                        )}
-                        <Modal isOpen={modal} toggle={toggle}>
-                          <ModalHeader toggle={toggle}>Admin</ModalHeader>
-                          <ModalBody>
-                            <Form
-                              className="form-horizontal"
-                              onSubmit={e => {
-                                e.preventDefault()
-                                validation.handleSubmit()
-                                return false
-                              }}
-                            >
-                              <div className="mb-3">
-                                <Label className="form-label">Name</Label>
-                                <Input
-                                  name="name"
-                                  className="form-control"
-                                  placeholder="Enter Your Name"
-                                  type="name"
-                                  onChange={validation.handleChange}
-                                  onBlur={validation.handleBlur}
-                                  value={validation.values.name || ""}
-                                  invalid={
-                                    validation.touched.name &&
-                                    validation.errors.name
-                                      ? true
-                                      : false
-                                  }
-                                />
-                                {validation.touched.name &&
-                                validation.errors.name ? (
-                                  <FormFeedback type="invalid">
-                                    {validation.errors.name}
-                                  </FormFeedback>
-                                ) : null}
-                              </div>
-                              <div className="mb-3">
-                                <Label className="form-label">Email</Label>
-                                <Input
-                                  name="email"
-                                  className="form-control"
-                                  placeholder="Enter email"
-                                  type="email"
-                                  onChange={validation.handleChange}
-                                  onBlur={validation.handleBlur}
-                                  value={validation.values.email || ""}
-                                  invalid={
-                                    validation.touched.email &&
-                                    validation.errors.email
-                                      ? true
-                                      : false
-                                  }
-                                />
-                                {validation.touched.email &&
-                                validation.errors.email ? (
-                                  <FormFeedback type="invalid">
-                                    {validation.errors.email}
-                                  </FormFeedback>
-                                ) : null}
-                              </div>
-
-                              <div className="mb-3">
-                                <Label className="form-label">Password</Label>
-                                <Input
-                                  name="password"
-                                  value={validation.values.password || ""}
-                                  type="password"
-                                  placeholder="Enter Password"
-                                  onChange={validation.handleChange}
-                                  onBlur={validation.handleBlur}
-                                  invalid={
-                                    validation.touched.password &&
-                                    validation.errors.password
-                                      ? true
-                                      : false
-                                  }
-                                />
-                                {validation.touched.password &&
-                                validation.errors.password ? (
-                                  <FormFeedback type="invalid">
-                                    {validation.errors.password}
-                                  </FormFeedback>
-                                ) : null}
-                              </div>
-
-                              <div className="mt-3 d-grid">
-                                <button
-                                  className="btn btn-primary btn-block"
-                                  type="submit"
-                                >
-                                  Save
-                                </button>
-                              </div>
-                            </Form>
-                          </ModalBody>
-                        </Modal>
-                      </div>
-                    </Col>
-                  </Row>
-                  <div className="table-rep-plugin">
-                    <div
-                      className="table-responsive mb-0"
-                      data-pattern="priority-columns"
-                    >
-                      <Table
-                        id="tech-companies-1"
-                        className="table table-striped table-bordered"
+                  <PaginationProvider
+                    pagination={paginationFactory()}
+                    keyField="id"
+                    columns={columns}
+                    data={state && state}
+                  >
+                    {({ paginationProps, paginationTableProps }) => (
+                      <ToolkitProvider
+                        keyField="id"
+                        columns={columns}
+                        data={state || []}
+                        search
                       >
-                        <Thead>
-                          <Tr>
-                            <Th data-priority="1">Name</Th>
-                            <Th data-priority="1">Email</Th>
-                            <Th data-priority="1">Action</Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          {state &&
-                            state.map((item, index) => (
-                              <Tr key={index}>
-                                <Td>{item.name}</Td>
-                                <Td>{item.email}</Td>
-                                <Td>
-                                  {permissions === "create" ||
-                                  permissions === "read" ? null : (
-                                    <React.Fragment>
-                                      <UncontrolledDropdown direction="left">
-                                        <DropdownToggle
-                                          href="#"
-                                          className="card-drop "
-                                          tag="i"
-                                        >
-                                          <i className="bx bx-cog  font-size-18" />
-                                        </DropdownToggle>
-                                        <DropdownMenu className="dropdown-menu-end">
-                                          <DropdownItem
-                                            href="#"
-                                            onClick={() =>
-                                              adminViewProfile(item.id)
-                                            }
-                                          >
-                                            {/* <i className="fas fa-pencil-alt text-success me-1" /> */}
-                                            View
-                                          </DropdownItem>
-
-                                          <DropdownItem href="#" onClick={{}}>
-                                            Deposit
-                                          </DropdownItem>
-                                          <DropdownItem href="#" onClick={{}}>
-                                            Withdrawal
-                                          </DropdownItem>
-                                          <DropdownItem href="#" onClick={{}}>
-                                            {/* <i className="fas fa-trash-alt text-danger me-1" /> */}
-                                            Transfer
-                                          </DropdownItem>
-                                          <DropdownItem href="#" onClick={{}}>
-                                            Bonus
-                                          </DropdownItem>
-                                          <DropdownItem href="#" onClick={{}}>
-                                            Live Accounts
-                                          </DropdownItem>
-                                          <DropdownItem href="#" onClick={{}}>
-                                            Demo Account Update
-                                          </DropdownItem>
-                                        </DropdownMenu>
-                                      </UncontrolledDropdown>
-                                    </React.Fragment>
+                        {toolkitProps => (
+                          <React.Fragment>
+                            <Row className="mb-2">
+                              <Col md="4">
+                                <div className="search-box me-2 mb-2 d-inline-block">
+                                  <div className="position-relative">
+                                    <SearchBar {...toolkitProps.searchProps} />
+                                    <i className="bx bx-search-alt search-icon" />
+                                  </div>
+                                </div>
+                              </Col>
+                              <Col sm="8">
+                                <div className="text-sm-end">
+                                  {permissions === "read" ||
+                                  permissions === "update" ? null : (
+                                    <>
+                                      <Button
+                                        type="button"
+                                        color="success"
+                                        className="btn-rounded  mb-2 me-2"
+                                        onClick={toggle}
+                                      >
+                                        <i className="mdi mdi-plus me-1" />
+                                        Add New
+                                      </Button>
+                                    </>
                                   )}
-                                </Td>
-                              </Tr>
-                            ))}
-                        </Tbody>
-                      </Table>
-                    </div>
-                  </div>
+                                </div>
+                              </Col>
+                            </Row>
+                            <Modal
+                              isOpen={modal}
+                              toggle={toggle}
+                              backdrop="static"
+                            >
+                              <ModalHeader toggle={toggle}>Admin</ModalHeader>
+                              <ModalBody>
+                                <Form
+                                  className="form-horizontal"
+                                  onSubmit={e => {
+                                    e.preventDefault()
+                                    validation.handleSubmit()
+                                    return false
+                                  }}
+                                >
+                                  <div className="mb-3">
+                                    <Label className="form-label">Name</Label>
+                                    <Input
+                                      name="name"
+                                      className="form-control"
+                                      placeholder="Enter Your Name"
+                                      type="name"
+                                      onChange={validation.handleChange}
+                                      onBlur={validation.handleBlur}
+                                      value={validation.values.name || ""}
+                                      invalid={
+                                        validation.touched.name &&
+                                        validation.errors.name
+                                          ? true
+                                          : false
+                                      }
+                                    />
+                                    {validation.touched.name &&
+                                    validation.errors.name ? (
+                                      <FormFeedback type="invalid">
+                                        {validation.errors.name}
+                                      </FormFeedback>
+                                    ) : null}
+                                  </div>
+                                  <div className="mb-3">
+                                    <Label className="form-label">Email</Label>
+                                    <Input
+                                      name="email"
+                                      className="form-control"
+                                      placeholder="Enter email"
+                                      type="email"
+                                      onChange={validation.handleChange}
+                                      onBlur={validation.handleBlur}
+                                      value={validation.values.email || ""}
+                                      invalid={
+                                        validation.touched.email &&
+                                        validation.errors.email
+                                          ? true
+                                          : false
+                                      }
+                                    />
+                                    {validation.touched.email &&
+                                    validation.errors.email ? (
+                                      <FormFeedback type="invalid">
+                                        {validation.errors.email}
+                                      </FormFeedback>
+                                    ) : null}
+                                  </div>
+
+                                  <div className="mb-3">
+                                    <Label className="form-label">
+                                      Password
+                                    </Label>
+                                    <Input
+                                      name="password"
+                                      value={validation.values.password || ""}
+                                      type="password"
+                                      placeholder="Enter Password"
+                                      onChange={validation.handleChange}
+                                      onBlur={validation.handleBlur}
+                                      invalid={
+                                        validation.touched.password &&
+                                        validation.errors.password
+                                          ? true
+                                          : false
+                                      }
+                                    />
+                                    {validation.touched.password &&
+                                    validation.errors.password ? (
+                                      <FormFeedback type="invalid">
+                                        {validation.errors.password}
+                                      </FormFeedback>
+                                    ) : null}
+                                  </div>
+
+                                  <div className="mt-3 d-grid">
+                                    <button
+                                      className="btn btn-primary btn-block"
+                                      type="submit"
+                                    >
+                                      Save
+                                    </button>
+                                  </div>
+                                </Form>
+                              </ModalBody>
+                            </Modal>
+
+                            <Row>
+                              <Col xl="12">
+                                <div>
+                                  <BootstrapTable
+                                    keyField={"id"}
+                                    responsive
+                                    bordered={false}
+                                    striped={false}
+                                    selectRow={selectRow}
+                                    // defaultSorted={defaultSorted}
+                                    classes={"table align-middle table-nowrap"}
+                                    headerWrapperClasses={"thead-light"}
+                                    {...toolkitProps.baseProps}
+                                    {...paginationTableProps}
+                                  />
+                                </div>
+                              </Col>
+                            </Row>
+                          </React.Fragment>
+                        )}
+                      </ToolkitProvider>
+                    )}
+                  </PaginationProvider>
                 </CardBody>
               </Card>
             </Col>

@@ -40,7 +40,7 @@ import "../../../assets/scss/datatables.scss"
 
 const Staff = props => {
   const [modal, setModal] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
   const dispatch = useDispatch()
   const state = useSelector(state => {
@@ -51,6 +51,9 @@ const Staff = props => {
 
   useEffect(() => {
     dispatch(getStaff())
+    if (state?.length > 0) {
+      setIsLoading(false)
+    }
   }, [])
 
   const validation = useFormik({
@@ -122,7 +125,7 @@ const Staff = props => {
               <Card>
                 <CardBody>
                   <PaginationProvider
-                    pagination={paginationFactory(pageOptions)}
+                    pagination={paginationFactory()}
                     keyField="id"
                     columns={columns}
                     data={state && state}
@@ -157,7 +160,11 @@ const Staff = props => {
                                     <i className="mdi mdi-plus me-1" />
                                     Add New Staff
                                   </Button>
-                                  <Modal isOpen={modal} toggle={toggle}>
+                                  <Modal
+                                    isOpen={modal}
+                                    toggle={toggle}
+                                    backdrop="static"
+                                  >
                                     <ModalHeader toggle={toggle}>
                                       Admin Staff
                                     </ModalHeader>
@@ -302,9 +309,19 @@ const Staff = props => {
                               </Col>
                             </Row>
 
+                            {isLoading && (
+                              <div className="text-center my-3">
+                                <Link to="#" className="text-success">
+                                  <i className="bx bx-loader bx-spin font-size-18 align-middle me-2" />
+                                  {/* {alert("loader is working")} */}
+                                  Load more
+                                </Link>
+                              </div>
+                            )}
+
                             <Row>
                               <Col xl="12">
-                                <div className="table-responsive">
+                                <div>
                                   <BootstrapTable
                                     keyField={"id"}
                                     responsive
@@ -316,21 +333,6 @@ const Staff = props => {
                                     headerWrapperClasses={"thead-light"}
                                     {...toolkitProps.baseProps}
                                     {...paginationTableProps}
-                                  />
-                                </div>
-                              </Col>
-                            </Row>
-
-                            <Row className="align-items-md-center mt-30">
-                              <Col className="inner-custom-pagination d-flex">
-                                <div className="d-inline">
-                                  <SizePerPageDropdownStandalone
-                                    {...paginationProps}
-                                  />
-                                </div>
-                                <div className="text-md-right ms-auto">
-                                  <PaginationListStandalone
-                                    {...paginationProps}
                                   />
                                 </div>
                               </Col>

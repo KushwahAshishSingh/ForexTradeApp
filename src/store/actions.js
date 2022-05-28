@@ -34,23 +34,29 @@ export * from "./contacts/actions"
 export * from "./mails/actions"
 
 //dashboard
-export * from "./dashboard/actions";
+export * from "./dashboard/actions"
 
 //dashboard-saas
-export * from "./dashboard-saas/actions";
+export * from "./dashboard-saas/actions"
 
 // super admin manager
-export * from './Main-Menu/SuperAdminManager/action'
+export * from "./Main-Menu/SuperAdminManager/action"
 
-// admin 
-export * from './Main-Menu/Admin/action'
+// admin
+export * from "./Main-Menu/Admin/action"
 
-// SuperAdminSupport 
-export * from './Main-Menu/SuperAdminSupport/action'
+// SuperAdminSupport
+export * from "./Main-Menu/SuperAdminSupport/action"
 
-// Admin Users 
-export * from './Main-Menu/User/action'
+// Admin Users
+export * from "./Main-Menu/User/action"
 
-// Staff Users 
-export * from './Main-Menu/Staff/action'
+// Staff Users
+export * from "./Main-Menu/Staff/action"
 
+//  Ticket
+export * from "./Main-Menu/Tickets/action"
+
+// Email
+
+export * from "./Main-Menu/Email/action"

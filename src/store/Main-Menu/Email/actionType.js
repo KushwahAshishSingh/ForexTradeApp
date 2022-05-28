@@ -1,0 +1,1 @@
+export const ADD_EMAIL_TYPE = "ADD_EMAIL_TYPE"

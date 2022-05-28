@@ -15,26 +15,35 @@ import Dashboard from "../pages/Dashboard/index"
 import SuperAdminManager from "pages/MainMenu/SuperAdminManager/SuperAdminManager"
 import SuperAdminSupport from "pages/MainMenu/SuperAdminSupport/SuperAdminSupport"
 import Admin from "pages/MainMenu/Admin/Admin"
-import User from "pages/MainMenu/User/User"
-import AddUser from "pages/MainMenu/User/AddUser"
 import Staf from "pages/MainMenu/Staf/Staf"
-import ViewProfile from "pages/MainMenu/User/ViewProfile"
 import ViewStaffProfile from "pages/MainMenu/SuperAdminSupport/ViewStaffProfile"
 import AdminViewProfile from "pages/MainMenu/Admin/AdminViewProfile"
-import Deposit from "pages/MainMenu/User/Deposit"
 
 // Pages Calendar
 import Calendar from "../pages/Calendar/index"
+
+// pages settings
 import GeneralSetting from "pages/Setting/GeneralSetting/GeneralSetting"
 import SystemSetting from "pages/Setting/SystemSetting/SystemSetting"
+
+// pages user
+import User from "pages/MainMenu/User/User"
+import AddUser from "pages/MainMenu/User/AddUser"
+import ViewProfile from "pages/MainMenu/User/ViewProfile"
+import Deposit from "pages/MainMenu/User/Deposit"
 import WithDrawal from "pages/MainMenu/User/WithDrawal"
 import Transfer from "pages/MainMenu/User/Transfer"
 import Bonus from "pages/MainMenu/User/Bonus"
 import LiveAccounts from "pages/MainMenu/User/LiveAccounts"
 import DemoAccounts from "pages/MainMenu/User/DemoAccounts"
+
+// pages Content email
 import Email from "pages/Contents/Email/Email"
 import FormEditors from "pages/Contents/Email/EmailCreate"
+
+// Tickets
 import Tickets from "pages/Tickets/Ticket/Tickets"
+import CreateTickets from "pages/Tickets/Ticket/CreateTickets"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -75,6 +84,7 @@ const authProtectedRoutes = [
 
   // Tickets
   { path: "/tickets", component: Tickets },
+  { path: "/ticket-create", component: CreateTickets },
   // =======
   //   { path: "/super-admin-manager", component: SuperAdminManager },
   //   { path: "/super-admin-support", component: SuperAdminSupport },

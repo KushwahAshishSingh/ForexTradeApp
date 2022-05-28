@@ -227,6 +227,7 @@ const DemoAccounts = props => {
                                   <Modal
                                     isOpen={modal}
                                     toggle={() => setModal(!modal)}
+                                    backdrop="static"
                                   >
                                     <ModalHeader toggle={() => setModal(false)}>
                                       Create Demo Accounts

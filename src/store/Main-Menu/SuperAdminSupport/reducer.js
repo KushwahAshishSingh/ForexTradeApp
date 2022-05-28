@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   error: "",
-  loading: false,
+  success: false,
   sasanager: [],
   profile: {},
 }
@@ -18,25 +18,26 @@ const SuperAdminSupportReducer = (state = initialState, action) => {
     case SAS_USER:
       state = {
         ...state,
-        loading: true,
+        // success: true,
       }
       break
     case SAS_SUCCESS:
       state = {
         ...state,
-        loading: false,
+        // success: true,
       }
       break
     case GET_SAS_SUCCESS:
       return {
         ...state,
-        loading: true,
+        success: false,
         sasanager: action.payload,
       }
 
     case GET_SAS_FAIL:
       return {
         ...state,
+        success: false,
         error: action.payload,
       }
     case SUPER_STAFF_PROFILE:

@@ -60,6 +60,7 @@ import moment from "moment"
 const User = props => {
   const permissions = JSON.parse(localStorage.getItem("authUser")).permissions
   const [isEdit, setIsEdit] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
   // const [updateData, setUpdateData] = useState(null)
   const dispatch = useDispatch()
@@ -165,17 +166,14 @@ const User = props => {
     history.push(`/demo-accounts`)
   }
 
-  useEffect(() => {
-    if (state && !state.length) {
-      dispatch(getUser())
-    }
-  }, [dispatch, state])
-
   const togg = () => setModal(!modal)
 
   useEffect(() => {
     dispatch(getUser())
-  }, [])
+    if (state?.length < 0) {
+      setIsLoading(false)
+    }
+  }, [dispatch])
 
   const toggle = () => {
     history.push("/add-user")
@@ -337,7 +335,7 @@ const User = props => {
                 <Card>
                   <CardBody>
                     <PaginationProvider
-                      pagination={paginationFactory(pageOptions)}
+                      pagination={paginationFactory()}
                       keyField="id"
                       columns={columns}
                       data={state && state}
@@ -381,7 +379,11 @@ const User = props => {
                                 </Col>
                               </Row>
 
-                              <Modal isOpen={modal} toggle={togg}>
+                              <Modal
+                                isOpen={modal}
+                                toggle={togg}
+                                backdrop="static"
+                              >
                                 <ModalHeader toggle={togg}>
                                   {!!isEdit ? "Edit Staff" : "Add Staff"}
                                 </ModalHeader>
@@ -2387,9 +2389,19 @@ const User = props => {
                                 </ModalBody>
                               </Modal>
 
+                              {isLoading && (
+                                <div className="text-center my-3">
+                                  <Link to="#" className="text-success">
+                                    <i className="bx bx-loader bx-spin font-size-18 align-middle me-2" />
+                                    {/* {alert("loader is working")} */}
+                                    Load more
+                                  </Link>
+                                </div>
+                              )}
+
                               <Row>
                                 <Col xl="12">
-                                  <div className="table-responsive">
+                                  <div>
                                     <BootstrapTable
                                       keyField={"id"}
                                       responsive
@@ -2403,21 +2415,6 @@ const User = props => {
                                       headerWrapperClasses={"thead-light"}
                                       {...toolkitProps.baseProps}
                                       {...paginationTableProps}
-                                    />
-                                  </div>
-                                </Col>
-                              </Row>
-
-                              <Row className="align-items-md-center mt-30">
-                                <Col className="inner-custom-pagination d-flex">
-                                  {/* <div className="d-inline">
-                                    <SizePerPageDropdownStandalone
-                                      {...paginationProps}
-                                    />
-                                  </div> */}
-                                  <div className="text-md-right ms-auto">
-                                    <PaginationListStandalone
-                                      {...paginationProps}
                                     />
                                   </div>
                                 </Col>

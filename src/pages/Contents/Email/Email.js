@@ -12,14 +12,10 @@ import {
   Card,
   CardBody,
   Container,
-  FormGroup,
-  NavLink,
-  NavItem,
   FormFeedback,
   Button,
   Input,
   Label,
-  ModalFooter,
   Modal,
   ModalBody,
   ModalHeader,
@@ -35,38 +31,22 @@ import { useFormik } from "formik"
 import BootstrapTable from "react-bootstrap-table-next"
 import paginationFactory, {
   PaginationProvider,
-  PaginationListStandalone,
-  SizePerPageDropdownStandalone,
 } from "react-bootstrap-table2-paginator"
 import ToolkitProvider, {
   Search,
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min"
 import "../../../assets/scss/datatables.scss"
 
-const emailDetail = [
-  {
-    email: "introducing broker information",
-    subject: "Introducing Broker Updation",
-  },
+import { addEmailType } from "store/actions"
 
-  {
-    email: "staff email welcome",
-    subject: "staff email welcome",
-  },
-  {
-    email: "	verification otp email",
-    subject: "OTP Verification Email - DIZICX",
-  },
-  {
-    email: "ld account create new email",
-    subject: "Introducing Broker Updation",
-  },
-]
+import { useDispatch, useSelector } from "react-redux"
 
-const Email = props => {
-  const [email, setEmail] = useState(emailDetail)
+const Email = () => {
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.emailReducer.emailtype)
+  // const [email, setEmail] = useState([state, ...emailDetail])
   const history = useHistory()
-  // console.log(bonus, "hekkkkkk")
+
   const [modal, setModal] = useState(false)
 
   const validation = useFormik({
@@ -74,16 +54,21 @@ const Email = props => {
     enableReinitialize: true,
 
     initialValues: {
-      email: "",
-      subject: "",
+      emailtype: "",
+      emailsubject: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your email"),
-      subject: Yup.string().required("Please Enter Your subject"),
+      emailtype: Yup.string().required("Please Enter Your email"),
+      emailsubject: Yup.string().required("Please Enter Your subject"),
     }),
     onSubmit: (values, { resetForm }) => {
-      setEmail([...email, values])
-      // dispatch(StaffUsers(values, props.history))
+      const addEmaildata = {
+        emailtype: values["emailtype"],
+        emailsubject: values["emailsubject"],
+      }
+      console.log(addEmaildata, "dsfdsfsd")
+      // setEmail([...email, values])
+      dispatch(addEmailType(addEmaildata))
       setModal(false)
       resetForm({ values: "" })
     },
@@ -100,20 +85,14 @@ const Email = props => {
     },
   ]
 
-  const pageOptions = {
-    sizePerPage: 3,
-    // totalSize: state && state.length, // replace later with size(customers),
-    custom: true,
-  }
-
   const columns = [
     {
-      dataField: "email",
+      dataField: "emailtype",
       text: "Email Type",
       sort: true,
     },
     {
-      dataField: "subject",
+      dataField: "emailsubject",
       text: "Subject",
       sort: true,
     },
@@ -156,16 +135,16 @@ const Email = props => {
                 <Card>
                   <CardBody>
                     <PaginationProvider
-                      pagination={paginationFactory(pageOptions)}
+                      pagination={paginationFactory()}
                       keyField="id"
                       columns={columns}
-                      data={email && email}
+                      data={state && state}
                     >
                       {({ paginationProps, paginationTableProps }) => (
                         <ToolkitProvider
                           keyField="id"
                           columns={columns}
-                          data={email || []}
+                          data={state || []}
                           search
                         >
                           {toolkitProps => (
@@ -190,6 +169,7 @@ const Email = props => {
                                   <Modal
                                     isOpen={modal}
                                     toggle={() => setModal(!modal)}
+                                    backdrop="static"
                                   >
                                     <ModalHeader toggle={() => setModal(false)}>
                                       Add Email Type
@@ -241,7 +221,7 @@ const Email = props => {
                                             name="emailsubject"
                                             className="form-control"
                                             placeholder="Enter email"
-                                            type="email"
+                                            type="text"
                                             onChange={validation.handleChange}
                                             onBlur={validation.handleBlur}
                                             value={
@@ -285,7 +265,7 @@ const Email = props => {
 
                               <Row>
                                 <Col xl="12">
-                                  <div className="table-responsive">
+                                  <div>
                                     <BootstrapTable
                                       keyField={"id"}
                                       responsive
@@ -299,16 +279,6 @@ const Email = props => {
                                       headerWrapperClasses={"thead-light"}
                                       {...toolkitProps.baseProps}
                                       {...paginationTableProps}
-                                    />
-                                  </div>
-                                </Col>
-                              </Row>
-
-                              <Row className="align-items-md-center mt-30">
-                                <Col className="inner-custom-pagination d-flex">
-                                  <div className="text-md-right ms-auto">
-                                    <PaginationListStandalone
-                                      {...paginationProps}
                                     />
                                   </div>
                                 </Col>

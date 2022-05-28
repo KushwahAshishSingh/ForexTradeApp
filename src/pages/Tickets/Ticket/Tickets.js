@@ -1,39 +1,13 @@
 import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 // import PropTypes from "prop-types"
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link, useHistory } from "react-router-dom"
 
 //Import Breadcrumb
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 
-import {
-  Row,
-  Col,
-  Card,
-  CardBody,
-  Container,
-  FormGroup,
-  NavLink,
-  NavItem,
-  FormFeedback,
-  Button,
-  Input,
-  Label,
-  ModalFooter,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  Form,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap"
+import { Row, Col, Card, CardBody, Container, Button } from "reactstrap"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
-
-// Formik validation
-import * as Yup from "yup"
-import { useFormik } from "formik"
 
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
@@ -47,36 +21,12 @@ import ToolkitProvider, {
 } from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min"
 import "../../../assets/scss/datatables.scss"
 
-const Tickets = props => {
-  const [liveAccounts, setLiveAccounts] = useState([])
-  const [modal, setModal] = useState(false)
-  const toggle = () => setModal(!modal)
-  const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
-    enableReinitialize: true,
+import { useSelector } from "react-redux"
 
-    initialValues: {
-      manual: "",
-      platform: "",
-      acccounttype: "",
-      currency: "",
-      leverage: "",
-      masterpassword: "",
-      investorpassword: "",
-    },
-    validationSchema: Yup.object({
-      // masterpassword: Yup.string().required("Please Enter Your password"),
-      // amount: Yup.string().required("Please Enter Your Amount"),
-      // comment: Yup.string().required("Please Enter Your Comment"),
-    }),
-    onSubmit: (values, { resetForm }) => {
-      // dispatch(StaffUsers(values, props.history))
-      setLiveAccounts([...liveAccounts, values])
-      setModal(!modal)
-      resetForm({ values: "" })
-      // console.log(values, "helllooo")
-    },
-  })
+const Tickets = props => {
+  const state = useSelector(state => state.TicketReducer.ticket)
+
+  const history = useHistory()
 
   const defaultSorted = [
     {
@@ -84,12 +34,6 @@ const Tickets = props => {
       order: "asc",
     },
   ]
-
-  const pageOptions = {
-    sizePerPage: 1,
-    // totalSize: state && state.length, // replace later with size(customers),
-    custom: true,
-  }
 
   const columns = [
     {
@@ -108,9 +52,10 @@ const Tickets = props => {
       sort: true,
     },
     {
-      dataField: "date",
+      dataField: `${"date"}`,
       text: "Date",
       sort: true,
+      defaultSorted: "date",
     },
 
     {
@@ -137,6 +82,24 @@ const Tickets = props => {
   //   return date1
   // }
 
+  const ticketValuesDatahandler = () => {
+    history.push(`/ticket-create`)
+  }
+
+  const reports = [
+    { title: "OPEN", iconClass: "bx bx-bell", description: "1" },
+    { title: "CLOSED", iconClass: "bx bx-select-multiple", description: "73" },
+    {
+      title: "TICKETS",
+      iconClass: "bx bx-aperture",
+      description: "74",
+    },
+    {
+      title: "AVG RESPONSE",
+      iconClass: "bx bx-chat",
+      description: "866.29 Hours",
+    },
+  ]
   return (
     <>
       <React.Fragment>
@@ -146,271 +109,87 @@ const Tickets = props => {
           </MetaTags>
           <Container fluid>
             <Breadcrumbs title="Tickets" breadcrumbItem="Ticket" />
+
             <Row>
               <Col>
                 <Card>
                   <CardBody>
                     <PaginationProvider
-                      pagination={paginationFactory(pageOptions)}
+                      pagination={paginationFactory()}
                       keyField="id"
                       columns={columns}
-                      data={liveAccounts}
+                      data={state}
                     >
                       {({ paginationProps, paginationTableProps }) => (
                         <ToolkitProvider
                           keyField="id"
                           columns={columns}
-                          data={liveAccounts || []}
+                          data={state || []}
                           search
                         >
                           {toolkitProps => (
                             <React.Fragment>
                               <Row className="mb-2">
-                                <Col sm="4">
-                                  <Button
-                                    type="button"
-                                    className="btn-rectangle  mb-2 me-2"
-                                    onClick={toggle}
-                                  >
-                                    Create Tickets
-                                  </Button>
-
-                                  <Modal isOpen={modal} toggle={toggle}>
-                                    <ModalHeader toggle={toggle}>
+                                <Col sm="12">
+                                  <div className=" text-end mb-2">
+                                    <Button
+                                      type="button"
+                                      className="btn-rectangle"
+                                      onClick={ticketValuesDatahandler}
+                                    >
                                       Create Tickets
-                                    </ModalHeader>
-                                    <ModalBody>
-                                      <Form
-                                        className="form-horizontal"
-                                        onSubmit={e => {
-                                          e.preventDefault()
-                                          validation.handleSubmit()
-                                          return false
-                                        }}
-                                      >
-                                        <div className="mb-3">
-                                          <Label>Manual / Automatic</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="manual"
-                                            value={
-                                              validation.values.manual || ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                            <option>Manual</option>
-                                            <option>Automatic</option>
-                                          </select>
-                                          {validation.touched.manual &&
-                                          validation.errors.manual ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.manual}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
-                                          <Label>Platform type</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="platform"
-                                            value={
-                                              validation.values.platform || ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                            <option>MT5</option>
-                                          </select>
-                                          {validation.touched.platform &&
-                                          validation.errors.platform ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.platform}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
-                                          <Label>Account Type</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="accounttype"
-                                            value={
-                                              validation.values.accounttype ||
-                                              ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                          </select>
-                                          {validation.touched.accounttype &&
-                                          validation.errors.accounttype ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.accounttype}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
-                                          <Label>Account Currency</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="currency"
-                                            value={
-                                              validation.values.currency || ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                          </select>
-                                          {validation.touched.currency &&
-                                          validation.errors.currency ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.currency}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
-                                          <Label>Leverage</Label>
-                                          <select
-                                            className="form-select"
-                                            onBlur={validation.handleBlur}
-                                            name="leverage"
-                                            value={
-                                              validation.values.leverage || ""
-                                            }
-                                            onChange={validation.handleChange}
-                                          >
-                                            <option>select option</option>
-                                          </select>
-                                          {validation.touched.leverage &&
-                                          validation.errors.leverage ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.leverage}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
-                                          <Label className="form-label">
-                                            Master password
-                                          </Label>
-                                          <Input
-                                            name="masterpassword"
-                                            className="form-control"
-                                            placeholder="Enter Your password"
-                                            type="password"
-                                            onChange={validation.handleChange}
-                                            onBlur={validation.handleBlur}
-                                            value={
-                                              validation.values
-                                                .masterpassword || ""
-                                            }
-                                            invalid={
-                                              validation.touched
-                                                .masterpassword &&
-                                              validation.errors.masterpassword
-                                                ? true
-                                                : false
-                                            }
-                                          />
-                                          {validation.touched.masterpassword &&
-                                          validation.errors.masterpassword ? (
-                                            <FormFeedback type="invalid">
-                                              {validation.errors.masterpassword}
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-
-                                        <div className="mb-3">
-                                          <Label className="form-label">
-                                            Investor password
-                                          </Label>
-                                          <Input
-                                            name="investorpassword"
-                                            className="form-control"
-                                            placeholder="Enter Your password"
-                                            type="password"
-                                            onChange={validation.handleChange}
-                                            onBlur={validation.handleBlur}
-                                            value={
-                                              validation.values
-                                                .investorpassword || ""
-                                            }
-                                            invalid={
-                                              validation.touched
-                                                .investorpassword &&
-                                              validation.errors.investorpassword
-                                                ? true
-                                                : false
-                                            }
-                                          />
-                                          {validation.touched
-                                            .investorpassword &&
-                                          validation.errors.investorpassword ? (
-                                            <FormFeedback type="invalid">
-                                              {
-                                                validation.errors
-                                                  .investorpassword
-                                              }
-                                            </FormFeedback>
-                                          ) : null}
-                                        </div>
-                                        <hr />
-                                        <div className="mt-3 col-md-12 text-end">
-                                          <button
-                                            className="btn me-1 btn-primary btn-block"
-                                            onClick={e => {
-                                              e.preventDefault()
-                                              setModal(false)
-                                            }}
-                                          >
-                                            close
-                                          </button>
-                                          <button
-                                            className="btn btn-primary btn-block"
-                                            type="submit"
-                                          >
-                                            Save
-                                          </button>
-                                        </div>
-                                      </Form>
-                                    </ModalBody>
-                                  </Modal>
+                                    </Button>
+                                  </div>
+                                  <Row>
+                                    {/* Reports Render */}
+                                    {reports.map((report, key) => (
+                                      <Col md="3" key={"_col_" + key}>
+                                        <Card className="mini-stats-wid">
+                                          <CardBody>
+                                            <div className="d-flex">
+                                              <div className="flex-grow-1">
+                                                <p className="text-muted fw-medium ">
+                                                  {report.title}
+                                                </p>
+                                                <h5 className="mb-0">
+                                                  {report.description}
+                                                </h5>
+                                              </div>
+                                              <div className="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                                <span className="avatar-title rounded-circle bg-primary">
+                                                  <i
+                                                    className={
+                                                      "bx " +
+                                                      report.iconClass +
+                                                      " font-size-24"
+                                                    }
+                                                  ></i>
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </CardBody>
+                                        </Card>
+                                      </Col>
+                                    ))}
+                                  </Row>
                                 </Col>
                               </Row>
 
                               <Row>
                                 <Col xl="12">
-                                  <div className="table-responsive">
+                                  <div>
                                     <BootstrapTable
                                       keyField={"id"}
                                       responsive
                                       bordered={false}
                                       striped={false}
-                                      // defaultSorted={defaultSorted}
+                                      defaultSorted={defaultSorted}
                                       classes={
                                         "table align-middle table-nowrap"
                                       }
                                       headerWrapperClasses={"thead-light"}
                                       {...toolkitProps.baseProps}
                                       {...paginationTableProps}
-                                    />
-                                  </div>
-                                </Col>
-                              </Row>
-
-                              <Row className="align-items-md-center mt-30">
-                                <Col className="inner-custom-pagination d-flex">
-                                  <div className="text-md-right ms-auto">
-                                    <PaginationListStandalone
-                                      {...paginationProps}
                                     />
                                   </div>
                                 </Col>
